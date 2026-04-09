@@ -1,8 +1,16 @@
 [project]
-name = "project-name"
+name = "alteryx-to-sql-agent"
 version = "0.1.0"
-description = "A short description of what this project does."
+description = "Converts Alteryx .yxmd workflows into T-SQL CTE chains using pydantic-ai and Vertex AI."
 requires-python = ">=3.12"
+dependencies = [
+    "google-auth>=2.49.1",
+    "google-cloud-aiplatform>=1.146.0",
+    "networkx>=3.6.1",
+    "pydantic>=2.12.5",
+    "rich>=14.3.3",
+    "tenacity>=9.1.4",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -14,3 +22,9 @@ target-version = "py312"
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I"]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.3",
+    "pytest-mock>=3.15.1",
+]

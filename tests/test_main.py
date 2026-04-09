@@ -1,7 +1,11 @@
-from src.main import main
+"""Smoke test for src/main.py entry point."""
+
+from main import main
 
 
-def test_main(capsys):
+def test_main_runs(capsys):
     main()
     captured = capsys.readouterr()
-    assert captured.out == "Hello, World!\n"
+    assert "Nodes in DAG:" in captured.out
+    assert "Sources:" in captured.out
+    assert "Chain:" in captured.out

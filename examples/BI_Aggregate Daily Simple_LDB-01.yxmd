@@ -1,0 +1,3131 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2023.1">
+  <Nodes>
+    <Node ToolID="2">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="295" y="633" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <CachedCosmeticName />
+          <File FileFormat="23" RecordLimit="">aka:CooperC5|||select * 
+from Publications</File>
+          <FormatSpecificOptions>
+            <SingleRowFetch>False</SingleRowFetch>
+            <ReadCentroids>False</ReadCentroids>
+            <TableStyle>Quoted</TableStyle>
+            <CacheData>False</CacheData>
+            <SessionReadOnly>True</SessionReadOnly>
+            <ReadUncommitted>False</ReadUncommitted>
+            <NoProgress>True</NoProgress>
+            <PostSQL />
+            <PreSQLOnConfig>True</PreSQLOnConfig>
+            <PreSQL />
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>aka:CooperC5
+Query=select * 
+from Publications</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="ITEMNUMBER" size="20" source="File: aka:CooperC5|||select * &#xA;from Publications" type="V_String" />
+            <Field name="INV_MAINITEM" size="20" source="File: aka:CooperC5|||select * &#xA;from Publications" type="V_String" />
+            <Field name="ISBN13" size="13" source="File: aka:CooperC5|||select * &#xA;from Publications" type="V_String" />
+            <Field name="ITEMNAME1" size="50" source="File: aka:CooperC5|||select * &#xA;from Publications" type="V_String" />
+            <Field name="ITEMNAME2" size="40" source="File: aka:CooperC5|||select * &#xA;from Publications" type="V_String" />
+            <Field name="ITEMNAME3" size="40" source="File: aka:CooperC5|||select * &#xA;from Publications" type="V_String" />
+            <Field name="ITEMTYPE" source="File: aka:CooperC5|||select * &#xA;from Publications" type="Int32" />
+            <Field name="UNITCODE" size="10" source="File: aka:CooperC5|||select * &#xA;from Publications" type="V_String" />
+            <Field name="INV_PUBLICATIONSTATUS" source="File: aka:CooperC5|||select * &#xA;from Publications" type="Int32" />
+            <Field name="ENUMTXT_Publicationstatus" size="30" source="File: aka:CooperC5|||select * &#xA;from Publications" type="V_String" />
+            <Field name="INV_FORLAG" source="File: aka:CooperC5|||select * &#xA;from Publications" type="Int32" />
+            <Field name="ENUMTXT_Forlag" size="30" source="File: aka:CooperC5|||select * &#xA;from Publications" type="V_String" />
+            <Field name="INV_REDINTERN" size="5" source="File: aka:CooperC5|||select * &#xA;from Publications" type="V_String" />
+            <Field name="PROJLEADER" size="4" source="File: aka:CooperC5|||select * &#xA;from Publications" type="V_String" />
+            <Field name="PRODLEADER" size="4" source="File: aka:CooperC5|||select * &#xA;from Publications" type="V_String" />
+            <Field name="COMMANAGER" size="4" source="File: aka:CooperC5|||select * &#xA;from Publications" type="V_String" />
+            <Field name="GROUP_" size="10" source="File: aka:CooperC5|||select * &#xA;from Publications" type="V_String" />
+            <Field name="GROUPNAME" size="50" source="File: aka:CooperC5|||select * &#xA;from Publications" type="V_String" />
+            <Field name="INV_DELIVERYDATE" source="File: aka:CooperC5|||select * &#xA;from Publications" type="DateTime" />
+            <Field name="INV_ESTIMATEDDELIVERY" source="File: aka:CooperC5|||select * &#xA;from Publications" type="DateTime" />
+            <Field name="INV_NEWRELEASESTART" source="File: aka:CooperC5|||select * &#xA;from Publications" type="DateTime" />
+            <Field name="INV_NEWRELEASEEND" source="File: aka:CooperC5|||select * &#xA;from Publications" type="DateTime" />
+            <Field name="Team" size="30" source="File: aka:CooperC5|||select * &#xA;from Publications" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="3">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="498" y="560" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="ops_varenummer" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="MainItemNumber" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="4">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="918" y="80" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="hostname" />
+            <Field field="ops_varenummer" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="logged_hostname" />
+            <Field field="logged_varenummer" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="6">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="799" y="237" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="logged_varenummer" selected="True" type="V_WString" size="11" />
+            <SelectField field="alter_varenummer" selected="True" type="V_WString" size="11" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="12">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="799" y="81" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="iF [UserSubject] IN (&quot;eud/eux&quot;, &quot;eud/eux/kuu&quot;) THEN &quot;eud/eux&quot;&#xA;elseif [UserSubject] in (&quot;Andet&quot;,&quot;N/A&quot;,&quot;Not set&quot;) THEN &quot;Andet&quot;&#xA;ELSEif [UserSubject] in (&quot;avu/fvu/obu/fgu&quot;) THEN &quot;avu/fvu/du/fgu&quot;&#xA;elseif IsEmpty([UserSubject]) THEN &quot;Andet&quot;&#xA;ELSE [UserSubject]&#xA;ENDIF" field="UserSubject" size="100" type="V_WString" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>UserSubject = iF [UserSubject] IN ("eud/eux", "eud/eux/kuu") THEN "eud/eux"
+else...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="14">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+        <Position x="691" y="237" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <NumRows value="161" />
+          <Fields>
+            <Field name="logged_varenummer" />
+            <Field name="logged_hostname" />
+            <Field name="alter_varenummer" />
+            <Field name="alter_hostname" />
+            <Field name="kommentar" />
+            <Field name="demo_url" />
+          </Fields>
+          <Data>
+            <r>
+              <c>02321951</c>
+              <c>alverdensdanskbasis.ibog.gyldendal.dk</c>
+              <c>61683878</c>
+              <c>alverdensdanskbasis.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>61683878</c>
+              <c>alverdensdanskbasis.systime.dk</c>
+              <c>61683878</c>
+              <c>alverdensdanskbasis.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>61685377</c>
+              <c>alverdensdanskd.systime.dk</c>
+              <c>61685377</c>
+              <c>alverdensdanskd.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>61685360</c>
+              <c>alverdensdanske.systime.dk</c>
+              <c>61685360</c>
+              <c>alverdensdanske.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>61685353</c>
+              <c>alverdensdanskf.systime.dk</c>
+              <c>61685353</c>
+              <c>alverdensdanskf.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>61685346</c>
+              <c>alverdensdanskg.systime.dk</c>
+              <c>61685346</c>
+              <c>alverdensdanskg.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>61617699</c>
+              <c>aqueno.systime.dk</c>
+              <c>None</c>
+              <c>aqueno.systime.dk</c>
+              <c>website</c>
+              <c>1</c>
+            </r>
+            <r>
+              <c>61613004</c>
+              <c>aquesi.systime.dk</c>
+              <c>None</c>
+              <c>aquesi.systime.dk</c>
+              <c>Website</c>
+              <c>1</c>
+            </r>
+            <r>
+              <c>61647405</c>
+              <c>avusamf.systime.dk</c>
+              <c>61647405</c>
+              <c>avusamf.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>61658364</c>
+              <c>avusamfd.systime.dk</c>
+              <c>61658364</c>
+              <c>avusamfd.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>61656513</c>
+              <c>berlinerleben.systime.dk</c>
+              <c>61656513</c>
+              <c>berlinerleben.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>93647084</c>
+              <c>biofakta.ibog.nucleus.dk</c>
+              <c>90364708</c>
+              <c>biofakta.ibog.nucleus.dk</c>
+              <c />
+              <c>0</c>
+            </r>
+            <r>
+              <c>61697226</c>
+              <c>blackvoices.ibog.gyldendal.dk</c>
+              <c>02296273</c>
+              <c>blackvoices.systime.dk</c>
+              <c />
+              <c>0</c>
+            </r>
+            <r>
+              <c>61695437</c>
+              <c>danskfgu.systime.dk</c>
+              <c>61695437</c>
+              <c>danskfgu.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>61643650</c>
+              <c>dbd.systime.dk</c>
+              <c>61643650</c>
+              <c>dbd.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>61617545</c>
+              <c>debut2.systime.dk</c>
+              <c>61696069</c>
+              <c>debut2.systime.dk</c>
+              <c>website</c>
+              <c>1</c>
+            </r>
+            <r>
+              <c>61687258</c>
+              <c>engelskbasistilg.systime.dk</c>
+              <c>61687258</c>
+              <c>engelskbasistilg.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>61695758</c>
+              <c>engelskfgu.systime.dk</c>
+              <c>61695758</c>
+              <c>engelskfgu.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>MISSING</c>
+              <c>engelskstartgrammatik2.systime.dk</c>
+              <c>61697288</c>
+              <c>engelskstartgrammatik2.systime.dk</c>
+              <c />
+              <c>0</c>
+            </r>
+            <r>
+              <c>00000000</c>
+              <c>euddansk.ibog.gyldendal.dk</c>
+              <c>62820890</c>
+              <c>euddansk.ibog.gyldendal.dk</c>
+              <c />
+              <c>0</c>
+            </r>
+            <r>
+              <c>61699435</c>
+              <c>forbudtlitteratur.systime.dk</c>
+              <c>61698711</c>
+              <c>forbudtlitteratur.systime.dk</c>
+              <c />
+              <c>0</c>
+            </r>
+            <r>
+              <c>00000000</c>
+              <c>gerontologi-perspektiverpaaaeldre.ibog.studybox.dk</c>
+              <c>12063162</c>
+              <c>gerontologi-perspektiverpaaaeldre.ibog.studybox.dk</c>
+              <c />
+              <c>0</c>
+            </r>
+            <r>
+              <c>61686671</c>
+              <c>grundlaeggendeit.systime.dk</c>
+              <c>61686671</c>
+              <c>grundlaeggendeit.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>61698285</c>
+              <c>handelogkundeservice.systime.dk</c>
+              <c>61698285</c>
+              <c>handelogkundeservice.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>62509511</c>
+              <c>hardustyrpaadinfysik.ibog.gyldendal.dk</c>
+              <c>02306903</c>
+              <c>hardustyrpaadinfysik.systime.dk</c>
+              <c />
+              <c>0</c>
+            </r>
+            <r>
+              <c>61695178</c>
+              <c>imfgu.systime.dk</c>
+              <c>61695178</c>
+              <c>imfgu.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>61636997</c>
+              <c>isamf.systime.dk</c>
+              <c>61684103</c>
+              <c>isamf.systime.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>61614155</c>
+              <c>kinesisk1.systime.dk</c>
+              <c>61614157</c>
+              <c>kinesisk1.systime.dk</c>
+              <c>Website</c>
+              <c>1</c>
+            </r>
+            <r>
+              <c>61686893</c>
+              <c>komimaalmedskrivningd.systime.dk</c>
+              <c>61686893</c>
+              <c>komimaalmedskrivningd.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>61684288</c>
+              <c>komimaalmedskrivningg.systime.dk</c>
+              <c>61684288</c>
+              <c>komimaalmedskrivningg.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>00000000</c>
+              <c>kommunikationforsundhedsprofessionelle.ibog.studybox.dk</c>
+              <c>12063216</c>
+              <c>kommunikationforsundhedsprofessionelle.ibog.studybox.dk</c>
+              <c />
+              <c>0</c>
+            </r>
+            <r>
+              <c>MISSING</c>
+              <c>kommunikationogit.systime.dk</c>
+              <c>61671820</c>
+              <c>kommunikationogit.systime.dk</c>
+              <c />
+              <c>0</c>
+            </r>
+            <r>
+              <c>61693075</c>
+              <c>laerdanskmedtvserier.systime.dk</c>
+              <c>61693075</c>
+              <c>laerdanskmedtvserier.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>61670021</c>
+              <c>lmsm.systime.dk</c>
+              <c>61670021</c>
+              <c>lmsm.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>61671837</c>
+              <c>mat123.systime.dk</c>
+              <c>61671837</c>
+              <c>mat123.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>61686602</c>
+              <c>morfemer.systime.dk</c>
+              <c>61686602</c>
+              <c>morfemer.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>61693716</c>
+              <c>naturfagfgu.systime.dk</c>
+              <c>61693716</c>
+              <c>naturfagfgu.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>61670939</c>
+              <c>naturvidenskabavu.systime.dk</c>
+              <c>61670939</c>
+              <c>naturvidenskabavu.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>61617057</c>
+              <c>noegletilmusikken.systime.dk</c>
+              <c>61617059</c>
+              <c>noegletilmusikken.systime.dk</c>
+              <c />
+              <c>0</c>
+            </r>
+            <r>
+              <c>MISSING</c>
+              <c>oktober1943.systime.dk</c>
+              <c>61661708</c>
+              <c>oktober1943.systime.dk</c>
+              <c />
+              <c>0</c>
+            </r>
+            <r>
+              <c>61695109</c>
+              <c>pasefgu.systime.dk</c>
+              <c>61695109</c>
+              <c>pasefgu.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>00000000</c>
+              <c>patientinddragelseipraksis.ibog.studybox.dk</c>
+              <c>12063308</c>
+              <c>patientinddragelseipraksis.ibog.studybox.dk</c>
+              <c />
+              <c>0</c>
+            </r>
+            <r>
+              <c>61693709</c>
+              <c>plusfgu.systime.dk</c>
+              <c>61693709</c>
+              <c>plusfgu.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>61645210</c>
+              <c>plusfrabasistild.systime.dk</c>
+              <c>61645210</c>
+              <c>plusfrabasistild.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>00000000</c>
+              <c>praksisfaellesskaber.ibog.studybox.dk</c>
+              <c>41279107</c>
+              <c>praksisfaellesskaber.ibog.studybox.dk</c>
+              <c />
+              <c>0</c>
+            </r>
+            <r>
+              <c>00000000</c>
+              <c>projektledelseisundhedsvaesnet.ibog.studybox.dk</c>
+              <c>12063339</c>
+              <c>projektledelseisundhedsvaesnet.ibog.studybox.dk</c>
+              <c />
+              <c>0</c>
+            </r>
+            <r>
+              <c>61649911</c>
+              <c>relations.systime.dk</c>
+              <c>61649911</c>
+              <c>relations.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>61651259</c>
+              <c>rodisproget.systime.dk</c>
+              <c>61651259</c>
+              <c>rodisproget.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>61694911</c>
+              <c>samarbejdeogkommunikation.systime.dk</c>
+              <c>61694911</c>
+              <c>samarbejdeogkommunikation.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>61695147</c>
+              <c>samfundsfagfgu.systime.dk</c>
+              <c>61695147</c>
+              <c>samfundsfagfgu.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>MISSING</c>
+              <c>silamiut.systime.dk</c>
+              <c>93181144</c>
+              <c>silamiut.systime.dk</c>
+              <c />
+              <c>0</c>
+            </r>
+            <r>
+              <c>61666376</c>
+              <c>skriveoevelsertildansk.systime.dk</c>
+              <c>61666376</c>
+              <c>skriveoevelsertildansk.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>00000000</c>
+              <c>sociologiforsundhedsprofessionelle.ibog.studybox.dk</c>
+              <c>12063377</c>
+              <c>sociologiforsundhedsprofessionelle.ibog.studybox.dk</c>
+              <c />
+              <c>0</c>
+            </r>
+            <r>
+              <c>61688279</c>
+              <c>sociologiskset.systime.dk</c>
+              <c>61631022</c>
+              <c>sociologiskset.systime.dk</c>
+              <c>URL har logget flere varenumre. Varenummer ændres til til det, der skal afregnes på.</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>61698292</c>
+              <c>sprogligmatematik.systime.dk</c>
+              <c>61698292</c>
+              <c>sprogligmatematik.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>62819504</c>
+              <c>ssa-sammenhaeng.ibog.gyldendal.dk</c>
+              <c>62820302</c>
+              <c>ssa-sammenhaeng.ibog.gyldendal.dk</c>
+              <c />
+              <c>1</c>
+            </r>
+            <r>
+              <c>62818330</c>
+              <c>ssh-sundhedsfremme.ibog.gyldendal.dk</c>
+              <c>62820210</c>
+              <c>ssh-sundhedsfremme.ibog.gyldendal.dk</c>
+              <c />
+              <c>0</c>
+            </r>
+            <r>
+              <c>00000000</c>
+              <c>sygdomslaere-menneskekroppen.ibog.studybox.dk</c>
+              <c>12062943</c>
+              <c>sygdomslaere-menneskekroppen.ibog.studybox.dk</c>
+              <c />
+              <c>0</c>
+            </r>
+            <r>
+              <c>61695338</c>
+              <c>teknologiforstaaelsefgu.systime.dk</c>
+              <c>61695338</c>
+              <c>teknologiforstaaelsefgu.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>61668233</c>
+              <c>tg.systime.dk</c>
+              <c>61668233</c>
+              <c>tg.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>61691798</c>
+              <c>traendansk.systime.dk</c>
+              <c>61691798</c>
+              <c>traendansk.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>61660640</c>
+              <c>tyskbasis.systime.dk</c>
+              <c>61660640</c>
+              <c>tyskbasis.ibog.gyldendal.dk</c>
+              <c />
+              <c />
+            </r>
+            <r>
+              <c>02290141</c>
+              <c>allesinallem.ibog.gyldendal.dk</c>
+              <c>02290141</c>
+              <c>allesinallem.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02314496</c>
+              <c>angles.ibog.gyldendal.dk</c>
+              <c>02314496</c>
+              <c>angles.ibog.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290370</c>
+              <c>apbogen.ibog.gyldendal.dk</c>
+              <c>02290370</c>
+              <c>apbogen.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>62511811</c>
+              <c>aufuns.ibog.gyldendal.dk</c>
+              <c>62511811</c>
+              <c>aufuns.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290080</c>
+              <c>basalvidenskabsteori.ibog.gyldendal.dk</c>
+              <c>02290080</c>
+              <c>basalvidenskabsteori.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>62513303</c>
+              <c>beingamerican.ibog.gyldendal.dk</c>
+              <c>62513303</c>
+              <c>beingamerican.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02301564</c>
+              <c>bforbedreidraet.ibog.gyldendal.dk</c>
+              <c>02301564</c>
+              <c>bforbedreidraet.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02296273</c>
+              <c>blackvoices.ibog.gyldendal.dk</c>
+              <c>02296273</c>
+              <c>blackvoices.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290752</c>
+              <c>caminando.ibog.gyldendal.dk</c>
+              <c>02290752</c>
+              <c>caminando.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290387</c>
+              <c>caminandoforfortsaettere.ibog.gyldendal.dk</c>
+              <c>02290387</c>
+              <c>caminandoforfortsaettere.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02292589</c>
+              <c>closeup.ibog.gyldendal.dk</c>
+              <c>02292589</c>
+              <c>closeup.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290097</c>
+              <c>demokratimagtogpolitik.ibog.gyldendal.dk</c>
+              <c>02290097</c>
+              <c>demokratimagtogpolitik.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290356</c>
+              <c>deneuropaeiskekoncert.ibog.gyldendal.dk</c>
+              <c>02290356</c>
+              <c>deneuropaeiskekoncert.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>62516571</c>
+              <c>detmodernegennembrud.ibog.gyldendal.dk</c>
+              <c>62516571</c>
+              <c>detmodernegennembrud.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02296815</c>
+              <c>dho-skriveguide.ibog.gyldendal.dk</c>
+              <c>02296815</c>
+              <c>dho-skriveguide.ibog.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>62516212</c>
+              <c>digogdigitaldannelseidansk.ibog.gyldendal.dk</c>
+              <c>62516212</c>
+              <c>digogdigitaldannelseidansk.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290073</c>
+              <c>dinidraetc.ibog.gyldendal.dk</c>
+              <c>02290073</c>
+              <c>dinidraetc.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>62516748</c>
+              <c>einszweidrei.ibog.gyldendal.dk</c>
+              <c>62516748</c>
+              <c>einszweidrei.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290363</c>
+              <c>eneuropaeiskverdenshistorie.ibog.gyldendal.dk</c>
+              <c>02290363</c>
+              <c>eneuropaeiskverdenshistorie.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>62507968</c>
+              <c>engodhistorieomreligion.ibog.gyldendal.dk</c>
+              <c>62507968</c>
+              <c>engodhistorieomreligion.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02301571</c>
+              <c>enverdenaffysika.ibog.gyldendal.dk</c>
+              <c>02301571</c>
+              <c>enverdenaffysika.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290226</c>
+              <c>enverdenaffysikb.ibog.gyldendal.dk</c>
+              <c>02290226</c>
+              <c>enverdenaffysikb.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290646</c>
+              <c>enverdenaffysikc.ibog.gyldendal.dk</c>
+              <c>02290646</c>
+              <c>enverdenaffysikc.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02308709</c>
+              <c>espanaenlacalle.ibog.gyldendal.dk</c>
+              <c>02308709</c>
+              <c>espanaenlacalle.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>62512061</c>
+              <c>filmskalsesidansk.ibog.gyldendal.dk</c>
+              <c>62512061</c>
+              <c>filmskalsesidansk.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>62511996</c>
+              <c>folkevisen.ibog.gyldendal.dk</c>
+              <c>62511996</c>
+              <c>folkevisen.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290325</c>
+              <c>footprints.ibog.gyldendal.dk</c>
+              <c>02290325</c>
+              <c>footprints.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02306613</c>
+              <c>forloebtilhistorie1.ibog.gyldendal.dk</c>
+              <c>02306613</c>
+              <c>forloebtilhistorie1.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02306637</c>
+              <c>forloebtilhistorie2.ibog.gyldendal.dk</c>
+              <c>02306637</c>
+              <c>forloebtilhistorie2.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02306644</c>
+              <c>forloebtilhistorie3.ibog.gyldendal.dk</c>
+              <c>02306644</c>
+              <c>forloebtilhistorie3.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290134</c>
+              <c>fortaellingensspejl.ibog.gyldendal.dk</c>
+              <c>02290134</c>
+              <c>fortaellingensspejl.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>62516281</c>
+              <c>fraantikkentileuropaeiskekspansion.ibog.gyldendal.dk</c>
+              <c>62516281</c>
+              <c>fraantikkentileuropaeiskekspansion.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290400</c>
+              <c>fraidetilvirkelighed.ibog.gyldendal.dk</c>
+              <c>02290400</c>
+              <c>fraidetilvirkelighed.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>62516298</c>
+              <c>fraoplysningstidtileuropaeiskintegration.ibog.gyldendal.dk</c>
+              <c>62516298</c>
+              <c>fraoplysningstidtileuropaeiskintegration.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>62511774</c>
+              <c>gattungen.ibog.gyldendal.dk</c>
+              <c>62511774</c>
+              <c>gattungen.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>62515314</c>
+              <c>genau.ibog.gyldendal.dk</c>
+              <c>62515314</c>
+              <c>genau.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02296280</c>
+              <c>getitright.ibog.gyldendal.dk</c>
+              <c>02296280</c>
+              <c>getitright.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290332</c>
+              <c>gettingstarted.ibog.gyldendal.dk</c>
+              <c>02290332</c>
+              <c>gettingstarted.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02320732</c>
+              <c>gettingstarteda.ibog.gyldendal.dk</c>
+              <c>02320732</c>
+              <c>gettingstarteda.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02300642</c>
+              <c>godespoergsmaalrigtigesvar.ibog.gyldendal.dk</c>
+              <c>02300642</c>
+              <c>godespoergsmaalrigtigesvar.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290110</c>
+              <c>grundbogibioteknologi1htx.ibog.gyldendal.dk</c>
+              <c>02290110</c>
+              <c>grundbogibioteknologi1htx.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290103</c>
+              <c>grundbogibioteknologi1stx.ibog.gyldendal.dk</c>
+              <c>02290103</c>
+              <c>grundbogibioteknologi1stx.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02293180</c>
+              <c>grundbogibioteknologi2htx.ibog.gyldendal.dk</c>
+              <c>02293180</c>
+              <c>grundbogibioteknologi2htx.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02293166</c>
+              <c>grundbogibioteknologi2stx.ibog.gyldendal.dk</c>
+              <c>02293166</c>
+              <c>grundbogibioteknologi2stx.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290059</c>
+              <c>grundbogiidraetc.ibog.gyldendal.dk</c>
+              <c>02290059</c>
+              <c>grundbogiidraetc.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290721</c>
+              <c>grundbogisamfundsfagc.ibog.gyldendal.dk</c>
+              <c>02290721</c>
+              <c>grundbogisamfundsfagc.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02301526</c>
+              <c>grundlaeggendefysika.ibog.gyldendal.dk</c>
+              <c>02301526</c>
+              <c>grundlaeggendefysika.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290233</c>
+              <c>grundlaeggendefysikb.ibog.gyldendal.dk</c>
+              <c>02290233</c>
+              <c>grundlaeggendefysikb.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02306927</c>
+              <c>gyldendalsidraetspsykologi.ibog.gyldendal.dk</c>
+              <c>02306927</c>
+              <c>gyldendalsidraetspsykologi.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290653</c>
+              <c>gymnasiematematika1.ibog.gyldendal.dk</c>
+              <c>02290653</c>
+              <c>gymnasiematematika1.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290240</c>
+              <c>gymnasiematematika2.ibog.gyldendal.dk</c>
+              <c>02290240</c>
+              <c>gymnasiematematika2.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>62516724</c>
+              <c>gymnasiematematika3.ibog.gyldendal.dk</c>
+              <c>62516724</c>
+              <c>gymnasiematematika3.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290660</c>
+              <c>gymnasiematematikb1.ibog.gyldendal.dk</c>
+              <c>02290660</c>
+              <c>gymnasiematematikb1.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290257</c>
+              <c>gymnasiematematikb2.ibog.gyldendal.dk</c>
+              <c>02290257</c>
+              <c>gymnasiematematikb2.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02292947</c>
+              <c>gymnasiematematikbtila.ibog.gyldendal.dk</c>
+              <c>02292947</c>
+              <c>gymnasiematematikbtila.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290066</c>
+              <c>gymnasiematematikg.ibog.gyldendal.dk</c>
+              <c>02290066</c>
+              <c>gymnasiematematikg.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02306903</c>
+              <c>hardustyrpaadinfysik.ibog.gyldendal.dk</c>
+              <c>02306903</c>
+              <c>hardustyrpaadinfysik.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02306897</c>
+              <c>hardustyrpaadinmatematik.ibog.gyldendal.dk</c>
+              <c>02306897</c>
+              <c>hardustyrpaadinmatematik.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02306910</c>
+              <c>huskhjernen.ibog.gyldendal.dk</c>
+              <c>02306910</c>
+              <c>huskhjernen.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>62516786</c>
+              <c>idehistoriehtx.ibog.gyldendal.dk</c>
+              <c>62516786</c>
+              <c>idehistoriehtx.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290264</c>
+              <c>ifysikc.ibog.gyldendal.dk</c>
+              <c>02290264</c>
+              <c>ifysikc.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290271</c>
+              <c>ifysikcb.ibog.gyldendal.dk</c>
+              <c>02290271</c>
+              <c>ifysikcb.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02291056</c>
+              <c>jamesjoyce.ibog.gyldendal.dk</c>
+              <c>02291056</c>
+              <c>jamesjoyce.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290288</c>
+              <c>kendkemien1.ibog.gyldendal.dk</c>
+              <c>02290288</c>
+              <c>kendkemien1.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290318</c>
+              <c>kendkemien2.ibog.gyldendal.dk</c>
+              <c>02290318</c>
+              <c>kendkemien2.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02321333</c>
+              <c>kendkemien3.ibog.gyldendal.dk</c>
+              <c>02321333</c>
+              <c>kendkemien3.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02321272</c>
+              <c>kritisktaenkning.ibog.gyldendal.dk</c>
+              <c>02321272</c>
+              <c>kritisktaenkning.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>62515222</c>
+              <c>krydsfelt.ibog.gyldendal.dk</c>
+              <c>62515222</c>
+              <c>krydsfelt.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290776</c>
+              <c>laidentidadcontrastada.ibog.gyldendal.dk</c>
+              <c>02290776</c>
+              <c>laidentidadcontrastada.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>62515130</c>
+              <c>losgehts.ibog.gyldendal.dk</c>
+              <c>62515130</c>
+              <c>losgehts.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02298000</c>
+              <c>medtiden.ibog.gyldendal.dk</c>
+              <c>02298000</c>
+              <c>medtiden.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02291025</c>
+              <c>modernmetropolis.ibog.gyldendal.dk</c>
+              <c>02291025</c>
+              <c>modernmetropolis.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>62512160</c>
+              <c>mundtligeksamenidansk.ibog.gyldendal.dk</c>
+              <c>62512160</c>
+              <c>mundtligeksamenidansk.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02303292</c>
+              <c>naturvidenskabensverden.ibog.gyldendal.dk</c>
+              <c>02303292</c>
+              <c>naturvidenskabensverden.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02299717</c>
+              <c>paasporetafhistorien.ibog.gyldendal.dk</c>
+              <c>02299717</c>
+              <c>paasporetafhistorien.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>62511422</c>
+              <c>refleksion.ibog.gyldendal.dk</c>
+              <c>62511422</c>
+              <c>refleksion.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02291049</c>
+              <c>rusland.ibog.gyldendal.dk</c>
+              <c>02291049</c>
+              <c>rusland.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>62518186</c>
+              <c>skriftligeksamenidansk.ibog.gyldendal.dk</c>
+              <c>62518186</c>
+              <c>skriftligeksamenidansk.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02305159</c>
+              <c>skriftligeksamenidanskhhx.ibog.gyldendal.dk</c>
+              <c>02305159</c>
+              <c>skriftligeksamenidanskhhx.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02305166</c>
+              <c>skriftligeksamenidanskhtx.ibog.gyldendal.dk</c>
+              <c>02305166</c>
+              <c>skriftligeksamenidanskhtx.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02305906</c>
+              <c>skriftligeksameniengelskhhx.ibog.gyldendal.dk</c>
+              <c>02305906</c>
+              <c>skriftligeksameniengelskhhx.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290684</c>
+              <c>skriftligeksameniengelskstxoghf.ibog.gyldendal.dk</c>
+              <c>02290684</c>
+              <c>skriftligeksameniengelskstxoghf.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>62515710</c>
+              <c>sociologi.ibog.gyldendal.dk</c>
+              <c>62515710</c>
+              <c>sociologi.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290349</c>
+              <c>sprogenesverden.ibog.gyldendal.dk</c>
+              <c>02290349</c>
+              <c>sprogenesverden.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02297485</c>
+              <c>sprogpaaspil.ibog.gyldendal.dk</c>
+              <c>02297485</c>
+              <c>sprogpaaspil.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>62515512</c>
+              <c>sturmerunddranger.ibog.gyldendal.dk</c>
+              <c>62515512</c>
+              <c>sturmerunddranger.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02303285</c>
+              <c>tapasonline.ibog.gyldendal.dk</c>
+              <c>02303285</c>
+              <c>tapasonline.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02317770</c>
+              <c>tekster-foer-1700tallet.ibog.gyldendal.dk</c>
+              <c>02317770</c>
+              <c>tekster-foer-1700tallet.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>62509559</c>
+              <c>thegothicuniverse.ibog.gyldendal.dk</c>
+              <c>62509559</c>
+              <c>thegothicuniverse.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02292886</c>
+              <c>toolbox.ibog.gyldendal.dk</c>
+              <c>02292886</c>
+              <c>toolbox.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290394</c>
+              <c>undeuxtrois.ibog.gyldendal.dk</c>
+              <c>02290394</c>
+              <c>undeuxtrois.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290769</c>
+              <c>unodostres.ibog.gyldendal.dk</c>
+              <c>02290769</c>
+              <c>unodostres.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02293395</c>
+              <c>vaerklaesningthehateugive.ibog.gyldendal.dk</c>
+              <c>02293395</c>
+              <c>vaerklaesningthehateugive.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02291063</c>
+              <c>victorianwomenmenandmarriage.ibog.gyldendal.dk</c>
+              <c>02291063</c>
+              <c>victorianwomenmenandmarriage.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02308716</c>
+              <c>voila.ibog.gyldendal.dk</c>
+              <c>02308716</c>
+              <c>voila.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>62518087</c>
+              <c>werbinich.ibog.gyldendal.dk</c>
+              <c>62518087</c>
+              <c>werbinich.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>62514324</c>
+              <c>widercontexts.ibog.gyldendal.dk</c>
+              <c>62514324</c>
+              <c>widercontexts.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290219</c>
+              <c>wiegehts.ibog.gyldendal.dk</c>
+              <c>02290219</c>
+              <c>wiegehts.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+            <r>
+              <c>02290691</c>
+              <c>writeon.ibog.gyldendal.dk</c>
+              <c>02290691</c>
+              <c>writeon.systime.dk</c>
+              <c>Urlskiift ifm. overflytning fra Gyl til Sys</c>
+              <c>0</c>
+            </r>
+          </Data>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+    </Node>
+    <Node ToolID="15">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="586" y="80" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="If [isbn] = &quot;MISSING&quot; THEN [isbn]&#xA;Else right([isbn], 8)&#xA;ENDIF" field="ops_varenummer" size="1073741823" type="V_WString" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[ops_varenummer = If [isbn] = "MISSING" THEN [isbn]
+Else right([isbn], 8)
+ENDIF
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="16">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="1183" y="81" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Ignore</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="17">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="991" y="177" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>!=</Operator>
+            <Field>demo_url</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2020-05-06 10:14:41</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>1</Operand>
+              <StartDate>2020-05-06 10:14:41</StartDate>
+              <EndDate>2020-05-06 10:14:41</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[demo_url] != 1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="18">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1086" y="176" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="RecordID" selected="True" />
+            <SelectField field="customerId" selected="True" />
+            <SelectField field="UserSubject" selected="True" />
+            <SelectField field="firstLevelLog" selected="True" />
+            <SelectField field="rootLineString" selected="True" />
+            <SelectField field="featureFlags" selected="True" />
+            <SelectField field="myAccountId" selected="True" />
+            <SelectField field="Date" selected="True" />
+            <SelectField field="SchoolYear" selected="True" />
+            <SelectField field="ops_varenummer" selected="False" />
+            <SelectField field="logged_varenummer" selected="False" />
+            <SelectField field="logged_hostname" selected="False" />
+            <SelectField field="alter_varenummer" selected="True" rename="ops_varenummer" />
+            <SelectField field="alter_hostname" selected="True" rename="hostname" />
+            <SelectField field="kommentar" selected="False" />
+            <SelectField field="demo_url" selected="False" />
+            <SelectField field="hostname" selected="False" />
+            <SelectField field="timestamp" selected="True" />
+            <SelectField field="mainUserGroup" selected="True" />
+            <SelectField field="hashedUserid" selected="True" />
+            <SelectField field="mainUserSubject" selected="True" />
+            <SelectField field="queryParamsEncoded" selected="True" />
+            <SelectField field="id" selected="True" />
+            <SelectField field="isbn" selected="True" />
+            <SelectField field="pageId" selected="True" />
+            <SelectField field="companyId" selected="True" />
+            <SelectField field="groupIds" selected="True" />
+            <SelectField field="eKeysUser" selected="True" />
+            <SelectField field="importFilename" selected="True" />
+            <SelectField field="MainUserType" selected="True" />
+            <SelectField field="PageViews" selected="True" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="19">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Unique.Unique">
+        <Position x="1279" y="81" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UniqueFields>
+            <Field field="RecordID" />
+          </UniqueFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnique" />
+    </Node>
+    <Node ToolID="20">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RecordID.RecordID">
+        <Position x="693" y="81" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FieldName>RecordID</FieldName>
+          <StartValue>1</StartValue>
+          <FieldType>Int32</FieldType>
+          <FieldSize>6</FieldSize>
+          <Position>0</Position>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRecordID" />
+    </Node>
+    <Node ToolID="24">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1890" y="800" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[Engine.WorkflowFileName]" field="WorkflowName" size="1073741823" type="V_WString" />
+            <FormulaField expression="[Engine.WorkflowDirectory]" field="WorkflowPath" size="1073741823" type="V_WString" />
+            <FormulaField expression="DateTimeNow()" field="WorkflowLastUpdated" size="1073741823" type="V_WString" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>WorkflowName = [Engine.WorkflowFileName]
+WorkflowPath = [Engine.WorkflowDirector...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="29">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="91" y="801" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <CachedCosmeticName />
+          <File FileFormat="23" RecordLimit="">aka:CooperC5|||select * 
+from CUSTTABLE</File>
+          <FormatSpecificOptions>
+            <SingleRowFetch>False</SingleRowFetch>
+            <ReadCentroids>False</ReadCentroids>
+            <TableStyle>Quoted</TableStyle>
+            <CacheData>False</CacheData>
+            <SessionReadOnly>True</SessionReadOnly>
+            <ReadUncommitted>False</ReadUncommitted>
+            <NoProgress>True</NoProgress>
+            <PostSQL />
+            <PreSQLOnConfig>True</PreSQLOnConfig>
+            <PreSQL />
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>aka:CooperC5
+Query=select * 
+from CUSTTABLE</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <Dependencies>
+          <Implicit />
+        </Dependencies>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="DATASET" size="3" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="ROWNUMBER" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="Int32" />
+            <Field name="LASTCHANGED" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="DateTime" />
+            <Field name="DEL_USERLOCK" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="Int32" />
+            <Field name="ACCOUNT" size="10" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="NAME" size="50" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="ADDRESS1" size="50" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="ADDRESS2" size="50" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="ZIPCITY" size="50" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="COUNTRY" size="30" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="ATTENTION" size="30" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="PHONE" size="20" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="FAX" size="20" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="INVOICEACCOUNT" size="10" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="GROUP_" size="10" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="FIXEDDISCPCT" scale="12" size="30" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="FixedDecimal" />
+            <Field name="APPROVED" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="Int32" />
+            <Field name="PRICEGROUP" size="10" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="DISCGROUP" size="10" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="CASHDISC" size="10" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="IMAGEFILE" size="254" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="CURRENCY" size="3" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="LANGUAGE_" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="Int32" />
+            <Field name="PAYMENT" size="10" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="DELIVERY" size="10" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="BLOCKED" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="Int32" />
+            <Field name="SALESREP" size="10" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="VAT" size="10" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="DEL_STATTYPE" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="Int32" />
+            <Field name="GIRONUMBER" size="20" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="VATNUMBER" size="25" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="INTEREST" size="10" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="DEPARTMENT" size="10" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="REMINDERCODE" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="Int32" />
+            <Field name="ONETIMECUSTOMER" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="Int32" />
+            <Field name="INVENTORY" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="Int32" />
+            <Field name="EDIADDRESS" size="15" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="BALANCE" scale="12" size="30" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="FixedDecimal" />
+            <Field name="BALANCE30" scale="12" size="30" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="FixedDecimal" />
+            <Field name="BALANCE60" scale="12" size="30" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="FixedDecimal" />
+            <Field name="BALANCE90" scale="12" size="30" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="FixedDecimal" />
+            <Field name="BALANCE120" scale="12" size="30" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="FixedDecimal" />
+            <Field name="BALANCE120PLUS" scale="12" size="30" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="FixedDecimal" />
+            <Field name="AMOUNTDUE" scale="12" size="30" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="FixedDecimal" />
+            <Field name="CALCULATIONDATE" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="DateTime" />
+            <Field name="BALANCEMAX" scale="12" size="30" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="FixedDecimal" />
+            <Field name="BALANCEMST" scale="12" size="30" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="FixedDecimal" />
+            <Field name="SEARCHNAME" size="30" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="DEL_TRANSPORT" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="Int32" />
+            <Field name="CASHPAYMENT" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="Int32" />
+            <Field name="PAYMENTMODE" size="10" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="SALESGROUP" size="10" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="PROJGROUP" size="10" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="TRADECODE" size="10" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="TRANSPORTCODE" size="10" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="EMAIL" size="80" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="URL" size="80" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="CELLPHONE" size="20" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="KRAKNUMBER" size="15" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="CENTRE" size="10" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="PURPOSE" size="10" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="EANNUMBER" size="14" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="DIMACCOUNTCODE" size="35" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="XMLINVOICE" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="Int32" />
+            <Field name="LASTINVOICEDATE" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="DateTime" />
+            <Field name="LASTPAYMENTDATE" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="DateTime" />
+            <Field name="LASTREMINDERDATE" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="DateTime" />
+            <Field name="LASTINTERESTDATE" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="DateTime" />
+            <Field name="LASTINVOICENUMBER" size="20" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="XMLIMPORT" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="Int32" />
+            <Field name="VATGROUP" size="10" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="STDACCOUNT" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="Int32" />
+            <Field name="VATNUMBERTYPE" size="10" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="INV_UVMMAINNO" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="Int32" />
+            <Field name="INV_UVMGROUPNO" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="Int32" />
+            <Field name="INV_UVMNO" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="Int32" />
+            <Field name="INV_STATEMENTLETTER" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="Int32" />
+            <Field name="INV_BOGHNR" size="10" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="POSTNR" size="10" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="KUNDETYPE" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="Int32" />
+            <Field name="MINKONTO" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="Int32" />
+            <Field name="CRM" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="Int32" />
+            <Field name="FLATRATE" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="Int32" />
+            <Field name="DBA" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="Int32" />
+            <Field name="DBADATE" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="DateTime" />
+            <Field name="DBACONTACT" size="50" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="DBAEMAIL" size="80" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="LASTIBOGDATO" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="DateTime" />
+            <Field name="HOVEDEMAIL" size="80" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+            <Field name="DELETE_TXT" size="10" source="File: aka:CooperC5|||select * &#xA;from CUSTTABLE" type="V_String" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="30">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="223" y="801" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>=</Operator>
+            <Field>DATASET</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2022-03-28 15:37:14</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>DAT</Operand>
+              <StartDate>2022-03-28 15:37:14</StartDate>
+              <EndDate>2022-03-28 15:37:14</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[DATASET] = "DAT"</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="31">
+      <GuiSettings>
+        <Position x="331" y="801" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Check Box (135)">True</Value>
+          <Value name="Check Box (136)">True</Value>
+          <Value name="List Box (11)">"DATASET","ROWNUMBER","LASTCHANGED","DEL_USERLOCK","ACCOUNT","NAME","ADDRESS1","ADDRESS2","ZIPCITY","COUNTRY","ATTENTION","PHONE","FAX","INVOICEACCOUNT","GROUP_","FIXEDDISCPCT","APPROVED","PRICEGROUP","DISCGROUP","CASHDISC","IMAGEFILE","CURRENCY","LANGUAGE_","PAYMENT","DELIVERY","BLOCKED","SALESREP","VAT","DEL_STATTYPE","GIRONUMBER","VATNUMBER","INTEREST","DEPARTMENT","REMINDERCODE","ONETIMECUSTOMER","INVENTORY","EDIADDRESS","BALANCE","BALANCE30","BALANCE60","BALANCE90","BALANCE120","BALANCE120PLUS","AMOUNTDUE","CALCULATIONDATE","BALANCEMAX","BALANCEMST","SEARCHNAME","DEL_TRANSPORT","CASHPAYMENT","PAYMENTMODE","SALESGROUP","PROJGROUP","TRADECODE","TRANSPORTCODE","EMAIL","URL","CELLPHONE","KRAKNUMBER","CENTRE","PURPOSE","EANNUMBER","DIMACCOUNTCODE","XMLINVOICE","LASTINVOICEDATE","LASTPAYMENTDATE","LASTREMINDERDATE","LASTINTERESTDATE","LASTINVOICENUMBER","XMLIMPORT","VATGROUP","STDACCOUNT","VATNUMBERTYPE","INV_UVMMAINNO","INV_UVMGROUPNO","INV_UVMNO","INV_STATEMENTLETTER","INV_BOGHNR","POSTNR","KUNDETYPE","MINKONTO","CRM","FLATRATE","DBA","DBADATE","DBACONTACT","DBAEMAIL","LASTIBOGDATO","HOVEDEMAIL","DELETE_TXT"</Value>
+          <Value name="Check Box (84)">True</Value>
+          <Value name="Check Box (117)">True</Value>
+          <Value name="Check Box (15)">True</Value>
+          <Value name="Check Box (109)">True</Value>
+          <Value name="Check Box (122)">False</Value>
+          <Value name="Check Box (53)">False</Value>
+          <Value name="Check Box (58)">False</Value>
+          <Value name="Check Box (70)">False</Value>
+          <Value name="Check Box (77)">False</Value>
+          <Value name="Drop Down (81)">upper</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro="Cleanse.yxmc" />
+    </Node>
+    <Node ToolID="32">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="834" y="788" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="companyId" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="CompanyID" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_CompanyID" selected="False" rename="Right_CompanyID" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="36">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="390" y="633" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="ITEMNUMBER" selected="True" rename="ItemNumber" />
+            <SelectField field="INV_MAINITEM" selected="True" rename="MainItemNumber" />
+            <SelectField field="ITEMNAME1" selected="True" rename="PublicationName" />
+            <SelectField field="ITEMNAME2" selected="False" />
+            <SelectField field="ITEMNAME3" selected="False" />
+            <SelectField field="ITEMTYPE" selected="False" />
+            <SelectField field="UNITCODE" selected="True" rename="Unit" />
+            <SelectField field="INV_PUBLICATIONSTATUS" selected="False" />
+            <SelectField field="ENUMTXT_Publicationstatus" selected="True" rename="Status" />
+            <SelectField field="INV_FORLAG" selected="False" />
+            <SelectField field="ENUMTXT_Forlag" selected="True" rename="PublisherERP" />
+            <SelectField field="INV_REDINTERN" selected="True" rename="EditorInternal" />
+            <SelectField field="PROJLEADER" selected="True" rename="ProjectManager" />
+            <SelectField field="PRODLEADER" selected="True" rename="LD" />
+            <SelectField field="COMMANAGER" selected="True" rename="CommunicationManager" />
+            <SelectField field="GROUP_" selected="False" />
+            <SelectField field="GROUPNAME" selected="True" rename="PublicationMainSubject" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="38">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="270" y="80" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="IF DateTimeMonth([timestamp]) &gt; 7 THEN&#xA;ToString(DateTimeYear([timestamp])) + &quot;/&quot; + toString(toNumber(DateTimeYear([timestamp])+1))&#xA;ELSEIF &#xA;DateTimeMonth([timestamp]) &lt; 8 THEN&#xA;ToString(ToNumber(DateTimeYear([timestamp])-1)) + &quot;/&quot; + toString(DateTimeYear([timestamp]))&#xA;ELSE &quot;Error&quot;&#xA;ENDIF" field="SchoolYear" size="1073741823" type="V_WString" />
+            <FormulaField expression="ToDate([timestamp])" field="Date" size="10" type="Date" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>SchoolYear = IF DateTimeMonth([timestamp]) &gt; 7 THEN
+ToString(DateTimeYear([times...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="39">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="198" y="560" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="isbn" action="GroupBy" rename="isbn" />
+            <SummarizeField field="companyId" action="GroupBy" rename="companyId" />
+            <SummarizeField field="customerId" action="GroupBy" rename="customerId" />
+            <SummarizeField field="UserSubject" action="GroupBy" rename="UserSubject" />
+            <SummarizeField field="Date" action="GroupBy" rename="Date" />
+            <SummarizeField field="SchoolYear" action="GroupBy" rename="SchoolYear" />
+            <SummarizeField field="ops_varenummer" action="GroupBy" rename="ops_varenummer" />
+            <SummarizeField field="hostname" action="GroupBy" rename="hostname" />
+            <SummarizeField field="MainUserType" action="GroupBy" rename="MainUserType" />
+            <SummarizeField field="myAccountId" action="GroupBy" rename="myAccountId" />
+            <SummarizeField field="PageViews" action="Sum" rename="Sum_PageViews" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="43">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="523" y="801" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="ToNumber([ACCOUNT])" field="CompanyID" size="8" type="Int64" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[CompanyID = ToNumber([ACCOUNT])
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="44">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="618" y="800" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="NAME" selected="True" rename="CompanyName" />
+            <SelectField field="ADDRESS1" selected="True" rename="CompanyAddress" />
+            <SelectField field="ZIPCITY" selected="True" rename="CompanyZipCity" />
+            <SelectField field="COUNTRY" selected="True" rename="CompanyCountry" />
+            <SelectField field="INVOICEACCOUNT" selected="True" rename="ParentCompanyID" />
+            <SelectField field="GROUP_" selected="True" rename="companyType" />
+            <SelectField field="CompanyID" selected="True" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="45">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="427" y="801" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>IsInteger([ACCOUNT])</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>IsInteger([ACCOUNT])</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="46">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RecordID.RecordID">
+        <Position x="390" y="560" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FieldName>RecordID</FieldName>
+          <StartValue>1</StartValue>
+          <FieldType>Int32</FieldType>
+          <FieldSize>6</FieldSize>
+          <Position>0</Position>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRecordID" />
+    </Node>
+    <Node ToolID="47">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Unique.Unique">
+        <Position x="1098" y="788" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UniqueFields>
+            <Field field="RecordID" />
+          </UniqueFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnique" />
+    </Node>
+    <Node ToolID="48">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1986" y="800" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="True" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Date" selected="True" />
+            <SelectField field="SchoolYear" selected="True" />
+            <SelectField field="Publisher" selected="False" />
+            <SelectField field="Publisher_Final" selected="True" rename="Publisher" />
+            <SelectField field="isbn" selected="True" />
+            <SelectField field="MainItemNumber" selected="True" />
+            <SelectField field="ItemNumber" selected="True" />
+            <SelectField field="hostname" selected="True" />
+            <SelectField field="PublicationName" selected="True" />
+            <SelectField field="Unit" selected="True" />
+            <SelectField field="Status" selected="True" />
+            <SelectField field="ProjectManager" selected="True" />
+            <SelectField field="LD" selected="True" />
+            <SelectField field="CommunicationManager" selected="True" />
+            <SelectField field="EditorInternal" selected="True" />
+            <SelectField field="PublicationMainSubject" selected="True" />
+            <SelectField field="companyId" selected="True" />
+            <SelectField field="companyType" selected="True" />
+            <SelectField field="CompanyName" selected="True" />
+            <SelectField field="CompanyAddress" selected="True" />
+            <SelectField field="CompanyZipCity" selected="True" />
+            <SelectField field="CompanyCountry" selected="True" />
+            <SelectField field="ParentCompanyID" selected="True" />
+            <SelectField field="UserSubject" selected="True" />
+            <SelectField field="MainUserType" selected="True" />
+            <SelectField field="Sum_PageViews" selected="True" rename="PageViews" />
+            <SelectField field="WorkflowName" selected="True" />
+            <SelectField field="WorkflowPath" selected="True" />
+            <SelectField field="WorkflowLastUpdated" selected="True" />
+            <SelectField field="ops_varenummer" selected="False" />
+            <SelectField field="ISBN13" selected="False" />
+            <SelectField field="RecordID" selected="False" />
+            <SelectField field="customerId" selected="False" />
+            <SelectField field="INV_DELIVERYDATE" selected="True" />
+            <SelectField field="INV_ESTIMATEDDELIVERY" selected="True" />
+            <SelectField field="INV_NEWRELEASESTART" selected="True" />
+            <SelectField field="INV_NEWRELEASEEND" selected="True" />
+            <SelectField field="myAccountId" selected="True" rename="DistributionPlatform" />
+            <SelectField field="PublisherERP" selected="False" />
+            <SelectField field="Team" selected="True" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="50">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="54" y="80" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <CachedCosmeticName />
+          <File FileFormat="23" RecordLimit="">aka:CooperBilling|||select * 
+from accounting</File>
+          <FormatSpecificOptions>
+            <SingleRowFetch>False</SingleRowFetch>
+            <ReadCentroids>False</ReadCentroids>
+            <TableStyle>Quoted</TableStyle>
+            <CacheData>False</CacheData>
+            <SessionReadOnly>True</SessionReadOnly>
+            <ReadUncommitted>False</ReadUncommitted>
+            <NoProgress>True</NoProgress>
+            <PostSQL />
+            <PreSQLOnConfig>True</PreSQLOnConfig>
+            <PreSQL />
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>aka:CooperBilling
+Query=select * 
+from accounting</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="hostname" size="100" source="File: aka:CooperBilling|||select * &#xA;from accounting" type="V_WString" />
+            <Field name="isbn" size="13" source="File: aka:CooperBilling|||select * &#xA;from accounting" type="V_WString" />
+            <Field name="companyId" size="50" source="File: aka:CooperBilling|||select * &#xA;from accounting" type="V_WString" />
+            <Field name="groupIds" size="100" source="File: aka:CooperBilling|||select * &#xA;from accounting" type="V_WString" />
+            <Field name="pageId" source="File: aka:CooperBilling|||select * &#xA;from accounting" type="Int64" />
+            <Field name="mainUserGroup" size="100" source="File: aka:CooperBilling|||select * &#xA;from accounting" type="V_WString" />
+            <Field name="mainUserSubject" size="100" source="File: aka:CooperBilling|||select * &#xA;from accounting" type="V_WString" />
+            <Field name="firstLevelLog" size="16777216" source="File: aka:CooperBilling|||select * &#xA;from accounting" type="V_WString" />
+            <Field name="rootLineString" size="100" source="File: aka:CooperBilling|||select * &#xA;from accounting" type="V_WString" />
+            <Field name="featureFlags" size="200" source="File: aka:CooperBilling|||select * &#xA;from accounting" type="V_WString" />
+            <Field name="myAccountId" size="30" source="File: aka:CooperBilling|||select * &#xA;from accounting" type="V_WString" />
+            <Field name="queryParamsEncoded" size="16777216" source="File: aka:CooperBilling|||select * &#xA;from accounting" type="V_WString" />
+            <Field name="hashedUserid" size="100" source="File: aka:CooperBilling|||select * &#xA;from accounting" type="V_WString" />
+            <Field name="customerId" size="200" source="File: aka:CooperBilling|||select * &#xA;from accounting" type="V_WString" />
+            <Field name="timestamp" source="File: aka:CooperBilling|||select * &#xA;from accounting" type="DateTime" />
+            <Field name="id" source="File: aka:CooperBilling|||select * &#xA;from accounting" type="Int64" />
+            <Field name="importFilename" size="16777216" source="File: aka:CooperBilling|||select * &#xA;from accounting" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="51">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="594" y="560" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="companyId" selected="True" type="Int64" size="8" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="52">
+      <GuiSettings>
+        <Position x="2082" y="800" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Value name="Check Box (135)">False</Value>
+          <Value name="Check Box (136)">False</Value>
+          <Value name="List Box (11)">"ProjectManager","LD","CommunicationManager","EditorInternal"</Value>
+          <Value name="Check Box (84)">True</Value>
+          <Value name="Check Box (117)">True</Value>
+          <Value name="Check Box (15)">True</Value>
+          <Value name="Check Box (109)">False</Value>
+          <Value name="Check Box (122)">False</Value>
+          <Value name="Check Box (53)">False</Value>
+          <Value name="Check Box (58)">False</Value>
+          <Value name="Check Box (70)">False</Value>
+          <Value name="Check Box (77)">True</Value>
+          <Value name="Drop Down (81)">upper</Value>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings Macro="Cleanse.yxmc" />
+    </Node>
+    <Node ToolID="65">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="1002" y="788" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Ignore</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="66">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+        <Position x="618" y="872" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <NumRows value="1" />
+          <Fields>
+            <Field name="CompanyName" />
+            <Field name="CompanyAddress" />
+            <Field name="CompanyZipCity" />
+            <Field name="CompanyCountry" />
+            <Field name="ParentCompanyID" />
+            <Field name="companyType" />
+            <Field name="CompanyID" />
+          </Fields>
+          <Data>
+            <r>
+              <c>Unknown</c>
+              <c>Unknown</c>
+              <c>0000</c>
+              <c>Unknown</c>
+              <c />
+              <c>vidr</c>
+              <c>0</c>
+            </r>
+          </Data>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+    </Node>
+    <Node ToolID="67">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="714" y="800" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="69">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="1386" y="80" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[myAccountId] in ("STUDYBOXMYACCOUNT","MUNKSGAARDMYACCOUNT")</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[myAccountId] in ("STUDYBOXMYACCOUNT","MUNKSGAARDMYACCOUNT")</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="71">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+        <Position x="1542" y="308" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Passwords />
+          <CachedCosmeticName />
+          <File FileFormat="23" RecordLimit="">aka:CooperData|||select * 
+from StudyBoxUsers</File>
+          <FormatSpecificOptions>
+            <SingleRowFetch>False</SingleRowFetch>
+            <ReadCentroids>False</ReadCentroids>
+            <TableStyle>Quoted</TableStyle>
+            <CacheData>False</CacheData>
+            <SessionReadOnly>True</SessionReadOnly>
+            <ReadUncommitted>False</ReadUncommitted>
+            <NoProgress>True</NoProgress>
+            <PostSQL />
+            <PreSQLOnConfig>True</PreSQLOnConfig>
+            <PreSQL />
+          </FormatSpecificOptions>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>aka:CooperData
+Query=select * 
+from StudyBoxUser...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Eksternt sporings-id" size="255" source="File: aka:CooperData|||select * &#xA;from StudyBoxUsers" type="V_String" />
+            <Field name="Rolle" size="255" source="File: aka:CooperData|||select * &#xA;from StudyBoxUsers" type="V_String" />
+            <Field name="Studieretning" size="255" source="File: aka:CooperData|||select * &#xA;from StudyBoxUsers" type="V_String" />
+            <Field name="Dato" size="255" source="File: aka:CooperData|||select * &#xA;from StudyBoxUsers" type="V_String" />
+            <Field name="Institutionens ID" size="255" source="File: aka:CooperData|||select * &#xA;from StudyBoxUsers" type="V_String" />
+            <Field name="Institutionens navn" size="255" source="File: aka:CooperData|||select * &#xA;from StudyBoxUsers" type="V_String" />
+            <Field name="secret" size="255" source="File: aka:CooperData|||select * &#xA;from StudyBoxUsers" type="V_String" />
+            <Field name="ekeys_userid" size="255" source="File: aka:CooperData|||select * &#xA;from StudyBoxUsers" type="V_String" />
+            <Field name="CompanyAddress" size="16777216" source="File: aka:CooperData|||select * &#xA;from StudyBoxUsers" type="V_WString" />
+            <Field name="CompanyZipCity" size="16777216" source="File: aka:CooperData|||select * &#xA;from StudyBoxUsers" type="V_WString" />
+            <Field name="CompanyCountry" size="16777216" source="File: aka:CooperData|||select * &#xA;from StudyBoxUsers" type="V_WString" />
+            <Field name="WorkflowName" size="16777216" source="File: aka:CooperData|||select * &#xA;from StudyBoxUsers" type="V_WString" />
+            <Field name="WorkflowPath" size="16777216" source="File: aka:CooperData|||select * &#xA;from StudyBoxUsers" type="V_WString" />
+            <Field name="WorkflowLastUpdated" size="16777216" source="File: aka:CooperData|||select * &#xA;from StudyBoxUsers" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+    </Node>
+    <Node ToolID="72">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="1710" y="404" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="ekeys_userid" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="eKeysUser" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="True" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_CompanyCountry" selected="True" input="Left_" />
+                <SelectField field="Left_CompanyZipCity" selected="True" input="Left_" />
+                <SelectField field="Left_CompanyAddress" selected="True" input="Left_" />
+                <SelectField field="Left_CreatedDate" selected="True" input="Left_" />
+                <SelectField field="Left_UserSubject" selected="True" input="Left_" />
+                <SelectField field="Left_CompanyName" selected="True" input="Left_" />
+                <SelectField field="Left_companyId" selected="True" input="Left_" />
+                <SelectField field="Left_ekeys_userid" selected="True" input="Left_" />
+                <SelectField field="Right_RecordID" selected="True" input="Right_" />
+                <SelectField field="Right_customerId" selected="True" input="Right_" />
+                <SelectField field="Right_UserSubject" selected="True" rename="Right_UserSubject" input="Right_" />
+                <SelectField field="Right_firstLevelLog" selected="True" input="Right_" />
+                <SelectField field="Right_rootLineString" selected="True" input="Right_" />
+                <SelectField field="Right_featureFlags" selected="True" input="Right_" />
+                <SelectField field="Right_myAccountId" selected="True" input="Right_" />
+                <SelectField field="Right_Date" selected="True" input="Right_" />
+                <SelectField field="Right_SchoolYear" selected="True" input="Right_" />
+                <SelectField field="Right_ops_varenummer" selected="True" input="Right_" />
+                <SelectField field="Right_hostname" selected="True" input="Right_" />
+                <SelectField field="Right_timestamp" selected="True" input="Right_" />
+                <SelectField field="Right_queryParamsEncoded" selected="True" input="Right_" />
+                <SelectField field="Right_ID" selected="True" input="Right_" />
+                <SelectField field="Right_ISBN" selected="True" input="Right_" />
+                <SelectField field="Right_PageID" selected="True" input="Right_" />
+                <SelectField field="Right_eKeysUser" selected="True" input="Right_" />
+                <SelectField field="Right_pageViews" selected="True" input="Right_" />
+                <SelectField field="Right_MainUserType" selected="True" input="Right_" />
+                <SelectField field="Right_Publisher" selected="True" input="Right_" />
+                <SelectField field="Right_CompanyID" selected="True" rename="Right_CompanyID" input="Right_" />
+                <SelectField field="Left_secret" selected="True" input="Left_" />
+                <SelectField field="Left_WorkflowName" selected="True" input="Left_" />
+                <SelectField field="Left_WorkflowPath" selected="True" input="Left_" />
+                <SelectField field="Left_WorkflowLastUpdated" selected="True" input="Left_" />
+                <SelectField field="Right_mainUserGroup" selected="True" input="Right_" />
+                <SelectField field="Right_hashedUserid" selected="True" input="Right_" />
+                <SelectField field="Right_groupIds" selected="True" input="Right_" />
+                <SelectField field="Right_importFilename" selected="True" input="Right_" />
+                <SelectField field="Left_Eksternt sporings-id" selected="True" input="Left_" />
+                <SelectField field="Left_Rolle" selected="True" input="Left_" />
+                <SelectField field="Left_Studieretning" selected="True" input="Left_" />
+                <SelectField field="Left_Dato" selected="True" input="Left_" />
+                <SelectField field="Left_Institutionens ID" selected="True" input="Left_" />
+                <SelectField field="Left_Institutionens navn" selected="True" input="Left_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="74">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="1932" y="416" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="isbn" action="GroupBy" rename="isbn" />
+            <SummarizeField field="companyId" action="GroupBy" rename="companyId" />
+            <SummarizeField field="CompanyName" action="GroupBy" rename="CompanyName" />
+            <SummarizeField field="CompanyCountry" action="GroupBy" rename="CompanyCountry" />
+            <SummarizeField field="CompanyZipCity" action="GroupBy" rename="CompanyZipCity" />
+            <SummarizeField field="CompanyAddress" action="GroupBy" rename="CompanyAddress" />
+            <SummarizeField field="customerId" action="GroupBy" rename="customerId" />
+            <SummarizeField field="UserSubject" action="GroupBy" rename="UserSubject" />
+            <SummarizeField field="Date" action="GroupBy" rename="Date" />
+            <SummarizeField field="SchoolYear" action="GroupBy" rename="SchoolYear" />
+            <SummarizeField field="ops_varenummer" action="GroupBy" rename="ops_varenummer" />
+            <SummarizeField field="hostname" action="GroupBy" rename="hostname" />
+            <SummarizeField field="MainUserType" action="GroupBy" rename="MainUserType" />
+            <SummarizeField field="myAccountId" action="GroupBy" rename="myAccountId" />
+            <SummarizeField field="pageViews" action="Sum" rename="Sum_pageViews" />
+            <SummarizeField field="Publisher" action="GroupBy" rename="Publisher" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="75">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="2154" y="416" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="ops_varenummer" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="MainItemNumber" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Right_Publisher" selected="False" rename="Right_Publisher" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="76">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RecordID.RecordID">
+        <Position x="2022" y="416" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FieldName>RecordID</FieldName>
+          <StartValue>1</StartValue>
+          <FieldType>Int32</FieldType>
+          <FieldSize>6</FieldSize>
+          <Position>0</Position>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRecordID" />
+    </Node>
+    <Node ToolID="77">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Unique.Unique">
+        <Position x="2250" y="416" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UniqueFields>
+            <Field field="RecordID" />
+          </UniqueFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnique" />
+    </Node>
+    <Node ToolID="78">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="1542" y="800" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Ignore</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="79">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="1842" y="416" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Ignore</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+          <SetOutputOrder value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="80">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="54" y="548" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Mode>Simple</Mode>
+          <Simple>
+            <Operator>=</Operator>
+            <Field>myAccountId</Field>
+            <Operands>
+              <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+              <DateType>fixed</DateType>
+              <PeriodDate>2022-07-14 13:56:51</PeriodDate>
+              <PeriodType>
+              </PeriodType>
+              <PeriodCount>0</PeriodCount>
+              <Operand>SYSTIMEMYACCOUNT</Operand>
+              <StartDate>2022-07-14 13:56:51</StartDate>
+              <EndDate>2022-07-14 13:56:51</EndDate>
+            </Operands>
+          </Simple>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[myAccountId] = "SYSTIMEMYACCOUNT"</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="81">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="294" y="560" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="TitleCase([customerId])" field="Publisher" size="1073741823" type="V_WString" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[Publisher = TitleCase([customerId])
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="84">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1542" y="416" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="TitleCase([customerId])" field="Publisher" size="1073741823" type="V_WString" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText><![CDATA[Publisher = TitleCase([customerId])
+]]></DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="85">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1674" y="800" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="IF [PublisherERP] = &quot;Dansklærerforeningen &amp; Systime&quot; AND [Publisher] = &quot;Systime&quot; THEN &quot;Dansklærerforeningen &amp; Systime&quot;&#xA;ELSEIF [PublisherERP] = &quot;Dansklærerforeningens Forlag&quot; AND [Publisher] = &quot;Dlf&quot; THEN &quot;Dansklærerforeningens Forlag&quot;&#xA;ELSEIF [PublisherERP] = &quot;DlfF Forlag&quot; AND [Publisher] = &quot;Systime&quot; THEN &quot;Systime&quot;&#xA;ELSEIF [PublisherERP] = &quot;FNAE&quot; AND [Publisher] = &quot;Systime&quot; THEN &quot;Systime&quot;&#xA;ELSEIF [PublisherERP] = &quot;Forlaget Columbus&quot; AND [Publisher] = &quot;Columbus&quot; THEN &quot;Forlaget Columbus&quot;&#xA;ELSEIF [PublisherERP] = &quot;GU Gym&quot; AND [Publisher] = &quot;Gyldendal&quot; THEN &quot;Gyldendal&quot;&#xA;ELSEIF [PublisherERP] = &quot;GU Sys&quot; AND [Publisher] = &quot;Systime&quot; THEN &quot;Systime&quot;&#xA;ELSEIF [PublisherERP] = &quot;Gyldendal&quot; AND [Publisher] = &quot;Gyldendal-voksen&quot; THEN &quot;Gyldendal&quot;&#xA;ELSEIF [PublisherERP] = &quot;Hans Reitzel&quot; AND [Publisher] = &quot;Munksgaard&quot; THEN &quot;Munksgaard&quot;&#xA;ELSEIF [PublisherERP] = &quot;Hans Reitzel&quot; AND [Publisher] = &quot;Systime&quot; THEN &quot;Systime&quot;&#xA;ELSEIF [PublisherERP] = &quot;Gyldendal&quot; AND [Publisher] = &quot;Systime&quot; THEN &quot;Systime&quot;&#xA;ELSEIF [PublisherERP] = &quot;Systime&quot; AND [Publisher] = &quot;Systimesolutions&quot; THEN &quot;Systimesolutions&quot;&#xA;ELSEIF [PublisherERP] = &quot;Systime/Hans Reitzel&quot; AND [Publisher] = &quot;Hansreitzel&quot; THEN &quot;Hans Reitzel&quot;&#xA;ELSEIF [PublisherERP] = &quot;Systime/Hans Reitzel&quot; AND [Publisher] = &quot;Systime&quot; THEN &quot;Systime&quot;&#xA;ELSEIF [PublisherERP] = &quot;GU Gym&quot; THEN &quot;Gyldendal&quot;&#xA;ELSEIF [PublisherERP] = &quot;GU Sys&quot; THEN &quot;Systime&quot;&#xA;ELSEIF [PublisherERP] = &quot;VIA-Systime&quot; THEN &quot;Systime&quot;&#xA;ELSEIF [PublisherERP] = &quot;Kurlund&quot; THEN &quot;Systime&quot;&#xA;ELSEIF [PublisherERP] = &quot;DlfF Forlag&quot; THEN &quot;Dansklærerforeningen &amp; Systime&quot;&#xA;ELSE [PublisherERP]&#xA;ENDIF&#xA;" field="Publisher_Final" size="1073741823" type="V_WString" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Publisher_Final = IF [PublisherERP] = "Dansklærerforeningen &amp; Systime" AND [Publ...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="86">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="162" y="80" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="mainUserSubject" selected="True" rename="UserSubject" />
+            <SelectField field="hashedUserid" selected="True" rename="eKeysUser" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="87">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="426" y="80" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="IF [mainUserGroup] = &quot;3&quot; THEN &quot;Studerende&quot;&#xA;ELSEIF [mainUserGroup] = &quot;21&quot; THEN &quot;Valideret lærer&quot;&#xA;ELSEIF	[mainUserGroup] = &quot;2&quot; THEN &quot;Lærere&quot;&#xA;ELSEIF [mainUserGroup] = &quot;4&quot; THEN &quot;Private&quot;&#xA;ELSE &quot;NA&quot;&#xA;ENDIF&#xA;" field="MainUserType" size="102" type="V_WString" />
+            <FormulaField expression="1" field="PageViews" size="8" type="Double" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>MainUserType = IF [mainUserGroup] = "3" THEN "Studerende"
+ELSEIF [mainUserGroup]...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="89">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1626" y="308" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Studieretning" selected="True" rename="UserSubject" />
+            <SelectField field="Dato" selected="True" rename="CreatedDate" />
+            <SelectField field="Institutionens ID" selected="True" rename="companyId" />
+            <SelectField field="Institutionens navn" selected="True" rename="CompanyName" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Omdøb af kolonnener fx. "Institutions navn" til "CompanyName", da flow fejlede da den ikke kunne finde felt med navn "CompanyName"
+Antager der er ændret feltnavne i filen fra Plytix, og dermed har flower fejlet /CHN 20241209</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="True" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="58">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="2153" y="751" width="152" height="180" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Container 58</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="49">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+            <Position x="2178" y="800" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <File MaxRecords="" FileFormat="23">aka:CooperData|||Aggregated_Daily_simple</File>
+              <Passwords />
+              <CachedCosmeticName />
+              <Disable>False</Disable>
+              <FormatSpecificOptions>
+                <TransactionMessages>False</TransactionMessages>
+                <Geometry>True</Geometry>
+                <Projection />
+                <IgnoreDropTableSQLErrors>False</IgnoreDropTableSQLErrors>
+                <SpatialObjSize>8000</SpatialObjSize>
+                <OutputOption>Overwrite</OutputOption>
+                <PostSQL />
+                <TransactionSize>10000</TransactionSize>
+                <TableStyle>Quoted</TableStyle>
+                <PreSQL />
+              </FormatSpecificOptions>
+              <MultiFile value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>aka:CooperData
+Query=Aggregated_Daily_simple</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="73">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="2033" y="54" width="388" height="225" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Delete when all Studybox publishers should be included</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="53">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+            <Position x="2058" y="103" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <FormulaFields>
+                <FormulaField expression="If [myAccountId] = &quot;STUDYBOXMYACCOUNT&quot; AND [customerId] = &quot;Munksgaard&quot; THEN &quot;StudyBox&quot;&#xA;ELSEIF [myAccountId] = &quot;STUDYBOXMYACCOUNT&quot; AND [customerId] = &quot;Hans Reitzel&quot; THEN &quot;StudyBox&quot;&#xA;ELSEIF [myAccountId] = &quot;STUDYBOXMYACCOUNT&quot; THEN &quot;Other StudyBox&quot;&#xA;ELSE [customerId]&#xA;ENDIF" field="Publisher" size="30" type="V_String" />
+              </FormulaFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>Publisher = If [myAccountId] = "STUDYBOXMYACCOUNT" AND [customerId] = "Munksgaar...</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+        </Node>
+        <Node ToolID="70">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+            <Position x="2178" y="104" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Mode>Simple</Mode>
+              <Simple>
+                <Operator>!=</Operator>
+                <Field>Publisher</Field>
+                <Operands>
+                  <IgnoreTimeInDateTime>True</IgnoreTimeInDateTime>
+                  <DateType>fixed</DateType>
+                  <PeriodDate>2022-06-21 13:14:08</PeriodDate>
+                  <PeriodType>
+                  </PeriodType>
+                  <PeriodCount>0</PeriodCount>
+                  <Operand>Other StudyBox</Operand>
+                  <StartDate>2022-06-21 13:14:08</StartDate>
+                  <EndDate>2022-06-21 13:14:08</EndDate>
+                </Operands>
+              </Simple>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>[Publisher] != "Other StudyBox"</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="2" Connection="Output" />
+      <Destination ToolID="36" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="3" Connection="Join" />
+      <Destination ToolID="51" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="4" Connection="Left" />
+      <Destination ToolID="16" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="18" Connection="Output" />
+      <Destination ToolID="16" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="4" Connection="Join" />
+      <Destination ToolID="17" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="6" Connection="Output" />
+      <Destination ToolID="4" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="12" Connection="Output" />
+      <Destination ToolID="4" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="14" Connection="Output" />
+      <Destination ToolID="6" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="15" Connection="Output" />
+      <Destination ToolID="20" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="16" Connection="Output" />
+      <Destination ToolID="19" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="17" Connection="True" />
+      <Destination ToolID="18" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="19" Connection="Unique" />
+      <Destination ToolID="69" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="20" Connection="Output" />
+      <Destination ToolID="12" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="24" Connection="Output" />
+      <Destination ToolID="48" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="29" Connection="Output" />
+      <Destination ToolID="30" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="30" Connection="True" />
+      <Destination ToolID="31" Connection="Input2" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="31" Connection="Output26" />
+      <Destination ToolID="45" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="32" Connection="Join" />
+      <Destination ToolID="65" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="32" Connection="Left" />
+      <Destination ToolID="65" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="36" Connection="Output" />
+      <Destination ToolID="3" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="46" Connection="Output" />
+      <Destination ToolID="3" Connection="Left" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="36" Connection="Output" />
+      <Destination ToolID="75" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="76" Connection="Output" />
+      <Destination ToolID="75" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="38" Connection="Output" />
+      <Destination ToolID="87" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="39" Connection="Output" />
+      <Destination ToolID="81" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="43" Connection="Output" />
+      <Destination ToolID="44" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="44" Connection="Output" />
+      <Destination ToolID="67" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="66" Connection="Output" />
+      <Destination ToolID="67" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="45" Connection="True" />
+      <Destination ToolID="43" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="47" Connection="Unique" />
+      <Destination ToolID="78" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="77" Connection="Unique" />
+      <Destination ToolID="78" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="48" Connection="Output" />
+      <Destination ToolID="52" Connection="Input2" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="50" Connection="Output" />
+      <Destination ToolID="86" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="51" Connection="Output" />
+      <Destination ToolID="32" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="67" Connection="Output" />
+      <Destination ToolID="32" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="52" Connection="Output26" />
+      <Destination ToolID="49" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="65" Connection="Output" />
+      <Destination ToolID="47" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="69" Connection="False" />
+      <Destination ToolID="80" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="69" Connection="True" />
+      <Destination ToolID="84" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="69" Connection="True" />
+      <Destination ToolID="53" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="71" Connection="Output" />
+      <Destination ToolID="89" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="72" Connection="Join" />
+      <Destination ToolID="79" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="72" Connection="Right" />
+      <Destination ToolID="79" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="74" Connection="Output" />
+      <Destination ToolID="76" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="75" Connection="Join" />
+      <Destination ToolID="77" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="78" Connection="Output" />
+      <Destination ToolID="85" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="79" Connection="Output" />
+      <Destination ToolID="74" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="80" Connection="True" />
+      <Destination ToolID="39" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="81" Connection="Output" />
+      <Destination ToolID="46" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="84" Connection="Output" />
+      <Destination ToolID="72" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="89" Connection="Output" />
+      <Destination ToolID="72" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="85" Connection="Output" />
+      <Destination ToolID="24" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="86" Connection="Output" />
+      <Destination ToolID="38" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="87" Connection="Output" />
+      <Destination ToolID="15" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="53" Connection="Output" />
+      <Destination ToolID="70" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>BI_Aggregate Daily Simple_LDB-01</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="06d7eba0-4184-4f89-ac74-3ec0c1834762" />
+      <Telemetry>
+        <PreviousWorkflowId value="8c967757-e72b-4c8e-b52b-d07c4ad9f3e8" />
+        <OriginWorkflowId value="e7733560-5674-48c2-aa73-645ca80b27f6" />
+      </Telemetry>
+      <PlatformWorkflowId value="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+  </Properties>
+</AlteryxDocument>

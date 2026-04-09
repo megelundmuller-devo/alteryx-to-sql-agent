@@ -1,0 +1,10 @@
+# CODEOWNERS — Assign automatic reviewers for pull requests.
+# Format: <pattern> <github-username-or-team>
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owner for all files (uncomment and set before enabling branch protection)
+# * @your-github-username
+
+# Examples:
+# src/     @backend-team
+# docs/    @tech-writer

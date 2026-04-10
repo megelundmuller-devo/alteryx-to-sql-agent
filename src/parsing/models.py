@@ -110,6 +110,19 @@ class WorkflowDoc(BaseModel):
     notes: list[str]  # Warnings, caveats, manual review items
 
 
+class RegistryEntry(BaseModel):
+    """One learned tool translation stored in the persistent tool registry."""
+
+    model_config = ConfigDict(frozen=True)
+
+    plugin: str  # Full plugin string — registry key
+    tool_type: str  # Normalised short name, e.g. "custom_aggregator"
+    description: str  # One-line description of what the tool does
+    sql_body: str  # CTE body SQL that was learned for this tool type
+    learned_at: str  # ISO-8601 datetime string
+    example_config_hash: str  # Short hash of the config used when learning
+
+
 class ConversionResult(BaseModel):
     """The complete output of one workflow conversion run."""
 

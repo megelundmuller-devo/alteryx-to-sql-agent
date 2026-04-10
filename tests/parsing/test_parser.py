@@ -1,19 +1,16 @@
 """Tests for src/parser.py — .yxmd XML parsing."""
 
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 import pytest
 
 from parsing.parser import _elem_to_value, _normalize_plugin, parse_workflow
 
-import xml.etree.ElementTree as ET
-
 FIXTURES = Path(__file__).parent / "fixtures"
 MINIMAL = FIXTURES / "minimal_workflow.yxmd"
 EXAMPLE = (
-    Path(__file__).parents[2]
-    / "examples"
-    / "BI_Aggregate Daily Simple_LDB-01.yxmd"
+    Path(__file__).parents[2] / "examples" / "BI_Aggregate Daily Simple_LDB-01.yxmd"
 )
 
 
@@ -42,7 +39,9 @@ class TestNormalizePlugin:
 
     def test_unknown_plugin_fallback(self):
         # Unknown plugins should produce a snake_case key, not raise
-        result = _normalize_plugin("AlteryxBasePluginsGui.SomeFutureWidget.SomeFutureWidget")
+        result = _normalize_plugin(
+            "AlteryxBasePluginsGui.SomeFutureWidget.SomeFutureWidget"
+        )
         assert isinstance(result, str)
         assert len(result) > 0
 
@@ -75,7 +74,9 @@ class TestElemToValue:
         assert result["_text"] == "mydb|||table"
 
     def test_single_child(self):
-        elem = self._parse("<FormulaFields><FormulaField expression='x' /></FormulaFields>")
+        elem = self._parse(
+            "<FormulaFields><FormulaField expression='x' /></FormulaFields>"
+        )
         result = _elem_to_value(elem)
         assert isinstance(result, dict)
         assert "FormulaField" in result
@@ -135,7 +136,9 @@ class TestParseWorkflowMinimal:
 
     def test_connection_anchors(self):
         # First connection: 1 Output → 2 Input
-        first = next(c for c in self.pw.connections if c.origin_id == 1 and not c.wireless)
+        first = next(
+            c for c in self.pw.connections if c.origin_id == 1 and not c.wireless
+        )
         assert first.origin_anchor == "Output"
         assert first.dest_anchor == "Input"
         assert first.dest_id == 2

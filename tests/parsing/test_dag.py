@@ -10,9 +10,7 @@ from parsing.parser import parse_workflow
 FIXTURES = Path(__file__).parent / "fixtures"
 MINIMAL = FIXTURES / "minimal_workflow.yxmd"
 EXAMPLE = (
-    Path(__file__).parents[2]
-    / "examples"
-    / "BI_Aggregate Daily Simple_LDB-01.yxmd"
+    Path(__file__).parents[2] / "examples" / "BI_Aggregate Daily Simple_LDB-01.yxmd"
 )
 
 
@@ -206,6 +204,7 @@ class TestBuildDagExample:
 
     def test_is_acyclic(self):
         import networkx as nx
+
         assert nx.is_directed_acyclic_graph(self.dag.graph)
 
     def test_topological_order_length(self):

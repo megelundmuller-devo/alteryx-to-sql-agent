@@ -68,17 +68,13 @@ class AlteryxDAG:
     def source_nodes(self) -> list[ToolNode]:
         """Nodes with no incoming edges — the workflow's data sources."""
         return [
-            self._nodes[n]
-            for n in self._graph.nodes
-            if self._graph.in_degree(n) == 0
+            self._nodes[n] for n in self._graph.nodes if self._graph.in_degree(n) == 0
         ]
 
     def sink_nodes(self) -> list[ToolNode]:
         """Nodes with no outgoing edges — the workflow's data outputs."""
         return [
-            self._nodes[n]
-            for n in self._graph.nodes
-            if self._graph.out_degree(n) == 0
+            self._nodes[n] for n in self._graph.nodes if self._graph.out_degree(n) == 0
         ]
 
     def predecessors(self, tool_id: int) -> list[ToolNode]:

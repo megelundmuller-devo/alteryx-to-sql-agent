@@ -97,7 +97,7 @@ LLM_MAX_RETRIES=3
 
 ## 8. Code Style
 
-- Line length: 88 characters (ruff default).
+- Line length: 100 characters (configured in pyproject.toml).
 - All source files must pass `uv run ruff check src/ tests/` with zero errors.
 - Format with `uv run ruff format src/ tests/` before finalising any file.
 - Imports: standard library → third-party → local, separated by blank lines (ruff enforces this).

@@ -4,7 +4,10 @@ from pathlib import Path
 
 import pytest
 
-from chunking.chunker import _cte_name, _is_chunk_boundary_after, _is_chunk_boundary_before, chunk_dag
+from chunking.chunker import (
+    _cte_name,
+    chunk_dag,
+)
 from parsing.dag import build_dag
 from parsing.models import Chunk
 from parsing.parser import parse_workflow
@@ -12,9 +15,7 @@ from parsing.parser import parse_workflow
 FIXTURES = Path(__file__).parents[1] / "parsing" / "fixtures"
 MINIMAL = FIXTURES / "minimal_workflow.yxmd"
 EXAMPLE = (
-    Path(__file__).parents[2]
-    / "examples"
-    / "BI_Aggregate Daily Simple_LDB-01.yxmd"
+    Path(__file__).parents[2] / "examples" / "BI_Aggregate Daily Simple_LDB-01.yxmd"
 )
 
 
@@ -36,6 +37,7 @@ def _chunk_minimal() -> tuple[list[Chunk], object]:
 class TestCteName:
     def _node(self, tool_id: int, tool_type: str):
         from parsing.models import ToolNode
+
         return ToolNode(
             tool_id=tool_id,
             plugin="",
@@ -91,18 +93,24 @@ class TestChunkDagMinimal:
 
     def test_filter_is_its_own_chunk(self):
         # Filter (tool 2) is a branching node — must be its own chunk
-        filter_chunk = next(c for c in self.chunks if any(n.tool_id == 2 for n in c.nodes))
+        filter_chunk = next(
+            c for c in self.chunks if any(n.tool_id == 2 for n in c.nodes)
+        )
         assert len(filter_chunk.nodes) == 1
         assert filter_chunk.nodes[0].tool_type == "filter"
 
     def test_source_chunk_has_no_input_ctes(self):
         # Tool 1 (DbFileInput) is a source — its chunk has no upstream CTEs
-        source_chunk = next(c for c in self.chunks if any(n.tool_id == 1 for n in c.nodes))
+        source_chunk = next(
+            c for c in self.chunks if any(n.tool_id == 1 for n in c.nodes)
+        )
         assert source_chunk.input_cte_names == []
 
     def test_sink_chunk_has_input_ctes(self):
         # Tool 5 (DbFileOutput) depends on upstream — must have input CTEs
-        sink_chunk = next(c for c in self.chunks if any(n.tool_id == 5 for n in c.nodes))
+        sink_chunk = next(
+            c for c in self.chunks if any(n.tool_id == 5 for n in c.nodes)
+        )
         assert len(sink_chunk.input_cte_names) > 0
 
     def test_internal_edges_within_chunk(self):
@@ -128,8 +136,12 @@ class TestChunkDagMinimal:
         # Tools 3 (formula) and 4 (summarize) are single-I/O — can be in same chunk
         # (depends on whether filter's True branch allows merging downstream)
         # At minimum, they should not violate boundary rules individually
-        formula_chunk = next(c for c in self.chunks if any(n.tool_id == 3 for n in c.nodes))
-        summarize_chunk = next(c for c in self.chunks if any(n.tool_id == 4 for n in c.nodes))
+        formula_chunk = next(
+            c for c in self.chunks if any(n.tool_id == 3 for n in c.nodes)
+        )
+        summarize_chunk = next(
+            c for c in self.chunks if any(n.tool_id == 4 for n in c.nodes)
+        )
         # Both must exist in some chunk — just verify they are present
         assert formula_chunk is not None
         assert summarize_chunk is not None
@@ -167,7 +179,13 @@ class TestChunkBoundaryRules:
       <EngineSettings EngineDll="x.dll" EngineDllEntryPoint="y" />
     </Node>"""
 
-    def _conn_xml(self, origin_id: int, origin_anchor: str, dest_id: int, dest_anchor: str = "Input") -> str:
+    def _conn_xml(
+        self,
+        origin_id: int,
+        origin_anchor: str,
+        dest_id: int,
+        dest_anchor: str = "Input",
+    ) -> str:
         return f"""
     <Connection>
       <Origin ToolID="{origin_id}" Connection="{origin_anchor}" />
@@ -181,15 +199,16 @@ class TestChunkBoundaryRules:
             + self._node_xml(2, "AlteryxBasePluginsGui.DbFileInput.DbFileInput")
             + self._node_xml(3, "AlteryxBasePluginsGui.Join.Join")
         )
-        conns = (
-            self._conn_xml(1, "Output", 3, "Left")
-            + self._conn_xml(2, "Output", 3, "Right")
+        conns = self._conn_xml(1, "Output", 3, "Left") + self._conn_xml(
+            2, "Output", 3, "Right"
         )
         dag = self._make_dag(self._wrap(nodes, conns), tmp_path)
         chunks = chunk_dag(dag)
 
         join_chunk = next(c for c in chunks if any(n.tool_id == 3 for n in c.nodes))
-        assert all(n.tool_id == 3 for n in join_chunk.nodes), "Join shares chunk with non-join tool"
+        assert all(n.tool_id == 3 for n in join_chunk.nodes), (
+            "Join shares chunk with non-join tool"
+        )
 
     def test_filter_one_output_merges_with_successor(self, tmp_path):
         """A filter with only one connected output (True only) is linear — merges downstream."""
@@ -198,17 +217,16 @@ class TestChunkBoundaryRules:
             + self._node_xml(2, "AlteryxBasePluginsGui.Filter.Filter")
             + self._node_xml(3, "AlteryxBasePluginsGui.Formula.Formula")
         )
-        conns = (
-            self._conn_xml(1, "Output", 2)
-            + self._conn_xml(2, "True", 3)
-        )
+        conns = self._conn_xml(1, "Output", 2) + self._conn_xml(2, "True", 3)
         dag = self._make_dag(self._wrap(nodes, conns), tmp_path)
         chunks = chunk_dag(dag)
 
         # Filter with 1 output → out_degree=1 → no boundary → can merge with formula
         filter_chunk = next(c for c in chunks if any(n.tool_id == 2 for n in c.nodes))
         formula_chunk = next(c for c in chunks if any(n.tool_id == 3 for n in c.nodes))
-        assert filter_chunk is formula_chunk, "Single-output filter should merge with successor"
+        assert filter_chunk is formula_chunk, (
+            "Single-output filter should merge with successor"
+        )
 
     def test_filter_two_outputs_ends_its_chunk(self, tmp_path):
         """A filter with both True and False connected must end its chunk."""
@@ -227,10 +245,18 @@ class TestChunkBoundaryRules:
         chunks = chunk_dag(dag)
 
         filter_chunk = next(c for c in chunks if any(n.tool_id == 2 for n in c.nodes))
-        formula_true_chunk = next(c for c in chunks if any(n.tool_id == 3 for n in c.nodes))
-        formula_false_chunk = next(c for c in chunks if any(n.tool_id == 4 for n in c.nodes))
-        assert filter_chunk is not formula_true_chunk, "Filter with 2 outputs must end its chunk"
-        assert formula_true_chunk is not formula_false_chunk, "True/False branches must be separate chunks"
+        formula_true_chunk = next(
+            c for c in chunks if any(n.tool_id == 3 for n in c.nodes)
+        )
+        formula_false_chunk = next(
+            c for c in chunks if any(n.tool_id == 4 for n in c.nodes)
+        )
+        assert filter_chunk is not formula_true_chunk, (
+            "Filter with 2 outputs must end its chunk"
+        )
+        assert formula_true_chunk is not formula_false_chunk, (
+            "True/False branches must be separate chunks"
+        )
 
     def test_linear_chain_merges(self, tmp_path):
         """Three single-I/O tools in a row should merge into one chunk."""
@@ -250,11 +276,7 @@ class TestChunkBoundaryRules:
 
         # All 4 tools may end up in 1 chunk (linear chain — no boundaries)
         # At minimum, formula and select (2 and 3) must be together or in very few chunks
-        tool_chunks = {
-            n.tool_id: c.chunk_id
-            for c in chunks
-            for n in c.nodes
-        }
+        tool_chunks = {n.tool_id: c.chunk_id for c in chunks for n in c.nodes}
         # Tools 2 and 3 are single-I/O with single-I/O neighbours — must be in same chunk
         assert tool_chunks[2] == tool_chunks[3], "Linear single-I/O tools not merged"
 
@@ -265,9 +287,8 @@ class TestChunkBoundaryRules:
             + self._node_xml(2, "AlteryxBasePluginsGui.DbFileInput.DbFileInput")
             + self._node_xml(3, "AlteryxBasePluginsGui.Union.Union")
         )
-        conns = (
-            self._conn_xml(1, "Output", 3, "Input")
-            + self._conn_xml(2, "Output", 3, "Input")
+        conns = self._conn_xml(1, "Output", 3, "Input") + self._conn_xml(
+            2, "Output", 3, "Input"
         )
         dag = self._make_dag(self._wrap(nodes, conns), tmp_path)
         chunks = chunk_dag(dag)
@@ -315,9 +336,7 @@ class TestChunkDagExample:
         seen_ctes: set[str] = set()
         for chunk in self.chunks:
             for input_cte in chunk.input_cte_names:
-                assert input_cte in seen_ctes, (
-                    f"CTE '{input_cte}' used before produced"
-                )
+                assert input_cte in seen_ctes, f"CTE '{input_cte}' used before produced"
             seen_ctes.add(chunk.output_cte_name)
 
     def test_joins_start_their_chunk(self):

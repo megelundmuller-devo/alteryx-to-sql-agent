@@ -159,132 +159,80 @@ class WorkflowDoc(BaseModel):
   - Assign stable CTE names: `cte_{tool_type}_{tool_id}`
   - Attach `input_cte_names` so translators know what to `SELECT FROM`
 
-### Phase 3 — Translation Layer
+### Phase 3 — Translation Layer **[DONE]**
 
-- [ ] **`src/translators/__init__.py`** — Registry: `dict[str, TranslatorFn]`; `translate_chunk(chunk) -> CTEFragment`
-- [ ] **`src/translators/input_output.py`** — `DbFileInput`, `DbFileOutput`, `OdbcInput`, `OdbcOutput`
-  - Input → `SELECT * FROM [schema].[table]`
-  - Output → no CTE (annotated in docs only); sink detection handled by assembler
-- [ ] **`src/translators/filter.py`** — `Filter`
-  - Deterministic for simple equality/range; pydantic-ai agent for complex Alteryx expressions
-  - True branch CTE: `WHERE <expr>` ; False branch CTE: `WHERE NOT (<expr>)`
-- [ ] **`src/translators/join.py`** — `Join`
-  - Left / Right / Inner / Full joins mapped from Alteryx join config to T-SQL `JOIN ... ON`
-- [ ] **`src/translators/union.py`** — `Union`
-  - `UNION ALL` (default) or `UNION` when dedup flag set
-- [ ] **`src/translators/select.py`** — `Select` (column chooser / renamer)
-  - Emits `SELECT [col1], [col2] AS [alias], ...`
-- [ ] **`src/translators/formula.py`** — `Formula` (computed columns)
-  - pydantic-ai agent translates Alteryx expression syntax → T-SQL expression
-  - See expression mapping table in Section 6
-- [ ] **`src/translators/summarize.py`** — `Summarize`
-  - `GroupBy` → `GROUP BY [col]`
-  - `Sum`, `Count`, `Avg`, `Min`, `Max`, `CountDistinct` → aggregate functions
-- [ ] **`src/translators/sort.py`** — `Sort`
-  - Materialised as `ROW_NUMBER() OVER (ORDER BY ...)` CTE when not at sink; `ORDER BY` in final SELECT at sink
-- [ ] **`src/translators/sample.py`** — `Sample`
-  - `SELECT TOP N` for fixed-N; `WHERE RN <= N` via window CTE for percentage/conditional
-- [ ] **`src/translators/multirow.py`** — `MultiRowFormula`
-  - Window functions: `LAG`, `LEAD`, `ROW_NUMBER`, `RANK` as needed
-- [ ] **`src/translators/append.py`** — `AppendFields`
-  - `CROSS JOIN` (Cartesian); warn if record counts could cause explosion
-- [ ] **`src/translators/find_replace.py`** — `FindReplace`
-  - `REPLACE([col], find, replace)` or `CASE WHEN` for conditional replacement
-- [ ] **`src/translators/unknown.py`** — AI-assisted fallback for unrecognised tools
-  - First, invoke a pydantic-ai agent with the tool's full config dict, annotation, input schema, and input CTE name — ask it to infer intent and produce a T-SQL CTE body
-  - If the agent succeeds, emit the generated CTE and mark `is_stub=False`
-  - If the agent fails or returns low-confidence output, fall back to a commented stub CTE
-  - Always add an entry to `ConversionResult.warnings` describing the unknown tool and what was done
-  - Check the tool registry (see Phase 9) before calling the LLM — cache hit skips the agent call
+- [x] **`src/translators/__init__.py`** — Registry + `translate_chunk(chunk, ctx) -> list[CTEFragment]`
+- [x] **`src/translators/context.py`** — `TranslationContext` dataclass (dag, chain_cte, warnings)
+- [x] **`src/translators/expressions.py`** — Deterministic Alteryx→T-SQL expression converter
+- [x] **`src/translators/input_output.py`** — DbFileInput (parse connection string), TextInput (VALUES), DbFileOutput (stub)
+- [x] **`src/translators/filter.py`** — WHERE from expression; True+False fragments for branching filters
+- [x] **`src/translators/join.py`** — INNER JOIN with parsed JoinInfo keys; Left/Right variants as comments
+- [x] **`src/translators/union.py`** — UNION ALL (default preserves duplicates)
+- [x] **`src/translators/select.py`** — SelectFields: rename/drop columns; Unknown pass-through
+- [x] **`src/translators/formula.py`** — Per-column expression converter; stub for LLM-needed fields
+- [x] **`src/translators/summarize.py`** — GroupBy/Sum/Count/Avg/Min/Max/CountDistinct/String_Agg
+- [x] **`src/translators/sort.py`** — ROW_NUMBER() OVER (ORDER BY) materialised sort
+- [x] **`src/translators/sample.py`** — SELECT TOP N; NEWID() for random
+- [x] **`src/translators/record_id.py`** — ROW_NUMBER() OVER (ORDER BY (SELECT NULL))
+- [x] **`src/translators/multirow.py`** — Always stub; flags for LLM (LAG/LEAD patterns)
+- [x] **`src/translators/append.py`** — CROSS JOIN of Target × Source
+- [x] **`src/translators/find_replace.py`** — REPLACE(); stub for regex replacements
+- [x] **`src/translators/macro.py`** — Stub CTE; expansion in Phase 5
+- [x] **`src/translators/unknown.py`** — Stub CTE with tool type + plugin in comment
 
-### Phase 4 — LLM Integration (pydantic-ai)
+### Phase 4 — LLM Integration (pydantic-ai) **[DONE]**
 
-- [ ] **`src/prompts.py`** — All system prompts and few-shot examples
-  - `SYSTEM_PROMPT`: role, T-SQL rules, CTE conventions, MSSQL-specific constraints
-  - `EXPRESSION_SYSTEM_PROMPT`: Alteryx → T-SQL expression translation with mapping table
-  - `DOC_SYSTEM_PROMPT`: workflow documentation generation instructions
-  - Few-shot examples for Formula, Filter, and MultiRowFormula translation
-- [ ] **`src/translators/formula.py`** (pydantic-ai agent portion)
-  - `Agent(model=settings.vertex_model, result_type=FormulaResult, system_prompt=EXPRESSION_SYSTEM_PROMPT)`
-  - `FormulaResult(BaseModel)`: `expression: str`, `explanation: str`
-- [ ] **`src/doc_agent.py`** — Workflow documentation agent
-  - `Agent(model=settings.vertex_model, result_type=WorkflowDoc, system_prompt=DOC_SYSTEM_PROMPT)`
-  - Receives full DAG summary + all CTEFragments as context
-  - Returns validated `WorkflowDoc` Pydantic model
-- [ ] **`src/settings.py`** — Pydantic `BaseSettings` reading env vars
-  - `vertex_project`, `vertex_location`, `vertex_model`, `llm_max_retries`
+- [x] **`src/llm/settings.py`** — `LLMSettings(BaseSettings)` reading VERTEX_PROJECT/LOCATION/MODEL, LLM_MAX_RETRIES
+- [x] **`src/llm/prompts.py`** — EXPRESSION_SYSTEM_PROMPT, CHUNK_SYSTEM_PROMPT, DOC_SYSTEM_PROMPT + few-shot examples
+- [x] **`src/llm/expression_agent.py`** — `convert_expression_llm(expr) -> str` using `Agent('google-vertex:gemini-2.5-pro', output_type=str)` with few-shot `message_history` to enforce bare T-SQL output
+- [x] **`src/llm/chunk_agent.py`** — `translate_chunk_llm(tool_type, plugin, config, input_ctes) -> str`
+- [x] **`src/llm/doc_agent.py`** — `generate_workflow_summary(name, steps, warnings) -> str`
 
-### Phase 5 — Assembly & Output
+### Phase 5 — Assembly & Output **[DONE]**
 
-- [ ] **`src/cte_builder.py`** — `list[CTEFragment]` → final T-SQL string
-  - Deduplicates CTE names (appends `_2`, `_3` on conflict)
-  - Emits `WITH [cte1] AS (\n  ...\n), [cte2] AS (\n  ...\n)\nSELECT * FROM [<sink_cte>];`
-  - Optionally wraps in `INSERT INTO [schema].[table]` if output tool is present
-  - Header comment block: source file, timestamp, tool count, warnings summary
+- [x] **`src/assembly/cte_builder.py`** — `build_sql(fragments, workflow_name) -> str`
+  - Header comment with source file, timestamp, stub count
+  - Stub banner inside each stub CTE block
+  - Trailing `SELECT * FROM [last_cte];`
+- [x] **`src/assembly/macro_handler.py`** — `expand_macro(...)` with recursive inlining up to MAX_MACRO_DEPTH=3
 
-### Phase 6 — Orchestration & CLI
+### Phase 6 — Orchestration, CLI & Documentation **[DONE]**
 
-- [ ] **`src/main.py`** — CLI entry point
-  - `argparse`: `--input workflow.yxmd --output-dir ./output [--model google-vertex:gemini-2.0-flash] [--dry-run] [--no-docs]`
-  - `--dry-run`: parse + chunk + print chunk summary, no LLM calls
-  - `--no-docs`: skip doc_agent, produce SQL only
-  - Wires full pipeline; writes `<stem>.sql` and `<stem>_docs.md` to output dir
-  - Progress output via `rich`
-- [ ] **`src/macro_handler.py`** — Macro expansion
-  - Inline expansion when `.yxmc` file is on disk (recursive parse)
-  - Stub CTE generation with warnings when file is missing
+- [x] **`src/main.py`** — CLI entry point
+  - `argparse`: positional `workflow` + `--output-dir` + `--dry-run` + `--no-docs`
+  - `--dry-run`: parse + chunk + print rich table, no translation or LLM calls
+  - `--no-docs`: produce `.sql` only, skip `_docs.md`
+  - Progress output via `rich` spinner + elapsed time for each phase
+  - Wires full pipeline (Phases 1→2→3→5→doc); writes `<stem>.sql` and `<stem>_docs.md`
+- [x] **`src/assembly/macro_handler.py`** — Macro handler
+  - External `.yxmc` files always produce a stub CTE + warning (intentional — macros are org-specific)
+- [x] **`src/llm/doc_agent.py`** — `generate_workflow_summary(prompt) -> str`
+  - `Agent('google-vertex:gemini-2.5-pro', output_type=str)` singleton
+  - Returns empty string on failure (caller renders fallback)
+- [x] **`src/doc_writer.py`** — `generate_docs(workflow_path, dag, chunks, fragments, warnings) -> str`
+  - Builds structured LLM prompt from the DAG, chunks, and CTEFragments (receives the pipeline tree directly)
+  - Calls `generate_workflow_summary` for the narrative Overview section
+  - Deterministically renders: header stats, Data Flow (sources → steps → sinks), CTE index, Warnings
+  - Graceful fallback if LLM unavailable
+- [x] **`tests/test_doc_writer.py`** — 13 tests; LLM mocked with `unittest.mock.patch`
 
-### Phase 7 — Tests & Fixtures
-
-- [ ] **`tests/fixtures/`** — Sample `.yxmd` XML snippets (one per tool type) + expected SQL
-- [ ] **`tests/test_parser.py`** — XML parsing, tool type normalisation, edge cases
-- [ ] **`tests/test_dag.py`** — DAG construction, topo-sort, cycle detection, source/sink detection
-- [ ] **`tests/test_chunker.py`** — Chunk boundary rules (branch, join, linear merge)
-- [ ] **`tests/test_translators.py`** — All deterministic translators (no LLM); mock for LLM-assisted ones
-- [ ] **`tests/test_cte_builder.py`** — CTE assembly, name deduplication, header block
-- [ ] **`tests/test_integration.py`** — End-to-end with mocked pydantic-ai agent
-
-### Phase 9 — Tool Registry Learning
+### Phase 7 — Tool Registry Learning **[DONE]**
 
 The goal is that an unknown tool is sent to the LLM **at most once** across all runs. After a successful AI-assisted translation in `translators/unknown.py`, the result is saved to a local JSON registry file. On the next run, the registry is checked before any LLM call — a cache hit produces the CTE immediately with no API cost.
 
-- [ ] **`src/tool_registry.py`** — Persistent JSON registry for learned tool translations
-  - Registry file location: `~/.alteryx_to_sql/tool_registry.json` (user-global) or `./tool_registry.json` (project-local, configurable via env)
-  - Entry structure per plugin string:
-    ```json
-    {
-      "plugin": "com.example.CustomAggregator.CustomAggregator",
-      "tool_type": "custom_aggregator",
-      "description": "LLM-inferred description of what this tool does",
-      "sql_pattern": "SELECT {group_cols}, COUNT(*) AS [Count] FROM {input} GROUP BY {group_cols}",
-      "confidence": "high",
-      "learned_at": "2026-04-09T12:00:00Z",
-      "example_config_hash": "abc123"
-    }
-    ```
-  - `ToolRegistry.lookup(plugin: str) -> RegistryEntry | None`
-  - `ToolRegistry.save(plugin: str, entry: RegistryEntry) -> None`
-  - Thread-safe file writes (file lock or atomic rename)
-- [ ] **`src/models.py`** — Add `RegistryEntry` Pydantic model
-- [ ] **Integration in `src/translators/unknown.py`** — Check registry before LLM call; save on success
-- [ ] **CLI flags in `src/main.py`**
-  - `--no-registry`: disable registry lookup and saving for this run
-  - `--clear-registry`: wipe the registry file before running
-  - `--show-registry`: print all learned entries and exit
-- [ ] **`tests/test_tool_registry.py`** — Lookup, save, concurrent write safety
-
-### Phase 8 — Workflow Documentation
-
-- [ ] **`src/doc_agent.py`** — pydantic-ai agent producing `WorkflowDoc`
-  - Receives: workflow name, list of `AlteryxStepDoc` (tool type + annotation + config summary), list of `SQLStepDoc` (CTE name + SQL body + source tool IDs)
-  - Produces: `WorkflowDoc` with human-readable summary sections
-- [ ] **`src/doc_writer.py`** — Renders `WorkflowDoc` → Markdown string
-  - Section 1: Workflow Overview (purpose, input sources, output targets)
-  - Section 2: Alteryx Step-by-Step (numbered list matching tool order)
-  - Section 3: Generated SQL Walkthrough (CTE-by-CTE explanation)
-  - Section 4: Notes & Manual Review Items (from `warnings`)
-- [ ] **Integration in `src/main.py`** — Wire doc_agent + doc_writer; write `<stem>_docs.md`
-- [ ] **`tests/test_doc_agent.py`** — Mock agent; test doc_writer Markdown rendering
+- [x] **`src/tool_registry.py`** — `ToolRegistry` + `make_entry()` + `default_registry()`
+  - Location: `~/.alteryx_to_sql/tool_registry.json` (or `TOOL_REGISTRY_PATH` env var)
+  - `lookup(plugin) -> RegistryEntry | None`; `save(entry)`; `all_entries()`; `clear()`
+  - Thread-safe via per-path module-level lock; atomic writes via `tempfile.mkstemp` + `os.replace`
+- [x] **`src/parsing/models.py`** — Added `RegistryEntry` Pydantic model
+- [x] **`src/translators/context.py`** — Added `registry: ToolRegistry | None = None` field
+- [x] **`src/translators/unknown.py`** — Three-step cascade: registry lookup → LLM → hard stub; saves to registry on LLM success
+- [x] **`src/llm/chunk_agent.py`** — Fixed `result_type` → `output_type`, `result.data` → `result.output`
+- [x] **CLI flags in `src/main.py`**
+  - `--no-registry`: pass `registry=None` to context (disables lookup and saving)
+  - `--clear-registry`: wipe the registry file before translating
+  - `--show-registry`: print all learned entries as a rich table and exit
+- [x] **`tests/test_tool_registry.py`** — 14 tests: lookup, save, persistence, overwrite, all_entries, clear, concurrent writes, make_entry
 
 ---
 
@@ -299,7 +247,7 @@ requires-python = ">=3.12"
 dependencies = [
     "networkx>=3.3",
     "pydantic>=2.7",
-    "pydantic-ai[google-vertex]>=0.0.14",
+    "pydantic-ai>=1.78.0",      # no [google-vertex] extra — it does not exist
     "pydantic-settings>=2.3",
     "rich>=13.7",
 ]
@@ -316,7 +264,7 @@ dev = [
 
 Install with:
 ```bash
-uv add networkx pydantic "pydantic-ai[google-vertex]" pydantic-settings rich
+uv add networkx pydantic pydantic-ai pydantic-settings rich
 uv add --dev pytest pytest-mock pytest-asyncio ruff pre-commit
 ```
 
@@ -391,8 +339,8 @@ All settings read from environment / `.env` file via `src/settings.py` (`pydanti
 
 ```env
 VERTEX_PROJECT=my-gcp-project
-VERTEX_LOCATION=us-central1
-VERTEX_MODEL=google-vertex:gemini-2.0-flash
+VERTEX_LOCATION=europe-west1
+VERTEX_MODEL=google-vertex:gemini-2.5-pro
 LLM_MAX_RETRIES=3
 ```
 

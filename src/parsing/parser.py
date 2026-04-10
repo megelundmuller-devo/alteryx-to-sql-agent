@@ -175,7 +175,11 @@ def _parse_node(node_elem: ET.Element) -> ToolNode:
             if not plugin:
                 plugin = f"macro:{macro_attr}"
 
-    tool_type = "macro" if macro_path and not plugin.startswith("Alteryx") else _normalize_plugin(plugin)
+    tool_type = (
+        "macro"
+        if macro_path and not plugin.startswith("Alteryx")
+        else _normalize_plugin(plugin)
+    )
 
     # --- Configuration ---
     properties_elem = node_elem.find("Properties")

@@ -174,7 +174,9 @@ class TestChunkBoundaryRules:
       </GuiSettings>
       <Properties>
         <Configuration />
-        <Annotation DisplayMode="0"><Name /><DefaultAnnotationText /><Left value="False" /></Annotation>
+        <Annotation DisplayMode="0">
+          <Name /><DefaultAnnotationText /><Left value="False" />
+        </Annotation>
       </Properties>
       <EngineSettings EngineDll="x.dll" EngineDllEntryPoint="y" />
     </Node>"""

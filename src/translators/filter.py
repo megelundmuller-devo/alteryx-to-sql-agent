@@ -150,7 +150,9 @@ def translate_filter(
             f"(Mode={cfg.get('Mode')!r}) — generating pass-through stub."
         )
         stub_sql = f"SELECT *\nFROM [{upstream}]  -- TODO: add WHERE condition"
-        return [CTEFragment(name=cte_name, sql=stub_sql, source_tool_ids=[node.tool_id], is_stub=True)]
+        return [
+            CTEFragment(name=cte_name, sql=stub_sql, source_tool_ids=[node.tool_id], is_stub=True)
+        ]
 
     if is_stub:
         # condition holds the raw Alteryx expression; needs LLM
@@ -163,7 +165,9 @@ def translate_filter(
             f"-- Alteryx: {condition}\n"
             f"SELECT *\nFROM [{upstream}]\nWHERE 1 = 1  -- REPLACE THIS"
         )
-        true_frag = CTEFragment(name=cte_name, sql=true_sql, source_tool_ids=[node.tool_id], is_stub=True)
+        true_frag = CTEFragment(
+            name=cte_name, sql=true_sql, source_tool_ids=[node.tool_id], is_stub=True
+        )
     else:
         true_sql = f"SELECT *\nFROM [{upstream}]\nWHERE {condition}"
         true_frag = CTEFragment(name=cte_name, sql=true_sql, source_tool_ids=[node.tool_id])

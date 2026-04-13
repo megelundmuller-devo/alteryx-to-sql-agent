@@ -167,7 +167,14 @@ def main() -> None:
         # Phase 5 — Assemble SQL
         # ------------------------------------------------------------------
         task = progress.add_task("Assembling SQL...", total=None)
-        sql = build_sql(all_fragments, workflow_name=workflow_path.name)
+        source_ids = {n.tool_id for n in dag.source_nodes()}
+        sink_ids = {n.tool_id for n in dag.sink_nodes()}
+        sql = build_sql(
+            all_fragments,
+            workflow_name=workflow_path.name,
+            source_ids=source_ids,
+            sink_ids=sink_ids,
+        )
         progress.remove_task(task)
 
         stem = workflow_path.stem

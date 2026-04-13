@@ -45,10 +45,38 @@ _HEADER_TEMPLATE = """\
 -- =============================================================================
 """
 
+_SECTION_BANNERS: dict[str, str] = {
+    "source": (
+        "-- -----------------------------------------------------------------------------\n"
+        "-- SOURCE LOADING\n"
+        "-- -----------------------------------------------------------------------------"
+    ),
+    "transform": (
+        "-- -----------------------------------------------------------------------------\n"
+        "-- TRANSFORMATIONS\n"
+        "-- -----------------------------------------------------------------------------"
+    ),
+    "output": (
+        "-- -----------------------------------------------------------------------------\n"
+        "-- OUTPUT\n"
+        "-- -----------------------------------------------------------------------------"
+    ),
+}
+
+
+def _classify_fragment(frag: CTEFragment, source_ids: set[int], sink_ids: set[int]) -> str:
+    if source_ids and any(tid in source_ids for tid in frag.source_tool_ids):
+        return "source"
+    if sink_ids and any(tid in sink_ids for tid in frag.source_tool_ids):
+        return "output"
+    return "transform"
+
 
 def build_sql(
     fragments: list[CTEFragment],
     workflow_name: str = "unknown",
+    source_ids: set[int] | None = None,
+    sink_ids: set[int] | None = None,
 ) -> str:
     """Assemble CTEFragments into a complete T-SQL script.
 
@@ -71,24 +99,32 @@ def build_sql(
         stub_count=stub_count,
     )
 
-    cte_blocks: list[str] = []
+    _source_ids: set[int] = source_ids or set()
+    _sink_ids: set[int] = sink_ids or set()
+    use_sections = bool(_source_ids or _sink_ids)
 
-    for frag in fragments:
+    parts: list[str] = []
+    current_section: str | None = None
+
+    for i, frag in enumerate(fragments):
+        if use_sections:
+            section = _classify_fragment(frag, _source_ids, _sink_ids)
+            if section != current_section:
+                parts.append(_SECTION_BANNERS[section])
+                current_section = section
+
         body = _indent(frag.sql, "    ")
-
         if frag.is_stub:
-            stub_banner = "    -- !!! STUB — requires manual review !!!"
-            body = stub_banner + "\n" + body
+            body = "    -- !!! STUB — requires manual review !!!\n" + body
 
-        block = f"[{frag.name}] AS (\n{body}\n)"
-        cte_blocks.append(block)
+        is_last = i == len(fragments) - 1
+        block = f"[{frag.name}] AS (\n{body}\n)" + ("" if is_last else ",")
+        parts.append(block)
 
-    cte_section = ",\n\n".join(cte_blocks)
+    cte_section = "\n\n".join(parts)
     last_name = fragments[-1].name
 
-    sql = f"{header}\nWITH\n{cte_section}\n\nSELECT * FROM [{last_name}];\n"
-
-    return sql
+    return f"{header}\nWITH\n{cte_section}\n\nSELECT * FROM [{last_name}];\n"
 
 
 def _indent(text: str, prefix: str) -> str:

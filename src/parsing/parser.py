@@ -142,6 +142,54 @@ def _parse_record_info(properties_elem: ET.Element) -> list[FieldSchema]:
 
 
 # ---------------------------------------------------------------------------
+# Source type inference
+# ---------------------------------------------------------------------------
+
+_FILE_EXTENSIONS: list[tuple[tuple[str, ...], str]] = [
+    ((".csv", ".tsv", ".txt"), "CSV/Text File"),
+    ((".xlsx", ".xlsm", ".xls"), "Excel File"),
+    ((".yxdb",), "Alteryx Database"),
+    ((".parquet",), "Parquet File"),
+    ((".avro",), "Avro File"),
+    ((".json",), "JSON File"),
+    ((".xml",), "XML File"),
+]
+
+
+def _classify_connection_string(conn_str: str) -> str:
+    """Return a human-readable source type from an Alteryx connection string."""
+    s = conn_str.strip()
+    if s.startswith("aka:"):
+        return "SQL Database"
+    if s.startswith(("s3://", "s3n://", "s3a://")):
+        return "Amazon S3"
+    if s.startswith("hdfs://"):
+        return "HDFS"
+    if s.startswith(("sftp://", "ftp://")):
+        return "FTP/SFTP"
+    if s.startswith(("http://", "https://")):
+        return "HTTP"
+    lower = s.lower().split("?")[0]
+    for exts, label in _FILE_EXTENSIONS:
+        if any(lower.endswith(e) for e in exts):
+            return label
+    return "File" if s else "Unknown"
+
+
+def _infer_source_type(tool_type: str, config: dict) -> str | None:
+    """Return the source type for input tools; None for all other tools."""
+    if tool_type == "text_input":
+        return "Inline Data"
+    if tool_type == "odbc_input":
+        return "ODBC Database"
+    if tool_type == "db_file_input":
+        file_cfg = config.get("File", {})
+        conn_str = file_cfg.get("_text", "") if isinstance(file_cfg, dict) else str(file_cfg)
+        return _classify_connection_string(conn_str)
+    return None
+
+
+# ---------------------------------------------------------------------------
 # Node parsing
 # ---------------------------------------------------------------------------
 
@@ -211,6 +259,7 @@ def _parse_node(node_elem: ET.Element) -> ToolNode:
         position=(x, y),
         output_schema=output_schema,
         macro_path=macro_path,
+        source_type=_infer_source_type(tool_type, config),
     )
 
 

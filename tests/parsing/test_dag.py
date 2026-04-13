@@ -126,7 +126,12 @@ class TestBuildDagErrors:
       <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
         <Position x="0" y="0" />
       </GuiSettings>
-      <Properties><Configuration /><Annotation DisplayMode="0"><Name /><DefaultAnnotationText /><Left value="False" /></Annotation></Properties>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name /><DefaultAnnotationText /><Left value="False" />
+        </Annotation>
+      </Properties>
       <EngineSettings EngineDll="x.dll" EngineDllEntryPoint="y" />
     </Node>
   </Nodes>
@@ -150,14 +155,24 @@ class TestBuildDagErrors:
       <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
         <Position x="0" y="0" />
       </GuiSettings>
-      <Properties><Configuration /><Annotation DisplayMode="0"><Name /><DefaultAnnotationText /><Left value="False" /></Annotation></Properties>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name /><DefaultAnnotationText /><Left value="False" />
+        </Annotation>
+      </Properties>
       <EngineSettings EngineDll="x.dll" EngineDllEntryPoint="y" />
     </Node>
     <Node ToolID="2">
       <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
         <Position x="100" y="0" />
       </GuiSettings>
-      <Properties><Configuration /><Annotation DisplayMode="0"><Name /><DefaultAnnotationText /><Left value="False" /></Annotation></Properties>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name /><DefaultAnnotationText /><Left value="False" />
+        </Annotation>
+      </Properties>
       <EngineSettings EngineDll="x.dll" EngineDllEntryPoint="y" />
     </Node>
   </Nodes>

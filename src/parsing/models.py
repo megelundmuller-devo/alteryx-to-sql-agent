@@ -33,6 +33,7 @@ class ToolNode(BaseModel):
     position: tuple[int, int]
     output_schema: list[FieldSchema]  # From <MetaInfo>/<RecordInfo>; may be empty
     macro_path: str | None = None  # Set for macro nodes (EngineSettings Macro="…")
+    source_type: str | None = None  # Set for input tools, e.g. "SQL Database", "Amazon S3"
 
 
 class Connection(BaseModel):

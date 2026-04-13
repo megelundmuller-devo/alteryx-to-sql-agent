@@ -4,11 +4,9 @@ import sys
 from pathlib import Path
 from unittest.mock import patch
 
-import pytest
-
 sys.path.insert(0, str(Path(__file__).parent.parent.parent / "src"))
 
-from parsing.models import CTEFragment, Chunk, Connection, ToolNode
+from parsing.models import Chunk, Connection, CTEFragment, ToolNode
 
 # ---------------------------------------------------------------------------
 # Helpers — minimal in-memory objects
@@ -46,7 +44,6 @@ def _minimal_dag():
     import networkx as nx
 
     from parsing.dag import AlteryxDAG
-    from parsing.models import Connection
 
     src = _make_node(1, "db_file_input", "Sales table")
     flt = _make_node(2, "filter", "Active only")

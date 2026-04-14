@@ -1,6 +1,8 @@
 """CTE assembler — Phase 5.
 
-Converts an ordered list of CTEFragments into a complete, valid T-SQL script.
+Converts an ordered list of CTEFragments into a complete, valid T-SQL stored
+procedure that can be pasted directly into SSMS / Azure Data Studio and
+executed on SQL Server 2016+.
 
 Output format
 -------------
@@ -8,21 +10,27 @@ Output format
     -- Source: <workflow_name>
     -- Generated: <timestamp>
 
-    WITH
-    [cte_name_1] AS (
-        <sql body>
-    ),
-    [cte_name_2] AS (
-        <sql body>
-    ),
-    ...
-    [last_cte] AS (
-        <sql body>
-    )
-    SELECT * FROM [last_cte];
+    CREATE PROCEDURE [dbo].[<proc_name>]
+    AS
+    BEGIN
+        SET NOCOUNT ON;
 
-The trailing SELECT * FROM [last_cte] makes the script immediately executable
-in SSMS / Azure Data Studio.  Users can remove or replace it as needed.
+        WITH
+        [cte_name_1] AS (
+            <sql body>
+        ),
+        ...
+        [last_cte] AS (
+            <sql body>
+        )
+
+        SELECT * FROM [last_cte];
+
+    END;
+    GO
+
+The procedure name is derived from the workflow filename by stripping the
+.yxmd extension and replacing non-alphanumeric characters with underscores.
 
 Stub detection
 --------------
@@ -32,7 +40,9 @@ comment so the reviewer can identify incomplete sections quickly.
 
 from __future__ import annotations
 
+import re
 from datetime import datetime, timezone
+from pathlib import Path
 
 from parsing.models import CTEFragment
 
@@ -64,6 +74,14 @@ _SECTION_BANNERS: dict[str, str] = {
 }
 
 
+def _proc_name(workflow_name: str) -> str:
+    """Derive a T-SQL-safe stored procedure name from the workflow filename."""
+    stem = Path(workflow_name).stem
+    safe = re.sub(r"[^A-Za-z0-9_]", "_", stem)
+    safe = re.sub(r"_+", "_", safe).strip("_")
+    return safe or "workflow"
+
+
 def _classify_fragment(frag: CTEFragment, source_ids: set[int], sink_ids: set[int]) -> str:
     if source_ids and any(tid in source_ids for tid in frag.source_tool_ids):
         return "source"
@@ -78,14 +96,16 @@ def build_sql(
     source_ids: set[int] | None = None,
     sink_ids: set[int] | None = None,
 ) -> str:
-    """Assemble CTEFragments into a complete T-SQL script.
+    """Assemble CTEFragments into a T-SQL stored procedure (SQL Server 2016+).
 
     Args:
         fragments:      Ordered list of CTEFragments (from translate_chunk calls).
-        workflow_name:  The source .yxmd filename (for the header comment).
+        workflow_name:  The source .yxmd filename (for the header and proc name).
+        source_ids:     Tool IDs classified as sources (used for section banners).
+        sink_ids:       Tool IDs classified as sinks (used for section banners).
 
     Returns:
-        A complete, formatted T-SQL string.
+        A complete ``CREATE PROCEDURE … AS BEGIN … END; GO`` T-SQL string.
     """
     if not fragments:
         return "-- No CTEs generated\nSELECT 1 AS _empty;"
@@ -123,8 +143,24 @@ def build_sql(
 
     cte_section = "\n\n".join(parts)
     last_name = fragments[-1].name
+    proc_name = _proc_name(workflow_name)
 
-    return f"{header}\nWITH\n{cte_section}\n\nSELECT * FROM [{last_name}];\n"
+    # Indent the entire WITH … SELECT block one level inside BEGIN…END.
+    inner_body = _indent(
+        f"WITH\n{cte_section}\n\nSELECT * FROM [{last_name}];",
+        "    ",
+    )
+
+    return (
+        f"{header}\n"
+        f"CREATE PROCEDURE [dbo].[{proc_name}]\n"
+        f"AS\n"
+        f"BEGIN\n"
+        f"    SET NOCOUNT ON;\n\n"
+        f"{inner_body}\n\n"
+        f"END;\n"
+        f"GO\n"
+    )
 
 
 def _indent(text: str, prefix: str) -> str:

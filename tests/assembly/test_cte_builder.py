@@ -67,7 +67,23 @@ class TestBuildSql:
         for line in body_lines:
             assert line.startswith("    "), f"Body line not indented: {line!r}"
 
-    def test_script_ends_with_semicolon(self):
+    def test_script_ends_with_go(self):
         frag = _frag("cte_a", "SELECT 1")
         result = build_sql([frag])
-        assert result.rstrip().endswith(";")
+        assert result.rstrip().endswith("GO")
+
+    def test_stored_procedure_structure(self):
+        frag = _frag("cte_a", "SELECT 1")
+        result = build_sql([frag], workflow_name="my_workflow.yxmd")
+        assert "CREATE PROCEDURE [dbo].[my_workflow]" in result
+        assert "AS" in result
+        assert "BEGIN" in result
+        assert "SET NOCOUNT ON" in result
+        assert "END;" in result
+        assert result.rstrip().endswith("GO")
+
+    def test_proc_name_sanitised(self):
+        """Spaces and hyphens in the workflow name become underscores in the proc name."""
+        frag = _frag("cte_a", "SELECT 1")
+        result = build_sql([frag], workflow_name="BI Report - Daily (2024).yxmd")
+        assert "CREATE PROCEDURE [dbo].[BI_Report_Daily_2024]" in result

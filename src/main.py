@@ -1,16 +1,22 @@
-"""CLI entry point — runs the full pipeline on a .yxmd file.
+"""CLI entry point — runs the full pipeline on one or more .yxmd files.
 
-Usage:
+Usage (single file):
     uv run python src/main.py examples/my_workflow.yxmd
     uv run python src/main.py examples/my_workflow.yxmd --output-dir output/
     uv run python src/main.py examples/my_workflow.yxmd --dry-run
     uv run python src/main.py examples/my_workflow.yxmd --no-docs
+
+Usage (batch — all .yxmd files in a directory):
+    uv run python src/main.py examples/
+    uv run python src/main.py examples/ --output-dir output/
+
+Other flags:
     uv run python src/main.py examples/my_workflow.yxmd --no-registry
     uv run python src/main.py --show-registry
     uv run python src/main.py --clear-registry
 
 Output files written to the output directory (default: same dir as input):
-    <name>.sql      — the generated T-SQL CTE script
+    <name>.sql      — generated T-SQL stored procedure
     <name>_docs.md  — human-readable workflow documentation
 """
 
@@ -41,10 +47,15 @@ console = Console()
 
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Convert an Alteryx .yxmd workflow to T-SQL CTEs.",
+        description="Convert Alteryx .yxmd workflow(s) to T-SQL stored procedures.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
-    parser.add_argument("workflow", type=Path, nargs="?", help="Path to the .yxmd file")
+    parser.add_argument(
+        "workflow",
+        type=Path,
+        nargs="?",
+        help="Path to a .yxmd file or a directory containing .yxmd files",
+    )
     parser.add_argument(
         "--output-dir",
         type=Path,
@@ -80,34 +91,17 @@ def _parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def main() -> None:
-    args = _parse_args()
+def _process_one(
+    workflow_path: Path,
+    output_dir: Path,
+    args: argparse.Namespace,
+    registry: ToolRegistry | None,
+) -> list[str]:
+    """Run the full pipeline for a single .yxmd file.
 
-    registry = default_registry()
-
-    # ------------------------------------------------------------------
-    # Registry-only commands (exit early, no workflow needed)
-    # ------------------------------------------------------------------
-    if args.show_registry:
-        _show_registry(registry)
-        return
-
-    if args.clear_registry:
-        registry.clear()
-        console.print(f"[green]Registry cleared:[/green] {registry.path}")
-
-    if args.workflow is None:
-        console.print("[bold red]ERROR:[/bold red] workflow path is required.")
-        sys.exit(1)
-
-    workflow_path: Path = args.workflow.resolve()
-    if not workflow_path.exists():
-        console.print(f"[bold red]ERROR:[/bold red] file not found: {workflow_path}")
-        sys.exit(1)
-
-    output_dir: Path = (args.output_dir or workflow_path.parent).resolve()
-    output_dir.mkdir(parents=True, exist_ok=True)
-
+    Returns the list of warning strings emitted during translation.
+    Raises on any unrecoverable error so the batch caller can catch and continue.
+    """
     with Progress(
         SpinnerColumn(),
         TextColumn("[progress.description]{task.description}"),
@@ -115,39 +109,33 @@ def main() -> None:
         console=console,
         transient=True,
     ) as progress:
-        # ------------------------------------------------------------------
         # Phase 1 — Parse
-        # ------------------------------------------------------------------
         task = progress.add_task("Parsing workflow...", total=None)
         parsed = parse_workflow(workflow_path)
         dag = build_dag(parsed)
         progress.remove_task(task)
 
-        console.print(f"[bold]Parsed[/bold] {workflow_path.name}")
+        console.print(f"  [bold]Parsed[/bold] {workflow_path.name}")
         console.print(
-            f"  {dag.node_count()} tools  •  {dag.edge_count()} connections  •  "
+            f"    {dag.node_count()} tools  •  {dag.edge_count()} connections  •  "
             f"{len(dag.source_nodes())} source(s)  •  {len(dag.sink_nodes())} sink(s)"
         )
 
-        # ------------------------------------------------------------------
         # Phase 2 — Chunk
-        # ------------------------------------------------------------------
         task = progress.add_task("Chunking DAG...", total=None)
         chunks = chunk_dag(dag)
         progress.remove_task(task)
 
         console.print(
-            f"[bold]Chunked[/bold] → {len(chunks)} chunk(s) from {dag.node_count()} tools"
+            f"    [bold]Chunked[/bold] → {len(chunks)} chunk(s) from {dag.node_count()} tools"
         )
 
         if args.dry_run:
             _print_chunk_table(chunks)
             console.print("\n[yellow]--dry-run:[/yellow] stopping before translation.")
-            return
+            return []
 
-        # ------------------------------------------------------------------
         # Phase 3 — Translate
-        # ------------------------------------------------------------------
         task = progress.add_task("Translating chunks...", total=None)
         ctx = TranslationContext(dag=dag, registry=None if args.no_registry else registry)
         all_fragments = []
@@ -161,11 +149,9 @@ def main() -> None:
             if stubs
             else "[green]0 stubs[/green]"
         )
-        console.print(f"[bold]Translated[/bold] → {len(all_fragments)} CTE(s)  •  {stub_label}")
+        console.print(f"    [bold]Translated[/bold] → {len(all_fragments)} CTE(s)  •  {stub_label}")
 
-        # ------------------------------------------------------------------
         # Phase 5 — Assemble SQL
-        # ------------------------------------------------------------------
         task = progress.add_task("Assembling SQL...", total=None)
         source_ids = {n.tool_id for n in dag.source_nodes()}
         sink_ids = {n.tool_id for n in dag.sink_nodes()}
@@ -180,11 +166,9 @@ def main() -> None:
         stem = workflow_path.stem
         sql_path = output_dir / f"{stem}.sql"
         sql_path.write_text(sql, encoding="utf-8")
-        console.print(f"[bold]SQL written to[/bold]  {sql_path}")
+        console.print(f"    [bold]SQL written to[/bold]  {sql_path}")
 
-        # ------------------------------------------------------------------
         # Workflow documentation
-        # ------------------------------------------------------------------
         if not args.no_docs:
             doc_task = progress.add_task("Generating documentation...", total=None)
             docs_md = generate_docs(workflow_path, dag, chunks, all_fragments, ctx.warnings)
@@ -192,13 +176,81 @@ def main() -> None:
 
             docs_path = output_dir / f"{stem}_docs.md"
             docs_path.write_text(docs_md, encoding="utf-8")
-            console.print(f"[bold]Docs written to[/bold] {docs_path}")
+            console.print(f"    [bold]Docs written to[/bold] {docs_path}")
 
-    # Print warnings after progress context exits so they are visible
-    if ctx.warnings:
-        console.print(f"\n[yellow]{len(ctx.warnings)} warning(s):[/yellow]")
-        for w in ctx.warnings:
-            console.print(f"  [yellow]⚠[/yellow]  {w}")
+    return ctx.warnings
+
+
+def main() -> None:
+    args = _parse_args()
+
+    registry = default_registry()
+
+    # Registry-only commands (exit early, no workflow needed)
+    if args.show_registry:
+        _show_registry(registry)
+        return
+
+    if args.clear_registry:
+        registry.clear()
+        console.print(f"[green]Registry cleared:[/green] {registry.path}")
+
+    if args.workflow is None:
+        console.print("[bold red]ERROR:[/bold red] workflow path is required.")
+        sys.exit(1)
+
+    workflow_arg: Path = args.workflow.resolve()
+
+    if not workflow_arg.exists():
+        console.print(f"[bold red]ERROR:[/bold red] path not found: {workflow_arg}")
+        sys.exit(1)
+
+    # Collect files to process
+    if workflow_arg.is_dir():
+        files = sorted(workflow_arg.glob("*.yxmd"))
+        if not files:
+            console.print(f"[yellow]No .yxmd files found in {workflow_arg}[/yellow]")
+            sys.exit(1)
+        default_output = workflow_arg
+    else:
+        files = [workflow_arg]
+        default_output = workflow_arg.parent
+
+    output_dir: Path = (args.output_dir or default_output).resolve()
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    if len(files) > 1:
+        console.print(
+            f"[bold]Batch:[/bold] {len(files)} workflow(s) in {workflow_arg.name}/  →  {output_dir}"
+        )
+
+    succeeded: list[str] = []
+    failed: list[tuple[str, str]] = []
+
+    for workflow_path in files:
+        if len(files) > 1:
+            console.print(f"\n[cyan]▶[/cyan] {workflow_path.name}")
+
+        try:
+            warnings = _process_one(workflow_path, output_dir, args, registry)
+            succeeded.append(workflow_path.name)
+            if warnings:
+                console.print(f"    [yellow]{len(warnings)} warning(s):[/yellow]")
+                for w in warnings:
+                    console.print(f"      [yellow]⚠[/yellow]  {w}")
+        except Exception as exc:  # noqa: BLE001
+            failed.append((workflow_path.name, str(exc)))
+            console.print(f"  [bold red]ERROR:[/bold red] {exc}")
+
+    # Batch summary
+    if len(files) > 1:
+        console.print(
+            f"\n[bold]Batch complete:[/bold] "
+            f"[green]{len(succeeded)} succeeded[/green]"
+            + (f"  [red]{len(failed)} failed[/red]" if failed else "")
+        )
+        for name, err in failed:
+            console.print(f"  [red]✗[/red]  {name}: {err}")
 
 
 def _show_registry(registry: ToolRegistry) -> None:

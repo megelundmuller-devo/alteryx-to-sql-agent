@@ -278,6 +278,69 @@ class TestSummarizeTranslator:
         assert "MIN([Col])" in frag.sql
         assert len(ctx.warnings) > 0
 
+    def test_concat_no_groupby_uses_xml_path(self):
+        """Concat without GroupBy: full-table STUFF…FOR XML PATH, no STRING_AGG."""
+        from translators.summarize import translate_summarize
+
+        cfg = {
+            "SummarizeFields": {
+                "SummarizeField": [
+                    {"field": "Tag", "action": "Concat", "rename": "AllTags"},
+                ]
+            }
+        }
+        node = _node(1, "summarize", cfg)
+        frag = translate_summarize(node, "cte_1", ["up"], _make_ctx())
+        assert "STRING_AGG" not in frag.sql
+        assert "FOR XML PATH" in frag.sql
+        assert "STUFF" in frag.sql
+        assert "[AllTags]" in frag.sql
+        # Non-correlated — no alias needed
+        assert "[_outer]" not in frag.sql
+        assert "[_sub]" not in frag.sql
+
+    def test_concat_with_groupby_uses_correlated_xml_path(self):
+        """Concat with GroupBy: correlated STUFF…FOR XML PATH per group."""
+        from translators.summarize import translate_summarize
+
+        cfg = {
+            "SummarizeFields": {
+                "SummarizeField": [
+                    {"field": "Category", "action": "GroupBy", "rename": "Category"},
+                    {"field": "Tag", "action": "Concat", "rename": "Tags"},
+                ]
+            }
+        }
+        node = _node(1, "summarize", cfg)
+        frag = translate_summarize(node, "cte_1", ["up"], _make_ctx())
+        assert "STRING_AGG" not in frag.sql
+        assert "FOR XML PATH" in frag.sql
+        assert "[_outer]" in frag.sql
+        assert "[_sub]" in frag.sql
+        # Correlation condition must reference the group-by column
+        assert "[_sub].[Category] = [_outer].[Category]" in frag.sql
+        assert "GROUP BY [_outer].[Category]" in frag.sql
+        assert "[Tags]" in frag.sql
+
+    def test_concat_distinct_uses_distinct_keyword(self):
+        """ConcatDistinct produces DISTINCT inside the XML PATH subquery."""
+        from translators.summarize import translate_summarize
+
+        cfg = {
+            "SummarizeFields": {
+                "SummarizeField": [
+                    {"field": "Region", "action": "GroupBy", "rename": "Region"},
+                    {"field": "Code", "action": "ConcatDistinct", "rename": "Codes"},
+                ]
+            }
+        }
+        node = _node(1, "summarize", cfg)
+        frag = translate_summarize(node, "cte_1", ["src"], _make_ctx())
+        assert "STRING_AGG" not in frag.sql
+        assert "DISTINCT" in frag.sql
+        assert "FOR XML PATH" in frag.sql
+        assert "[Codes]" in frag.sql
+
 
 class TestJoinTranslator:
     def test_join_with_keys(self):

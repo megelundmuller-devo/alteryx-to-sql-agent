@@ -348,6 +348,77 @@ Authentication: `gcloud auth application-default login` (Application Default Cre
 
 ---
 
+### Phase 8 — Batch CLI **[DONE]**
+
+- [x] **`src/main.py`** — `workflow` argument now accepts a file **or a directory**
+  - Directory mode: globs `*.yxmd`, processes each file in sorted order
+  - Per-file errors caught and logged without aborting the batch
+  - Batch summary line: `N succeeded / M failed`
+
+### Phase 9 — MSSQL 2016 Compliance **[DONE]**
+
+- [x] **`src/translators/summarize.py`** — Replace `STRING_AGG` (SQL Server 2017+) with
+  `STUFF(…FOR XML PATH(''), TYPE).value(…)` for `Concat` and `ConcatDistinct` actions
+  - No-GroupBy: non-correlated full-table subquery
+  - GroupBy + Concat: correlated subquery aliased as `[_outer]`/`[_sub]`
+- [x] **`src/assembly/cte_builder.py`** — Wrap output in `CREATE PROCEDURE [dbo].[<name>] AS BEGIN … END; GO`
+  - Procedure name derived from workflow filename (non-alphanumeric → `_`)
+  - `SET NOCOUNT ON` at top of body
+
+---
+
+### Phase 10 — Translation Fixes
+
+Fix systematic translation errors identified during real-workflow runs.  All
+fixes must be deterministic (no new LLM calls) except where explicitly noted.
+
+#### 10a — Alteryx function mappings (deterministic)
+
+Add missing Alteryx→T-SQL mappings to `src/translators/expressions.py` and to
+`src/llm/prompts.py` (EXPRESSION_SYSTEM_PROMPT) so neither the deterministic
+translator nor the LLM emits them:
+
+- [ ] `ToDate(x)`               → `CAST(x AS DATE)`
+- [ ] `IsInteger(x)`            → `TRY_CAST(x AS INT) IS NOT NULL`
+- [ ] `DateTimeFirstOfMonth()`  → `DATEFROMPARTS(YEAR(GETDATE()), MONTH(GETDATE()), 1)`
+- [ ] `TitleCase(x)`            → `UPPER(LEFT(x,1)) + LOWER(SUBSTRING(x,2,LEN(x)))`
+                                   *(first-word only; document limitation)*
+
+#### 10b — Alteryx engine variables (deterministic)
+
+- [ ] **`src/translators/expressions.py`** — Detect `[Engine.*]` references with a
+  regex; replace each with a named T-SQL variable (`@WorkflowFileName`, etc.)
+- [ ] **`src/assembly/cte_builder.py`** — Collect all engine-variable names emitted
+  during translation and prepend `DECLARE @<name> NVARCHAR(255) = N'<replace me>';`
+  lines inside `BEGIN`, before `SET NOCOUNT ON`, so the user can fill them in once
+
+#### 10c — Schema tracking via `<RecordInfo>` metadata (deterministic)
+
+Root cause of two separate warning classes:
+- JOIN `SELECT L.*, R.*` → duplicate column names in every downstream CTE
+- Select pass-through + explicit columns → columns referenced downstream but not defined
+
+Alteryx embeds exact field lists (`<RecordInfo>`) on every connection in the `.yxmd`
+XML.  Extract this metadata in Phase 1 and propagate it through the pipeline so
+translators can emit explicit column lists instead of `*`.
+
+- [ ] **`src/parsing/models.py`** — Add `FieldMeta(name, alteryx_type)` model; add
+  `schema: list[FieldMeta]` field to `Connection`
+- [ ] **`src/parsing/parser.py`** — Parse `<RecordInfo><Field>` elements on each
+  `<Connection>` and populate `Connection.schema`
+- [ ] **`src/parsing/dag.py`** — Attach incoming schema to each node so translators
+  can read `ctx.incoming_schema(node)` during translation
+- [ ] **`src/translators/join.py`** — When both input schemas are known, emit explicit
+  `SELECT L.[col], …, R.[col], …` de-duplicating clashing names with `_L`/`_R` suffix
+  instead of `SELECT L.*, R.*`
+- [ ] **`src/translators/select.py`** — Resolve pass-through using the incoming schema;
+  emit the full explicit column list rather than a partial pass-through
+
+LLM fallback: if a connection's `<RecordInfo>` is absent (e.g. after a macro stub),
+fall back to the existing `SELECT L.*, R.*` behaviour and emit the existing warning.
+
+---
+
 ## 8. Open Questions / Future Work
 
 - **Schema inference:** Alteryx stores inferred column schemas in `<RecordInfo>` elements — extract these to provide column-level context to the LLM, reducing hallucinated column names.

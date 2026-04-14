@@ -5,32 +5,23 @@ Summarize performs GROUP BY aggregation.  Each <SummarizeField> has an
 
 Supported actions (Alteryx → T-SQL)
 -------------------------------------
-GroupBy    → GROUP BY column
-Sum        → SUM([col])
-Count      → COUNT([col])
-CountDistinct → COUNT(DISTINCT [col])
-Min        → MIN([col])
-Max        → MAX([col])
-Avg        → AVG(CAST([col] AS FLOAT))  — cast avoids integer division
-First      → MIN([col])  + warning (Alteryx "First" is non-deterministic)
-Last       → MAX([col])  + warning
-Concat     → STRING_AGG([col], ', ')   (T-SQL 2017+)
-ConcatDistinct → STRING_AGG(DISTINCT [col], ', ')  — not valid in T-SQL;
-              we emit STRING_AGG with a warning to deduplicate manually
+GroupBy        → GROUP BY column
+Sum            → SUM([col])
+Count          → COUNT([col])
+CountDistinct  → COUNT(DISTINCT [col])
+Min            → MIN([col])
+Max            → MAX([col])
+Avg            → AVG(CAST([col] AS FLOAT))  — cast avoids integer division
+First          → MIN([col])  + warning (Alteryx "First" is non-deterministic)
+Last           → MAX([col])  + warning
+Concat         → STUFF(…FOR XML PATH(''), TYPE) — SQL Server 2016-compatible
+ConcatDistinct → STUFF(…DISTINCT…FOR XML PATH(''), TYPE) — deduplicates before concat
 """
 
 from __future__ import annotations
 
 from parsing.models import CTEFragment, ToolNode
 from translators.context import TranslationContext
-
-_ACTION_MAP: dict[str, str] = {
-    "Sum": "SUM",
-    "Count": "COUNT",
-    "CountDistinct": "COUNT(DISTINCT {col})",  # special-cased below
-    "Min": "MIN",
-    "Max": "MAX",
-}
 
 
 def translate_summarize(
@@ -55,7 +46,17 @@ def translate_summarize(
             name=cte_name, sql=sql, source_tool_ids=[node.tool_id], is_stub=True
         )
 
-    group_by_cols: list[str] = []
+    # First pass: collect group-by column names — needed to build correlated subqueries
+    # for Concat/ConcatDistinct when a GroupBy is also present.
+    group_by_cols: list[str] = [
+        f.get("field", "") for f in fields if f.get("action", "GroupBy") == "GroupBy"
+    ]
+    has_concat = any(f.get("action") in ("Concat", "ConcatDistinct") for f in fields)
+
+    # When Concat and GroupBy coexist we alias the outer table so the inner
+    # FOR XML PATH subquery can correlate back to the current group.
+    use_outer_alias = has_concat and bool(group_by_cols)
+
     select_cols: list[str] = []
 
     for f in fields:
@@ -64,11 +65,11 @@ def translate_summarize(
         rename = f.get("rename", col)
 
         if action == "GroupBy":
-            group_by_cols.append(f"[{col}]")
-            alias = f"[{rename}]" if rename != col else f"[{col}]"
-            select_cols.append(
-                f"    {alias}" if rename == col else f"    [{col}] AS {alias}"
-            )
+            col_expr = f"[_outer].[{col}]" if use_outer_alias else f"[{col}]"
+            if rename != col:
+                select_cols.append(f"    {col_expr} AS [{rename}]")
+            else:
+                select_cols.append(f"    {col_expr}")
         elif action == "Sum":
             select_cols.append(f"    SUM([{col}]) AS [{rename}]")
         elif action == "Count":
@@ -98,15 +99,12 @@ def translate_summarize(
                 f"    MAX([{col}]) AS [{rename}]  -- was: Last (non-deterministic)"
             )
         elif action == "Concat":
-            select_cols.append(f"    STRING_AGG([{col}], ', ') AS [{rename}]")
-        elif action == "ConcatDistinct":
-            ctx.warnings.append(
-                f"Tool {node.tool_id} (summarize): 'ConcatDistinct' on [{col}] — "
-                "T-SQL STRING_AGG does not support DISTINCT. Review manually."
-            )
             select_cols.append(
-                f"    STRING_AGG([{col}], ', ') AS [{rename}]"
-                f"  -- was: ConcatDistinct (not valid in T-SQL)"
+                _concat_xml_path(col, rename, upstream, group_by_cols, distinct=False)
+            )
+        elif action == "ConcatDistinct":
+            select_cols.append(
+                _concat_xml_path(col, rename, upstream, group_by_cols, distinct=True)
             )
         else:
             ctx.warnings.append(
@@ -121,10 +119,51 @@ def translate_summarize(
 
     cols_sql = ",\n".join(select_cols)
     if group_by_cols:
-        group_sql = ", ".join(group_by_cols)
-        sql = f"SELECT\n{cols_sql}\nFROM [{upstream}]\nGROUP BY {group_sql}"
+        if use_outer_alias:
+            group_sql = ", ".join(f"[_outer].[{c}]" for c in group_by_cols)
+            sql = f"SELECT\n{cols_sql}\nFROM [{upstream}] AS [_outer]\nGROUP BY {group_sql}"
+        else:
+            group_sql = ", ".join(f"[{c}]" for c in group_by_cols)
+            sql = f"SELECT\n{cols_sql}\nFROM [{upstream}]\nGROUP BY {group_sql}"
     else:
-        # No group-by means aggregate over the whole table
         sql = f"SELECT\n{cols_sql}\nFROM [{upstream}]"
 
     return CTEFragment(name=cte_name, sql=sql, source_tool_ids=[node.tool_id])
+
+
+def _concat_xml_path(
+    col: str,
+    rename: str,
+    upstream: str,
+    group_by_cols: list[str],
+    *,
+    distinct: bool,
+) -> str:
+    """Build a STUFF(…FOR XML PATH) concatenation — SQL Server 2016-compatible.
+
+    When *group_by_cols* is non-empty the inner SELECT is correlated to the
+    outer alias ``[_outer]`` so each group receives its own concatenated value.
+    ``DISTINCT`` inside the subquery deduplicates values before concatenation.
+    """
+    distinct_kw = "DISTINCT " if distinct else ""
+    if group_by_cols:
+        value_expr = f"', ' + ISNULL(CAST([_sub].[{col}] AS NVARCHAR(MAX)), '')"
+        where = " AND ".join(f"[_sub].[{g}] = [_outer].[{g}]" for g in group_by_cols)
+        inner = (
+            f"SELECT {distinct_kw}{value_expr}\n"
+            f"            FROM [{upstream}] AS [_sub]\n"
+            f"            WHERE {where}\n"
+            f"            FOR XML PATH(''), TYPE"
+        )
+    else:
+        value_expr = f"', ' + ISNULL(CAST([{col}] AS NVARCHAR(MAX)), '')"
+        inner = (
+            f"SELECT {distinct_kw}{value_expr}\n"
+            f"            FROM [{upstream}]\n"
+            f"            FOR XML PATH(''), TYPE"
+        )
+    return (
+        f"    STUFF((\n"
+        f"        {inner}\n"
+        f"    ).value('.', 'NVARCHAR(MAX)'), 1, 2, '') AS [{rename}]"
+    )

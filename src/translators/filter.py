@@ -26,7 +26,7 @@ from __future__ import annotations
 from llm.expression_agent import convert_expression_llm
 from parsing.models import CTEFragment, ToolNode
 from translators.context import TranslationContext
-from translators.expressions import convert_expression, needs_llm_translation
+from translators.expressions import convert_expression, looks_like_sql, needs_llm_translation
 
 # Alteryx Simple-mode operator → T-SQL fragment
 # Operators that need the operand quoted are handled inline.
@@ -40,7 +40,7 @@ _SIMPLE_OPS: dict[str, str] = {
     ">=": ">=",
     "IsNull": "IS NULL",
     "IsNotNull": "IS NOT NULL",
-    "IsEmpty": "IS NULL",       # Alteryx "IsEmpty" covers both NULL and ""
+    "IsEmpty": "IS NULL",  # Alteryx "IsEmpty" covers both NULL and ""
     "IsNotEmpty": "IS NOT NULL",
     "Contains": "LIKE",
     "DoesNotContain": "NOT LIKE",
@@ -103,7 +103,7 @@ def _simple_condition(simple: dict) -> str | None:
     return None
 
 
-def _get_expression(cfg: dict) -> tuple[str, bool]:
+def _get_expression(cfg: dict, engine_vars: set[str] | None = None) -> tuple[str, bool]:
     """Return (sql_condition_or_empty, is_stub) from the filter config.
 
     Handles both Simple and Custom modes.
@@ -125,11 +125,16 @@ def _get_expression(cfg: dict) -> tuple[str, bool]:
 
     if needs_llm_translation(expression):
         sql_expr = convert_expression_llm(expression)
-        if sql_expr.startswith("-- LLM") or "MANUAL REVIEW" in sql_expr:
-            return expression, True  # LLM failed — caller emits stub
+        llm_failed = (
+            sql_expr.startswith("-- LLM")
+            or "MANUAL REVIEW" in sql_expr
+            or not looks_like_sql(sql_expr)
+        )
+        if llm_failed:
+            return expression, True  # LLM failed or returned prose — caller emits stub
         return sql_expr, False
 
-    return convert_expression(expression), False
+    return convert_expression(expression, engine_vars), False
 
 
 def translate_filter(
@@ -142,7 +147,7 @@ def translate_filter(
     upstream = input_ctes[0] if input_ctes else "-- NO_UPSTREAM"
     cfg = node.config
 
-    condition, is_stub = _get_expression(cfg)
+    condition, is_stub = _get_expression(cfg, ctx.engine_vars)
 
     if not condition:
         ctx.warnings.append(

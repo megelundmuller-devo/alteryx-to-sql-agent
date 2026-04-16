@@ -33,6 +33,8 @@ from rich.table import Table
 # Ensure src/ is importable when running as `python src/main.py`
 sys.path.insert(0, str(Path(__file__).parent))
 
+from analysis.liveness import run_liveness_pass
+from analysis.llm_validator import repair_fragments
 from assembly.cte_builder import build_sql
 from chunking.chunker import chunk_dag
 from doc_gen.doc_writer import generate_docs
@@ -151,6 +153,29 @@ def _process_one(
         )
         console.print(f"    [bold]Translated[/bold] → {len(all_fragments)} CTE(s)  •  {stub_label}")
 
+        # Phase 3b — Liveness pass (deterministic SELECT widening)
+        task = progress.add_task("Running liveness pass...", total=None)
+        all_fragments, gap_warnings = run_liveness_pass(all_fragments, ctx)
+        ctx.warnings.extend(gap_warnings)
+        progress.remove_task(task)
+        if gap_warnings:
+            console.print(
+                f"    [bold]Liveness[/bold] → "
+                f"[yellow]{len(gap_warnings)} gap(s) passed to LLM repair[/yellow]"
+            )
+
+        # Phase 3c — Column validation (flags remaining unresolvable references)
+        task = progress.add_task("Validating column references...", total=None)
+        all_fragments = repair_fragments(all_fragments, ctx)
+        progress.remove_task(task)
+        flagged = [f for f in all_fragments if f.llm_repair_notes]
+        if flagged:
+            console.print(
+                f"    [bold]Validation[/bold] → "
+                f"[yellow]{len(flagged)} CTE(s) flagged[/yellow] with unresolvable column references  "
+                f"[dim](marked ⚠ in docs — review before production)[/dim]"
+            )
+
         # Phase 5 — Assemble SQL
         task = progress.add_task("Assembling SQL...", total=None)
         source_ids = {n.tool_id for n in dag.source_nodes()}
@@ -160,6 +185,7 @@ def _process_one(
             workflow_name=workflow_path.name,
             source_ids=source_ids,
             sink_ids=sink_ids,
+            engine_vars=ctx.engine_vars,
         )
         progress.remove_task(task)
 

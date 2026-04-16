@@ -106,3 +106,39 @@ class TestConvertExpression:
         expr = "[Col1] = [Col2]"
         result = convert_expression(expr)
         assert result == expr
+
+    def test_todate(self):
+        result = convert_expression("TODATE([timestamp])")
+        assert "CAST([timestamp] AS DATE)" in result
+
+    def test_isinteger(self):
+        result = convert_expression("ISINTEGER([ACCOUNT])")
+        assert "TRY_CAST([ACCOUNT] AS INT) IS NOT NULL" in result
+
+    def test_titlecase(self):
+        result = convert_expression("TITLECASE([name])")
+        assert "UPPER(LEFT([name], 1))" in result
+        assert "LOWER(SUBSTRING([name], 2, LEN([name])))" in result
+
+    def test_datetimefirstofmonth(self):
+        result = convert_expression("DATETIMEFIRSTOFMONTH()")
+        assert "DATEFROMPARTS(YEAR(GETDATE()), MONTH(GETDATE()), 1)" in result
+
+    def test_engine_var_replaced(self):
+        evars: set[str] = set()
+        result = convert_expression("[Engine.WorkflowFileName]", evars)
+        assert result == "@WorkflowFileName"
+        assert "WorkflowFileName" in evars
+
+    def test_engine_var_directory(self):
+        evars: set[str] = set()
+        result = convert_expression(
+            "'prefix_' + [Engine.WorkflowDirectory] + '_suffix'", evars
+        )
+        assert "@WorkflowDirectory" in result
+        assert "WorkflowDirectory" in evars
+
+    def test_engine_var_no_collection_when_none(self):
+        # When engine_vars=None, replacement still happens but nothing is collected
+        result = convert_expression("[Engine.WorkflowFileName]", None)
+        assert result == "@WorkflowFileName"

@@ -146,9 +146,31 @@ def _render_markdown(
     lines.append("## CTEs")
     lines.append("")
     for frag in all_fragments:
-        stub_flag = " ⚠ stub" if frag.is_stub else ""
-        lines.append(f"- `{frag.name}`{stub_flag}")
+        if frag.is_stub and frag.llm_repair_notes:
+            flag = " ⚠ stub (unresolvable columns — see Flagged CTEs section)"
+        elif frag.is_stub:
+            flag = " ⚠ stub"
+        else:
+            flag = ""
+        lines.append(f"- `{frag.name}`{flag}")
     lines.append("")
+
+    # ── Flagged CTEs (unresolvable column references) ─────────────────────────
+    flagged = [f for f in all_fragments if f.llm_repair_notes]
+    if flagged:
+        lines.append("## Flagged CTEs — Unresolvable Column References")
+        lines.append("")
+        lines.append(
+            "The following CTEs reference columns that could not be found in any upstream "
+            "schema after both the schema-inference and liveness passes. Each CTE has been "
+            "marked as a stub. **Manual review is required** before these can run in production."
+        )
+        lines.append("")
+        for frag in flagged:
+            lines.append(f"### `{frag.name}`")
+            lines.append("")
+            lines.append(frag.llm_repair_notes)
+            lines.append("")
 
     # ── Warnings ──────────────────────────────────────────────────────────────
     if warnings:

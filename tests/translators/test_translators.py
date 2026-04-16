@@ -14,7 +14,7 @@ import pytest
 
 from chunking.chunker import chunk_dag
 from parsing.dag import build_dag
-from parsing.models import Chunk, CTEFragment, ToolNode
+from parsing.models import Chunk, CTEFragment, FieldSchema, ToolNode
 from parsing.parser import parse_workflow
 from translators import translate_chunk
 from translators.context import TranslationContext
@@ -147,6 +147,50 @@ class TestSelectTranslator:
         assert "[col1]" in frag.sql
         assert "[col2] AS [col2_renamed]" in frag.sql
         assert "col3" not in frag.sql
+
+    def test_unknown_passthrough_expands_with_schema(self):
+        """Unknown pass-through + explicit cols uses upstream schema to add remaining cols."""
+        from translators.select import translate_select
+
+        cfg = {
+            "SelectFields": {
+                "SelectField": [
+                    {"name": "id", "selected": "True"},
+                    {"name": "name", "selected": "True", "rename": "full_name"},
+                    {"Unknown": "True"},
+                ]
+            }
+        }
+        node = _node(1, "select", cfg)
+        ctx = _make_ctx()
+        # Upstream schema has three columns; id and name are handled explicitly
+        ctx.cte_schema["up"] = [
+            FieldSchema(name="id", alteryx_type="Int32"),
+            FieldSchema(name="name", alteryx_type="V_String"),
+            FieldSchema(name="created_at", alteryx_type="DateTime"),
+        ]
+        frag = translate_select(node, "cte_1", ["up"], ctx)
+        assert "[id]" in frag.sql
+        assert "[name] AS [full_name]" in frag.sql
+        # Pass-through column not explicitly handled must appear
+        assert "[created_at]" in frag.sql
+        assert "SELECT *" not in frag.sql
+
+    def test_unknown_passthrough_only_gives_star(self):
+        """Pure pass-through (no explicit columns) emits SELECT *."""
+        from translators.select import translate_select
+
+        cfg = {
+            "SelectFields": {
+                "SelectField": [
+                    {"Unknown": "True"},
+                ]
+            }
+        }
+        node = _node(1, "select", cfg)
+        ctx = _make_ctx()
+        frag = translate_select(node, "cte_1", ["up"], ctx)
+        assert "SELECT *" in frag.sql
 
 
 class TestFilterTranslator:
@@ -365,6 +409,96 @@ class TestJoinTranslator:
         ctx = _make_ctx()
         frag = translate_join(node, "cte_1", ["only_one"], ctx)
         assert frag.is_stub
+
+    def test_join_schema_explicit_columns_with_right_prefix(self):
+        """When both CTE schemas are known, join emits explicit cols; clash gets Right_ prefix."""
+        from translators.join import translate_join
+
+        cfg = {
+            "JoinInfo": [
+                {"side": "Left", "Field": [{"name": "id"}]},
+                {"side": "Right", "Field": [{"name": "id"}]},
+            ]
+        }
+        node = _node(1, "join", cfg)
+        ctx = _make_ctx()
+        # Populate schema for both input CTEs
+        ctx.cte_schema["left_cte"] = [
+            FieldSchema(name="id", alteryx_type="Int32"),
+            FieldSchema(name="name", alteryx_type="V_String"),
+        ]
+        ctx.cte_schema["right_cte"] = [
+            FieldSchema(name="id", alteryx_type="Int32"),
+            FieldSchema(name="score", alteryx_type="Double"),
+        ]
+        frag = translate_join(node, "cte_1", ["left_cte", "right_cte"], ctx)
+        assert "L.[id]" in frag.sql
+        assert "L.[name]" in frag.sql
+        # Right-side 'id' clashes → gets default Right_ prefix
+        assert "R.[id] AS [Right_id]" in frag.sql
+        # Right-side non-clashing column keeps original name
+        assert "R.[score]" in frag.sql
+        assert "R.[score] AS" not in frag.sql
+
+    def test_join_schema_custom_prefix_from_config(self):
+        """RenameRightInput in config overrides the default Right_ prefix."""
+        from translators.join import translate_join
+
+        cfg = {
+            "RenameRightInput": "R_",
+            "JoinInfo": [
+                {"side": "Left", "Field": [{"name": "id"}]},
+                {"side": "Right", "Field": [{"name": "id"}]},
+            ],
+        }
+        node = _node(1, "join", cfg)
+        ctx = _make_ctx()
+        ctx.cte_schema["left_cte"] = [FieldSchema(name="id", alteryx_type="Int32")]
+        ctx.cte_schema["right_cte"] = [FieldSchema(name="id", alteryx_type="Int32")]
+        frag = translate_join(node, "cte_1", ["left_cte", "right_cte"], ctx)
+        assert "R.[id] AS [R_id]" in frag.sql
+
+    def test_join_schema_no_clash_no_rename(self):
+        """When right columns don't clash with left, no renaming is applied."""
+        from translators.join import translate_join
+
+        cfg = {
+            "JoinInfo": [
+                {"side": "Left", "Field": [{"name": "order_id"}]},
+                {"side": "Right", "Field": [{"name": "order_id"}]},
+            ]
+        }
+        node = _node(1, "join", cfg)
+        ctx = _make_ctx()
+        ctx.cte_schema["left_cte"] = [
+            FieldSchema(name="order_id", alteryx_type="Int32"),
+            FieldSchema(name="amount", alteryx_type="Double"),
+        ]
+        ctx.cte_schema["right_cte"] = [
+            FieldSchema(name="order_id", alteryx_type="Int32"),
+            FieldSchema(name="product", alteryx_type="V_String"),
+        ]
+        frag = translate_join(node, "cte_1", ["left_cte", "right_cte"], ctx)
+        assert "R.[product]" in frag.sql
+        assert "R.[product] AS" not in frag.sql
+        assert "R.[order_id] AS [Right_order_id]" in frag.sql
+
+    def test_join_falls_back_to_star_when_schema_missing(self):
+        """Without schema info, fall back to L.*, R.*."""
+        from translators.join import translate_join
+
+        cfg = {
+            "JoinInfo": [
+                {"side": "Left", "Field": [{"name": "id"}]},
+                {"side": "Right", "Field": [{"name": "id"}]},
+            ]
+        }
+        node = _node(1, "join", cfg)
+        ctx = _make_ctx()
+        # No schema registered → fallback
+        frag = translate_join(node, "cte_1", ["left_cte", "right_cte"], ctx)
+        assert "L.*" in frag.sql
+        assert "R.*" in frag.sql
 
 
 class TestUnionTranslator:

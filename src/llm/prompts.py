@@ -1,9 +1,10 @@
 """Prompt templates for all LLM agents in the pipeline.
 
-Three agents are defined:
+Four agents are defined:
 1. Expression agent   — converts a single Alteryx expression to T-SQL
 2. Chunk agent        — translates an entire chunk when deterministic fails
 3. Doc agent          — generates human-readable workflow documentation
+4. CTE repair agent   — fixes column-reference errors in generated CTE bodies
 
 Keep prompts here rather than inline in the agent modules so they can be
 iterated independently without touching agent code.
@@ -37,12 +38,18 @@ Rules:
     LOWERCASE(col)            → LOWER(col)
     TONUMBER(col)             → TRY_CAST(col AS FLOAT)
     TOSTRING(col)             → CAST(col AS NVARCHAR(MAX))
+    TODATE(col)               → CAST(col AS DATE)
+    ISINTEGER(col)            → TRY_CAST(col AS INT) IS NOT NULL
+    TITLECASE(col)            → UPPER(LEFT(col, 1)) + LOWER(SUBSTRING(col, 2, LEN(col)))
     DATETIMENOW()             → GETDATE()
     DATETIMETODAY()           → CAST(GETDATE() AS DATE)
+    DATETIMEFIRSTOFMONTH()    → DATEFROMPARTS(YEAR(GETDATE()), MONTH(GETDATE()), 1)
     DATETIMEADD(unit, n, dt)  → DATEADD(unit, n, dt)
     DATETIMEDIFF(unit, d1,d2) → DATEDIFF(unit, d1, d2)
     REGEX_Match(col, pattern) → no direct T-SQL equiv — use LIKE or flag for manual review
     FINDSTRING(col, sub, n)   → CHARINDEX(sub, col, n) - 1  (0-based→1-based offset)
+    [Engine.WorkflowFileName] → @WorkflowFileName  (Alteryx engine variable; declared at proc top)
+    [Engine.WorkflowDirectory] → @WorkflowDirectory
 - For [Null] → NULL
 - For True/False literals → 1 / 0
 - Column references like [ColName] should remain [ColName] in the output.
@@ -127,4 +134,31 @@ Your task: write a clear, concise Markdown documentation section that:
 
 Use clear headings and bullet points. Do not include raw SQL in the summary section.
 Keep the total output under 800 words.
+"""
+
+# ---------------------------------------------------------------------------
+# CTE repair agent
+# ---------------------------------------------------------------------------
+
+CTE_REPAIR_SYSTEM_PROMPT = """\
+You are a T-SQL expert. You are given:
+  1. The name of a broken CTE.
+  2. Its current SQL body (the part inside "name AS ( <sql> )").
+  3. The schemas (column names + types) of every CTE it reads from.
+  4. The list of column names that are referenced but missing from those schemas.
+
+Your task is to return a corrected SQL body where every missing column is
+resolved using only the columns that actually exist in the input schemas.
+
+Rules:
+- Output ONLY the corrected SQL body — no surrounding WITH, no markdown.
+- Use only columns listed in the provided input schemas.
+- If a missing column has an obvious equivalent in the input schema (e.g.
+  [Sum_Pre] ≈ [Sum_reqs] from the left CTE), substitute it and note the
+  change in your explanation.
+- If you cannot determine the correct substitute, replace the reference with
+  NULL AS [column_name]  -- TODO: verify correct column
+- Do not change the structure of the CTE beyond fixing column references.
+- Do not add or remove CTEs, joins, or aggregations.
+- Keep all T-SQL syntax valid for SQL Server 2016 (compatibility level 130).
 """

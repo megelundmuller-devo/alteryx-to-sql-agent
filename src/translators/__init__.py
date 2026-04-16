@@ -38,6 +38,7 @@ from typing import Callable
 
 from parsing.models import Chunk, CTEFragment, ToolNode
 from translators.append import translate_append
+from translators.schema_inference import infer_output_schema
 from translators.context import TranslationContext
 from translators.filter import translate_filter
 from translators.find_replace import translate_find_replace
@@ -147,9 +148,18 @@ def translate_chunk(chunk: Chunk, ctx: TranslationContext) -> list[CTEFragment]:
         translator = _get_translator(node.tool_type)
         result = translator(node, cte_name, input_ctes, ctx)
 
+        # Infer output schema from config + input schemas when the parser
+        # did not populate node.output_schema (most non-source tools).
+        inferred_schema = infer_output_schema(node, input_ctes, ctx)
+
         if isinstance(result, list):
+            for frag in result:
+                ctx.cte_schema[frag.name] = inferred_schema
+                ctx.cte_inputs[frag.name] = list(input_ctes)
             fragments.extend(result)
         else:
+            ctx.cte_schema[result.name] = inferred_schema
+            ctx.cte_inputs[result.name] = list(input_ctes)
             fragments.append(result)
 
     return fragments

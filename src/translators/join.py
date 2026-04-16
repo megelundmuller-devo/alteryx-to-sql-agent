@@ -73,24 +73,61 @@ def translate_join(
     on_parts = [f"L.[{lk}] = R.[{rk}]" for lk, rk in zip(left_keys, right_keys)]
     on_clause = "\n    AND ".join(on_parts)
 
-    # Default: emit the inner join (matched rows = "Join" anchor output)
-    # The three anchors map to:
-    #   Join  → INNER JOIN
-    #   Left  → LEFT ANTI JOIN (LEFT JOIN WHERE R.key IS NULL)
-    #   Right → RIGHT ANTI JOIN (RIGHT JOIN WHERE L.key IS NULL)
+    # Build SELECT list from schema when available; fall back to L.*, R.*
+    select_clause = _build_select(left_cte, right_cte, ctx, cfg)
+
+    # The three Alteryx Join anchors map to:
+    #   Join  → INNER JOIN  (matched rows)
+    #   Left  → LEFT ANTI JOIN (add WHERE R.key IS NULL)
+    #   Right → RIGHT ANTI JOIN (add WHERE L.key IS NULL)
     sql = (
         f"-- Join anchor output (matched rows)\n"
         f"-- Left-only:  add WHERE R.[{right_keys[0]}] IS NULL\n"
         f"-- Right-only: add WHERE L.[{left_keys[0]}] IS NULL\n"
-        f"SELECT\n"
-        f"    L.*,\n"
-        f"    R.*\n"
+        f"{select_clause}\n"
         f"FROM [{left_cte}] AS L\n"
         f"INNER JOIN [{right_cte}] AS R\n"
         f"    ON {on_clause}"
     )
 
     return CTEFragment(name=cte_name, sql=sql, source_tool_ids=[node.tool_id])
+
+
+def _build_select(
+    left_cte: str,
+    right_cte: str,
+    ctx: TranslationContext,
+    cfg: dict,
+) -> str:
+    """Return a SELECT clause for a join.
+
+    When both upstream CTEs have known schemas, emits an explicit column list
+    with right-side clashes disambiguated using the configured prefix
+    (``RenameRightInput`` in the Join XML config, defaulting to ``Right_``).
+
+    Falls back to ``SELECT L.*, R.*`` when schema is unavailable.
+    """
+    left_schema = ctx.cte_schema.get(left_cte, [])
+    right_schema = ctx.cte_schema.get(right_cte, [])
+
+    if not left_schema or not right_schema:
+        return "SELECT\n    L.*,\n    R.*"
+
+    # RenameRightInput stores the prefix Alteryx prepends to clashing right-side
+    # column names.  The user can customise this in the Join tool UI.
+    # RenameRightInput_AddSuffix is a rarely-used alternative (suffix instead of
+    # prefix); not currently handled — falls back to the prefix form.
+    right_prefix: str = cfg.get("RenameRightInput", "Right_")
+
+    left_names = {f.name for f in left_schema}
+    cols: list[str] = [f"    L.[{f.name}]" for f in left_schema]
+    for f in right_schema:
+        if f.name in left_names:
+            cols.append(f"    R.[{f.name}] AS [{right_prefix}{f.name}]")
+        else:
+            cols.append(f"    R.[{f.name}]")
+
+    return "SELECT\n" + ",\n".join(cols)
 
 
 def _parse_join_keys(cfg: dict, side: str) -> list[str]:

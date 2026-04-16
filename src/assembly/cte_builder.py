@@ -95,6 +95,7 @@ def build_sql(
     workflow_name: str = "unknown",
     source_ids: set[int] | None = None,
     sink_ids: set[int] | None = None,
+    engine_vars: set[str] | None = None,
 ) -> str:
     """Assemble CTEFragments into a T-SQL stored procedure (SQL Server 2016+).
 
@@ -103,6 +104,9 @@ def build_sql(
         workflow_name:  The source .yxmd filename (for the header and proc name).
         source_ids:     Tool IDs classified as sources (used for section banners).
         sink_ids:       Tool IDs classified as sinks (used for section banners).
+        engine_vars:    Alteryx engine variable names found during translation
+                        (e.g. ``{'WorkflowFileName'}``).  A ``DECLARE`` statement
+                        is emitted for each so the user can fill in the values.
 
     Returns:
         A complete ``CREATE PROCEDURE … AS BEGIN … END; GO`` T-SQL string.
@@ -145,6 +149,15 @@ def build_sql(
     last_name = fragments[-1].name
     proc_name = _proc_name(workflow_name)
 
+    # DECLARE statements for Alteryx engine variables (sorted for determinism)
+    declare_block = ""
+    if engine_vars:
+        declares = "\n".join(
+            f"    DECLARE @{v} NVARCHAR(255) = N'<replace me>';"
+            for v in sorted(engine_vars)
+        )
+        declare_block = f"{declares}\n\n"
+
     # Indent the entire WITH … SELECT block one level inside BEGIN…END.
     inner_body = _indent(
         f"WITH\n{cte_section}\n\nSELECT * FROM [{last_name}];",
@@ -157,6 +170,7 @@ def build_sql(
         f"AS\n"
         f"BEGIN\n"
         f"    SET NOCOUNT ON;\n\n"
+        f"{declare_block}"
         f"{inner_body}\n\n"
         f"END;\n"
         f"GO\n"

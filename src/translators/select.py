@@ -40,20 +40,29 @@ def translate_select(
             f"Tool {node.tool_id} (select): no field definitions found — falling back to SELECT *."
         )
         sql = f"SELECT *\nFROM [{upstream}]"
-        return CTEFragment(
-            name=cte_name, sql=sql, source_tool_ids=[node.tool_id], is_stub=True
-        )
+        return CTEFragment(name=cte_name, sql=sql, source_tool_ids=[node.tool_id], is_stub=True)
 
     selected: list[str] = []
+    # Track upstream column names that are explicitly handled (renamed or kept).
+    # Used to determine which columns to add from the pass-through schema.
+    explicit_names: set[str] = set()
+    # Track output column names to detect duplicates (e.g. rename target already exists).
+    output_names: set[str] = set()
+    # Track source column names that were explicitly dropped (selected="False").
+    # These must NOT appear in the *Unknown passthrough expansion.
+    dropped_names: set[str] = set()
     has_unknown_passthrough = False
 
     for f in field_entries:
         # A field is excluded if selected="False" or Selected="False"
         selected_attr = f.get("selected", f.get("Selected", "True"))
+        name = f.get("name", f.get("field", ""))
         if selected_attr == "False":
+            # Record the drop so the *Unknown passthrough cannot re-introduce it.
+            if name and name != "*Unknown":
+                dropped_names.add(name)
             continue
 
-        name = f.get("name", f.get("field", ""))
         rename = f.get("rename", f.get("Rename", ""))
         is_unknown = f.get("Unknown", "False") == "True"
 
@@ -67,23 +76,53 @@ def translate_select(
         if not name:
             continue
 
+        output_col = rename if (rename and rename != name) else name
+
+        # Skip if this output name already exists — duplicate rename target would
+        # cause an ambiguous column error in MSSQL.
+        if output_col in output_names:
+            ctx.warnings.append(
+                f"Tool {node.tool_id} (select): duplicate output column [{output_col}] "
+                f"(from source [{name}]) — skipping to avoid MSSQL ambiguity."
+            )
+            continue
+
+        output_names.add(output_col)
+        explicit_names.add(name)
         if rename and rename != name:
             selected.append(f"    [{name}] AS [{rename}]")
         else:
             selected.append(f"    [{name}]")
 
-    if has_unknown_passthrough and not selected:
-        # Pure pass-through — nothing renamed or dropped
+    if has_unknown_passthrough and not selected and not dropped_names:
+        # Pure pass-through — nothing renamed, nothing dropped.
         sql = f"SELECT *\nFROM [{upstream}]"
     elif has_unknown_passthrough:
-        # Mix: explicit columns + wildcard for the rest is not expressible in SQL.
-        # We emit the explicit columns only and add a warning.
-        ctx.warnings.append(
-            f"Tool {node.tool_id} (select): Unknown pass-through combined with explicit columns. "
-            "Only the explicitly listed columns are emitted. Review manually."
-        )
-        cols = ",\n".join(selected)
-        sql = f"SELECT\n{cols}\nFROM [{upstream}]"
+        # Mix: explicit columns + pass-through for the rest, minus dropped columns.
+        # Resolve using the upstream CTE schema when available.
+        incoming = ctx.cte_schema.get(upstream, [])
+        if incoming:
+            # Append pass-through columns that are not already handled explicitly
+            # and were not explicitly dropped, preserving upstream schema order.
+            for field_meta in incoming:
+                if (
+                    field_meta.name not in explicit_names
+                    and field_meta.name not in output_names
+                    and field_meta.name not in dropped_names
+                ):
+                    selected.append(f"    [{field_meta.name}]")
+            cols = ",\n".join(selected)
+            sql = f"SELECT\n{cols}\nFROM [{upstream}]"
+        else:
+            # Schema not available — emit explicit columns only and warn.
+            if selected:
+                ctx.warnings.append(
+                    f"Tool {node.tool_id} (select): Unknown pass-through combined with explicit "
+                    "columns but upstream schema unknown. Only explicitly listed columns are "
+                    "emitted; dropped columns cannot be verified. Review manually."
+                )
+            cols = ",\n".join(selected) if selected else "*"
+            sql = f"SELECT\n{cols}\nFROM [{upstream}]"
     elif selected:
         cols = ",\n".join(selected)
         sql = f"SELECT\n{cols}\nFROM [{upstream}]"

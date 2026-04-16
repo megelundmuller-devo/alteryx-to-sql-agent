@@ -24,6 +24,17 @@ import re
 from parsing.models import CTEFragment, ToolNode
 from translators.context import TranslationContext
 
+# Matches a simple "SELECT * FROM <target>" with no WHERE/JOIN/GROUP/etc.
+# Used to decide whether a SELECT * can be safely expanded to explicit columns.
+_SIMPLE_SELECT_STAR_RE = re.compile(
+    r"^\s*SELECT\s+\*\s+FROM\s+(.*?)\s*$",
+    re.IGNORECASE | re.DOTALL,
+)
+_SQL_CLAUSE_RE = re.compile(
+    r"\b(WHERE|JOIN|GROUP\s+BY|HAVING|ORDER\s+BY|UNION|INTERSECT|EXCEPT|SUBQUERY)\b",
+    re.IGNORECASE,
+)
+
 # ---------------------------------------------------------------------------
 # DbFileInput
 # ---------------------------------------------------------------------------
@@ -80,9 +91,7 @@ def translate_db_file_input(
     #   <DbConnection>...</DbConnection>      some versions
     #   <File FileFormat="23">alias|||SQL</File>  most common in .yxmd files
     file_val = cfg.get("File", "")
-    file_text = (
-        file_val.get("_text", "") if isinstance(file_val, dict) else str(file_val or "")
-    )
+    file_text = file_val.get("_text", "") if isinstance(file_val, dict) else str(file_val or "")
     conn_str: str = (
         cfg.get("Connection", "")
         or cfg.get("ConnectionString", "")
@@ -98,6 +107,16 @@ def translate_db_file_input(
 
     if query:
         sql = query.rstrip(";")
+        # If the source query is a plain SELECT * and we have the output schema from
+        # <MetaInfo><RecordInfo>, expand to explicit columns.  This makes downstream
+        # schema tracking reliable and the generated SQL self-documenting.
+        if node.output_schema:
+            m = _SIMPLE_SELECT_STAR_RE.match(sql)
+            if m:
+                from_target = m.group(1).strip()
+                if not _SQL_CLAUSE_RE.search(from_target):
+                    cols = ",\n".join(f"    [{f.name}]" for f in node.output_schema)
+                    sql = f"SELECT\n{cols}\nFROM {from_target}"
     else:
         label = _connection_label(conn_str) if conn_str else "UNKNOWN_SOURCE"
         ctx.warnings.append(
@@ -111,9 +130,7 @@ def translate_db_file_input(
             f"-- Connection: {label}\n"
             f"SELECT TOP 0 1 AS _stub"
         )
-        return CTEFragment(
-            name=cte_name, sql=sql, source_tool_ids=[node.tool_id], is_stub=True
-        )
+        return CTEFragment(name=cte_name, sql=sql, source_tool_ids=[node.tool_id], is_stub=True)
 
     return CTEFragment(name=cte_name, sql=sql, source_tool_ids=[node.tool_id])
 
@@ -209,9 +226,7 @@ def _extract_output_table(cfg: dict) -> str | None:
     Returns the table name string, or None if it cannot be determined.
     """
     file_val = cfg.get("File", "")
-    file_text = (
-        file_val.get("_text", "") if isinstance(file_val, dict) else str(file_val or "")
-    )
+    file_text = file_val.get("_text", "") if isinstance(file_val, dict) else str(file_val or "")
     if "|||" in file_text:
         table = file_text.split("|||", 1)[1].strip()
         if table:
@@ -264,6 +279,4 @@ def translate_db_file_output(
         f"-- TODO: replace with INSERT INTO <destination> SELECT * FROM [{upstream}]\n"
         f"SELECT * FROM [{upstream}]"
     )
-    return CTEFragment(
-        name=cte_name, sql=sql, source_tool_ids=[node.tool_id], is_stub=True
-    )
+    return CTEFragment(name=cte_name, sql=sql, source_tool_ids=[node.tool_id], is_stub=True)

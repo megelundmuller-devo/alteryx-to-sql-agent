@@ -37,7 +37,7 @@ from __future__ import annotations
 from llm.expression_agent import convert_expression_llm
 from parsing.models import CTEFragment, ToolNode
 from translators.context import TranslationContext
-from translators.expressions import convert_expression, needs_llm_translation
+from translators.expressions import convert_expression, looks_like_sql, needs_llm_translation
 
 
 def translate_formula(
@@ -58,9 +58,7 @@ def translate_formula(
             f"Tool {node.tool_id} (formula): no FormulaField elements found — pass-through."
         )
         sql = f"SELECT *\nFROM [{upstream}]"
-        return CTEFragment(
-            name=cte_name, sql=sql, source_tool_ids=[node.tool_id], is_stub=True
-        )
+        return CTEFragment(name=cte_name, sql=sql, source_tool_ids=[node.tool_id], is_stub=True)
 
     computed_cols: list[str] = []
     has_llm_field = False
@@ -75,24 +73,25 @@ def translate_formula(
 
         if needs_llm_translation(expr):
             sql_expr = convert_expression_llm(expr)
-            if sql_expr.startswith("-- LLM") or "MANUAL REVIEW" in sql_expr:
-                # LLM failed or flagged for manual review
+            llm_failed = (
+                sql_expr.startswith("-- LLM")
+                or "MANUAL REVIEW" in sql_expr
+                or not looks_like_sql(sql_expr)
+            )
+            if llm_failed:
+                # LLM failed, returned prose, or flagged for manual review
                 has_llm_field = True
                 llm_fields.append(f"  [{col}] = {expr!r}")
-                computed_cols.append(
-                    f"    NULL AS [{col}]  -- TODO: {sql_expr.splitlines()[0]}"
-                )
+                computed_cols.append(f"    NULL AS [{col}]  -- TODO: {sql_expr.splitlines()[0]}")
             else:
                 computed_cols.append(f"    {sql_expr} AS [{col}]")
         else:
-            sql_expr = convert_expression(expr)
+            sql_expr = convert_expression(expr, ctx.engine_vars)
             computed_cols.append(f"    {sql_expr} AS [{col}]")
 
     if not computed_cols:
         sql = f"SELECT *\nFROM [{upstream}]"
-        return CTEFragment(
-            name=cte_name, sql=sql, source_tool_ids=[node.tool_id], is_stub=True
-        )
+        return CTEFragment(name=cte_name, sql=sql, source_tool_ids=[node.tool_id], is_stub=True)
 
     cols_sql = ",\n".join(computed_cols)
     sql = f"SELECT\n    *,\n{cols_sql}\nFROM [{upstream}]"
@@ -102,8 +101,6 @@ def translate_formula(
             f"Tool {node.tool_id} (formula): {len(llm_fields)} field(s) require LLM translation "
             f"— stub emitted:\n" + "\n".join(llm_fields)
         )
-        return CTEFragment(
-            name=cte_name, sql=sql, source_tool_ids=[node.tool_id], is_stub=True
-        )
+        return CTEFragment(name=cte_name, sql=sql, source_tool_ids=[node.tool_id], is_stub=True)
 
     return CTEFragment(name=cte_name, sql=sql, source_tool_ids=[node.tool_id])

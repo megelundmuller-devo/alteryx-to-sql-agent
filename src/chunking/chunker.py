@@ -137,16 +137,22 @@ def chunk_dag(dag: AlteryxDAG) -> list[Chunk]:
             if conn.origin_id in node_ids
         ]
 
-        # Input CTE names: upstream CTEs that feed into this chunk
+        # Input CTE names: upstream CTEs that feed into this chunk.
+        # Sort by (dest_anchor, order) so that Join inputs are always
+        # Left-first, Right-second (alphabetical on anchor name), and Union
+        # inputs preserve the declared connection order from the workflow.
         seen: set[str] = set()
         input_cte_names: list[str] = []
         for n in nodes:
-            for conn in dag.in_edges(n.tool_id):
-                if conn.origin_id not in node_ids:
-                    upstream_cte = chain_cte.get(conn.origin_id)
-                    if upstream_cte and upstream_cte not in seen:
-                        input_cte_names.append(upstream_cte)
-                        seen.add(upstream_cte)
+            external = sorted(
+                (conn for conn in dag.in_edges(n.tool_id) if conn.origin_id not in node_ids),
+                key=lambda c: (c.dest_anchor or "", c.order or 0),
+            )
+            for conn in external:
+                upstream_cte = chain_cte.get(conn.origin_id)
+                if upstream_cte and upstream_cte not in seen:
+                    input_cte_names.append(upstream_cte)
+                    seen.add(upstream_cte)
 
         chunks.append(
             Chunk(

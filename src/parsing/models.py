@@ -78,6 +78,9 @@ class CTEFragment(BaseModel):
     sql: str  # Body only — the part inside "name AS ( <sql> )"
     source_tool_ids: list[int]
     is_stub: bool = False
+    # Set by the LLM repair pass when column-reference errors were auto-fixed.
+    llm_repaired: bool = False
+    llm_repair_notes: str = ""
 
 
 class AlteryxStepDoc(BaseModel):

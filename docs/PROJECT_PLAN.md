@@ -367,7 +367,7 @@ Authentication: `gcloud auth application-default login` (Application Default Cre
 
 ---
 
-### Phase 10 — Translation Fixes
+### Phase 10 — Translation Fixes **[DONE]**
 
 Fix systematic translation errors identified during real-workflow runs.  All
 fixes must be deterministic (no new LLM calls) except where explicitly noted.
@@ -378,17 +378,17 @@ Add missing Alteryx→T-SQL mappings to `src/translators/expressions.py` and to
 `src/llm/prompts.py` (EXPRESSION_SYSTEM_PROMPT) so neither the deterministic
 translator nor the LLM emits them:
 
-- [ ] `ToDate(x)`               → `CAST(x AS DATE)`
-- [ ] `IsInteger(x)`            → `TRY_CAST(x AS INT) IS NOT NULL`
-- [ ] `DateTimeFirstOfMonth()`  → `DATEFROMPARTS(YEAR(GETDATE()), MONTH(GETDATE()), 1)`
-- [ ] `TitleCase(x)`            → `UPPER(LEFT(x,1)) + LOWER(SUBSTRING(x,2,LEN(x)))`
+- [x] `ToDate(x)`               → `CAST(x AS DATE)`
+- [x] `IsInteger(x)`            → `TRY_CAST(x AS INT) IS NOT NULL`
+- [x] `DateTimeFirstOfMonth()`  → `DATEFROMPARTS(YEAR(GETDATE()), MONTH(GETDATE()), 1)`
+- [x] `TitleCase(x)`            → `UPPER(LEFT(x,1)) + LOWER(SUBSTRING(x,2,LEN(x)))`
                                    *(first-word only; document limitation)*
 
 #### 10b — Alteryx engine variables (deterministic)
 
-- [ ] **`src/translators/expressions.py`** — Detect `[Engine.*]` references with a
+- [x] **`src/translators/expressions.py`** — Detect `[Engine.*]` references with a
   regex; replace each with a named T-SQL variable (`@WorkflowFileName`, etc.)
-- [ ] **`src/assembly/cte_builder.py`** — Collect all engine-variable names emitted
+- [x] **`src/assembly/cte_builder.py`** — Collect all engine-variable names emitted
   during translation and prepend `DECLARE @<name> NVARCHAR(255) = N'<replace me>';`
   lines inside `BEGIN`, before `SET NOCOUNT ON`, so the user can fill them in once
 
@@ -402,20 +402,72 @@ Alteryx embeds exact field lists (`<RecordInfo>`) on every connection in the `.y
 XML.  Extract this metadata in Phase 1 and propagate it through the pipeline so
 translators can emit explicit column lists instead of `*`.
 
-- [ ] **`src/parsing/models.py`** — Add `FieldMeta(name, alteryx_type)` model; add
-  `schema: list[FieldMeta]` field to `Connection`
-- [ ] **`src/parsing/parser.py`** — Parse `<RecordInfo><Field>` elements on each
-  `<Connection>` and populate `Connection.schema`
-- [ ] **`src/parsing/dag.py`** — Attach incoming schema to each node so translators
-  can read `ctx.incoming_schema(node)` during translation
-- [ ] **`src/translators/join.py`** — When both input schemas are known, emit explicit
-  `SELECT L.[col], …, R.[col], …` de-duplicating clashing names with `_L`/`_R` suffix
-  instead of `SELECT L.*, R.*`
-- [ ] **`src/translators/select.py`** — Resolve pass-through using the incoming schema;
+- [x] **`src/parsing/models.py`** — `FieldSchema(name, alteryx_type)` already existed;
+  `ToolNode.output_schema: list[FieldSchema]` populated by the parser from `<MetaInfo>`
+- [x] **`src/translators/context.py`** — Added `cte_schema: dict[str, list[FieldSchema]]`
+  and `engine_vars: set[str]` to `TranslationContext`
+- [x] **`src/translators/__init__.py`** — After each translator, registers
+  `ctx.cte_schema[frag.name] = node.output_schema` for all output fragments
+- [x] **`src/translators/join.py`** — When both input schemas are known, emit explicit
+  `SELECT L.[col], …, R.[col], …` de-duplicating clashing names by appending `_R` to
+  the right-side column only (left-side columns keep their original names), e.g.
+  `L.[id], R.[id] AS [id_R]` — instead of `SELECT L.*, R.*`
+- [x] **`src/translators/select.py`** — Resolve pass-through using the upstream schema;
   emit the full explicit column list rather than a partial pass-through
 
 LLM fallback: if a connection's `<RecordInfo>` is absent (e.g. after a macro stub),
 fall back to the existing `SELECT L.*, R.*` behaviour and emit the existing warning.
+
+---
+
+### Phase 11 — Schema Inference (deterministic) **[DONE]**
+
+`<MetaInfo><RecordInfo>` is only written by Alteryx for tools that were
+previewed/run in the Designer.  Most transform nodes (Join, Formula, Filter…)
+have no MetaInfo, so `ToolNode.output_schema` is always empty and
+`ctx.cte_schema` never gets populated → every join falls back to `L.*, R.*`.
+
+Fix: derive the output schema for every tool type deterministically from its
+config + input schemas, with no LLM involvement.
+
+- [x] **`src/translators/schema_inference.py`** — `infer_output_schema(node, input_cte_names, ctx)` for: `select`, `filter`, `formula`, `join`, `append_fields`, `union`, `summarize`, `sort`, `unique`, `sample`, `record_id`, `find_replace`, `multirow_formula`
+- [x] **`src/translators/context.py`** — add `cte_inputs: dict[str, list[str]]` so the liveness pass can walk back through the CTE chain
+- [x] **`src/translators/__init__.py`** — call `infer_output_schema` after each node; populate `ctx.cte_inputs`; use inferred schema when `node.output_schema` is empty
+
+### Phase 12 — Anchor-Aware Join Input Ordering (deterministic) **[DONE]**
+
+`chunk.input_cte_names` is built from `dag.in_edges()` in NetworkX insertion
+order, which is not guaranteed to match anchor order.  `translate_join` assumes
+`input_ctes[0]` = Left and `input_ctes[1]` = Right, but this is sometimes
+backwards, causing join keys to be assigned to the wrong CTE.
+
+- [x] **`src/chunking/chunker.py`** — sort external in-edges by `(dest_anchor, order or 0)` before building `input_cte_names`; this guarantees Left < Right for joins and preserves declared order for unions
+
+### Phase 13 — Liveness Analysis: SELECT Column Widening (deterministic) **[DONE]**
+
+When a SELECT tool drops a column that a downstream tool still needs, those
+downstream references fail at runtime.  A backward liveness pass can detect
+and fix this automatically.
+
+- [x] **`src/analysis/__init__.py`** — package init
+- [x] **`src/analysis/liveness.py`** — `run_liveness_pass(fragments, ctx)`:  extract `[ColName]` references from each CTE's SQL; walk backwards through `ctx.cte_inputs`; widen any SELECT CTE that dropped a needed column; return updated fragment list + unfixable-gap warnings
+- [x] **`src/main.py`** — call `run_liveness_pass` after `translate_chunk` loop, before assembly
+
+### Phase 14 — UNION ALL Column-Count Validation (deterministic) **[DONE]**
+
+- [x] **`src/translators/union.py`** — after schema inference is available, compare column counts of all input CTEs; emit a warning and mark the CTE as a stub when counts differ
+
+### Phase 15 — LLM Repair Pass **[DONE]**
+
+For gaps that the liveness pass cannot fix deterministically (LLM-hallucinated
+column names, cross-file CTE references, macro stub outputs), invoke a targeted
+LLM call to repair the broken CTE body.
+
+- [x] **`src/parsing/models.py`** — add `llm_repaired: bool = False` and `llm_repair_notes: str = ""` to `CTEFragment`
+- [x] **`src/llm/prompts.py`** — add `CTE_REPAIR_SYSTEM_PROMPT`
+- [x] **`src/analysis/llm_validator.py`** — `repair_fragments(fragments, ctx)`: scan each non-stub CTE for column refs not in any input schema; send to LLM with available-column context; update fragment with repaired SQL + `llm_repaired=True`
+- [x] **`src/doc_gen/doc_writer.py`** — mark LLM-repaired CTEs with a distinct ⚙ symbol and list repaired columns in the Warnings section
+- [x] **`src/main.py`** — call `repair_fragments` after liveness pass, before assembly
 
 ---
 

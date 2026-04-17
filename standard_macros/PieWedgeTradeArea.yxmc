@@ -1,0 +1,2686 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="10.0" autoTranslate="true">
+  <Nodes>
+    <Node ToolID="383">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="320.1" y="2257" width="375" height="592" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>generate wedge polygon</Text>
+          <Font name="Microsoft Sans Serif" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="0" />
+          <Justification Justification="2" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>TextBox (383)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="433">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="328.1" y="2857" width="375" height="360" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>optionaly buffer results</Text>
+          <Font name="Microsoft Sans Serif" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="0" />
+          <Justification Justification="2" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>TextBox (433)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="152">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="304.1" y="393" width="440" height="560" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text />
+          <Font name="Microsoft Sans Serif" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="0" />
+          <Justification Justification="2" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>TextBox (152)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="381">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="336.1" y="617" width="384" height="256" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>this series grabs the direction in locally-projected radians, 
+rather than the distance tools globally-projected degrees.  
+This will make some of the later trigonometry cleaner.
+</Text>
+          <Font name="Microsoft Sans Serif" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="0" />
+          <Justification Justification="2" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>TextBox (381)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="173">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="325.1" y="2076" width="375" height="168" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>get centroid x/y 
+and projection constants 
+for geometry calculations</Text>
+          <Font name="Microsoft Sans Serif" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="0" />
+          <Justification Justification="2" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>TextBox (173)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="162">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="317.1" y="1652" width="375" height="416" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>rejoin to original store point, 
+and fill in entirely missing wedges with an
+arbitrary small distance.</Text>
+          <Font name="Microsoft Sans Serif" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="0" />
+          <Justification Justification="2" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>TextBox (162)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="160">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="317.1" y="1564" width="375" height="72" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Get Distance to furthest remaining point
+ in each wedge</Text>
+          <Font name="Microsoft Sans Serif" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="0" />
+          <Justification Justification="2" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>TextBox (160)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="156">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="317.1" y="1188" width="375" height="368" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Drop outliers 
+
+Calculate how much weight to drop, 
+and split it up by the number of wedges
+</Text>
+          <Font name="Microsoft Sans Serif" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="0" />
+          <Justification Justification="2" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>TextBox (156)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="154">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="317.1" y="964" width="427" height="216" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Use Wedge Number &amp; Oversample 
+to assign each customer to one or more wedges</Text>
+          <Font name="Microsoft Sans Serif" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="0" />
+          <Justification Justification="2" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>TextBox (154)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="150">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="310.1" y="54" width="375" height="326" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Get Input and Config Parameters</Text>
+          <Font name="Microsoft Sans Serif" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="0" />
+          <Justification Justification="2" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>TextBox (150)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="4">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="365.1" y="412" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="Key" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="Key" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <SelectFields>
+                <SelectField selected="True" field="Left_Key" rename="Key" />
+                <SelectField selected="True" field="Left_Centroid" type="SpatialObj" size="N/A" rename="" />
+                <SelectField selected="True" field="Left_NumWedges" rename="" />
+                <SelectField selected="True" field="Left_OverSampleMultiplier" rename="" />
+                <SelectField selected="False" field="Right_Key" rename="Right_Key" />
+                <SelectField selected="True" field="Right_Point" type="SpatialObj" size="N/A" rename="cust_Point" />
+                <SelectField selected="True" field="Right_Weight" rename="" />
+                <SelectField selected="True" field="*Unknown" />
+              </SelectFields>
+              <OrderChanged value="False" />
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Join (4)</Name>
+          <DefaultAnnotationText>Key=Key</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="Key" size="32" source="File: W:\_Temp\TAMacs\PWT\Customers.yxdb" type="V_String" />
+            <Field name="Point" size="2147483647" source="File: W:\_Temp\TAMacs\PWT\Customers.yxdb" type="SpatialObj" />
+            <Field name="Weight" source="File: W:\_Temp\TAMacs\PWT\Customers.yxdb" type="Double" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="Key" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="Key" size="32" source="File: W:\_Temp\TAMacs\PWT\Stores.yxdb" type="V_String" />
+            <Field name="Centroid" size="2147483647" source="SpatialInfo: CentroidObj Source=SpatialObj" type="SpatialObj" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="OverSampleMultiplier" source="Formula: 1" type="Int32" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="Key" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="Key" size="32" source="File: W:\_Temp\TAMacs\PWT\Stores.yxdb" type="V_String" />
+            <Field name="Centroid" size="2147483647" source="SpatialInfo: CentroidObj Source=SpatialObj" type="SpatialObj" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="OverSampleMultiplier" source="Formula: 1" type="Int32" />
+            <Field name="cust_Point" size="2147483647" source="File: W:\_Temp\TAMacs\PWT\Customers.yxdb" type="SpatialObj" />
+            <Field name="Weight" source="File: W:\_Temp\TAMacs\PWT\Customers.yxdb" type="Double" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Key" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="5">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="322.1" y="330" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SelectFields>
+            <SelectField selected="True" field="Key" rename="" />
+            <SelectField selected="False" field="SpatialObj" type="SpatialObj" size="N/A" rename="" />
+            <SelectField selected="True" field="Centroid" type="SpatialObj" size="N/A" rename="" />
+            <SelectField selected="True" field="NumWedges" rename="" />
+            <SelectField selected="True" field="OverSampleMultiplier" rename="" />
+            <SelectField selected="False" field="*Unknown" />
+          </SelectFields>
+          <OrderChanged value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Select (5)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="File: W:\_Temp\TAMacs\PWT\Stores.yxdb" type="V_String" />
+            <Field name="Centroid" size="2147483647" source="SpatialInfo: CentroidObj Source=SpatialObj" type="SpatialObj" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="OverSampleMultiplier" source="Formula: 1" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="6">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="413.1" y="332" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SelectFields>
+            <SelectField selected="True" field="Key" rename="" />
+            <SelectField selected="True" field="Point" type="SpatialObj" size="N/A" rename="" />
+            <SelectField selected="True" field="Weight" rename="" />
+            <SelectField selected="True" field="*Unknown" />
+          </SelectFields>
+          <OrderChanged value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Select (6)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="File: W:\_Temp\TAMacs\PWT\Customers.yxdb" type="V_String" />
+            <Field name="Point" size="2147483647" source="File: W:\_Temp\TAMacs\PWT\Customers.yxdb" type="SpatialObj" />
+            <Field name="Weight" source="File: W:\_Temp\TAMacs\PWT\Customers.yxdb" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="54">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.SpatialInfo.SpatialInfo">
+        <Position x="322.1" y="166" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SpatialObj field="SpatialObj" />
+          <SelectedItems>
+            <Item name="CentroidObj" />
+          </SelectedItems>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>SpatialInfo (54)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="File: W:\_Temp\TAMacs\PWT\Stores.yxdb" type="V_String" />
+            <Field name="SpatialObj" size="2147483647" source="File: W:\_Temp\TAMacs\PWT\Stores.yxdb" type="SpatialObj" />
+            <Field name="Centroid" size="2147483647" source="SpatialInfo: CentroidObj Source=SpatialObj" type="SpatialObj" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSpatialInfo" />
+    </Node>
+    <Node ToolID="69">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Distance.Distance">
+        <Position x="368.1" y="489" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SpatialObjSource>Centroid</SpatialObjSource>
+          <SpatialObjDest>cust_Point</SpatialObjDest>
+          <OutputDistance value="True" />
+          <ReturnNearest value="False" />
+          <DistToInsideEdge value="False" />
+          <OutputDriveTimeAndDistance value="False" />
+          <DriveTimeDataSet />
+          <SortForSpeed value="True" />
+          <MaxDriveTime value="30" />
+          <DriveDistanceOnly value="False" />
+          <OutputCardinalDirection value="False" />
+          <OutputDirectionDegrees value="False" />
+          <IsMetric value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Distance (69)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="File: W:\_Temp\TAMacs\PWT\Stores.yxdb" type="V_String" />
+            <Field name="Centroid" size="2147483647" source="SpatialInfo: CentroidObj Source=SpatialObj" type="SpatialObj" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="OverSampleMultiplier" source="Formula: 1" type="Int32" />
+            <Field name="cust_Point" size="2147483647" source="File: W:\_Temp\TAMacs\PWT\Customers.yxdb" type="SpatialObj" />
+            <Field name="Weight" source="File: W:\_Temp\TAMacs\PWT\Customers.yxdb" type="Double" />
+            <Field name="DistanceMiles" source="Distance: Distance Source=Centroid Destination=cust_Point Units=Miles" type="Double" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Key" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxDistance" />
+    </Node>
+    <Node ToolID="103">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="378.1" y="896" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SelectFields>
+            <SelectField selected="True" field="Key" rename="" />
+            <SelectField selected="False" field="Centroid" type="SpatialObj" size="N/A" rename="" />
+            <SelectField selected="True" field="NumWedges" rename="" />
+            <SelectField selected="True" field="OverSampleMultiplier" rename="" />
+            <SelectField selected="True" field="cust_Point" type="SpatialObj" size="N/A" rename="" />
+            <SelectField selected="True" field="Weight" rename="" />
+            <SelectField selected="True" field="DistanceMiles" rename="" />
+            <SelectField selected="False" field="CentroidX" rename="" />
+            <SelectField selected="False" field="CentroidY" rename="" />
+            <SelectField selected="False" field="CentroidX2" rename="" />
+            <SelectField selected="False" field="CentroidY2" rename="" />
+            <SelectField selected="False" field="MilesPerDegreeLat" rename="" />
+            <SelectField selected="False" field="MilesPerDegLon" rename="" />
+            <SelectField selected="True" field="DirectionRad" rename="" />
+            <SelectField selected="False" field="*Unknown" />
+          </SelectFields>
+          <OrderChanged value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Select (103)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="File: W:\_Temp\TAMacs\PWT\Stores.yxdb" type="V_String" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="OverSampleMultiplier" source="Formula: 1" type="Int32" />
+            <Field name="cust_Point" size="2147483647" source="File: W:\_Temp\TAMacs\PWT\Customers.yxdb" type="SpatialObj" />
+            <Field name="Weight" source="File: W:\_Temp\TAMacs\PWT\Customers.yxdb" type="Double" />
+            <Field name="DistanceMiles" source="Distance: Distance Source=Centroid Destination=cust_Point Units=Miles" type="Double" />
+            <Field name="DirectionRad" source="Formula: IIF(DirectionRad&lt;0,DirectionRad+2*PI(),DirectionRad)&#xA;&#xA;" type="Float" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Key" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="104">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="386.1" y="974" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField field="WedgeWidth" type="Double" size="8" expression="(2*PI()/[NumWedges])" />
+            <FormulaField field="OverSampleWidth" type="Double" size="8" expression="[WedgeWidth]*([OverSampleMultiplier]-1)" />
+            <FormulaField field="FirstWedge" type="Int32" size="4" expression="Floor(([DirectionRad]-([OverSampleWidth]/2))/[WedgeWidth])" />
+            <FormulaField field="LastWedge" type="Int32" size="4" expression="Floor(([DirectionRad]+([OverSampleWidth]/2))/[WedgeWidth])" />
+            <FormulaField field="FirstWedge" type="Int32" size="4" expression="IIF([FirstWedge]&lt;0,[FirstWedge]+[NumWedges],[FirstWedge])" />
+            <FormulaField field="LastWedge" type="Int32" size="4" expression="IIF([LastWedge]&gt;=[NumWedges],[LastWedge]-[NumWedges],[LastWedge])" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Formula (104)</Name>
+          <AnnotationText />
+          <DefaultAnnotationText>WedgeWidth=(2*PI()/[NumWedges])
+OverSampleWidth=[WedgeWidth]*([OverSampleMultiplier]-1)
+FirstWedge=Floor(([DirectionRad]-([OverSampleWidth]/2))/[Wedg...
+...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="File: W:\_Temp\TAMacs\PWT\Stores.yxdb" type="V_String" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="OverSampleMultiplier" source="Formula: 1" type="Int32" />
+            <Field name="cust_Point" size="2147483647" source="File: W:\_Temp\TAMacs\PWT\Customers.yxdb" type="SpatialObj" />
+            <Field name="Weight" source="File: W:\_Temp\TAMacs\PWT\Customers.yxdb" type="Double" />
+            <Field name="DistanceMiles" source="Distance: Distance Source=Centroid Destination=cust_Point Units=Miles" type="Double" />
+            <Field name="DirectionRad" source="Formula: IIF(DirectionRad&lt;0,DirectionRad+2*PI(),DirectionRad)&#xA;&#xA;" type="Float" />
+            <Field name="WedgeWidth" source="Formula: (2*PI()/[NumWedges])" type="Double" />
+            <Field name="OverSampleWidth" source="Formula: [WedgeWidth]*([OverSampleMultiplier]-1)" type="Double" />
+            <Field name="FirstWedge" source="Formula: IIF([FirstWedge]&lt;0,[FirstWedge]+[NumWedges],[FirstWedge])" type="Int32" />
+            <Field name="LastWedge" source="Formula: IIF([LastWedge]&gt;=[NumWedges],[LastWedge]-[NumWedges],[LastWedge])" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Key" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="105">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.GenerateRows.GenerateRows">
+        <Position x="384.1" y="1049" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name>Key</UpdateField_Name>
+          <CreateField_Name>Wedge</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>254</CreateField_Size>
+          <Expression_Init>[FirstWedge]</Expression_Init>
+          <Expression_Cond>[Wedge]&lt;=[LastWedge]</Expression_Cond>
+          <Expression_Loop>[Wedge]+1</Expression_Loop>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>GenerateRows (105)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="File: W:\_Temp\TAMacs\PWT\Stores.yxdb" type="V_String" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="OverSampleMultiplier" source="Formula: 1" type="Int32" />
+            <Field name="cust_Point" size="2147483647" source="File: W:\_Temp\TAMacs\PWT\Customers.yxdb" type="SpatialObj" />
+            <Field name="Weight" source="File: W:\_Temp\TAMacs\PWT\Customers.yxdb" type="Double" />
+            <Field name="DistanceMiles" source="Distance: Distance Source=Centroid Destination=cust_Point Units=Miles" type="Double" />
+            <Field name="DirectionRad" source="Formula: IIF(DirectionRad&lt;0,DirectionRad+2*PI(),DirectionRad)&#xA;&#xA;" type="Float" />
+            <Field name="WedgeWidth" source="Formula: (2*PI()/[NumWedges])" type="Double" />
+            <Field name="OverSampleWidth" source="Formula: [WedgeWidth]*([OverSampleMultiplier]-1)" type="Double" />
+            <Field name="FirstWedge" source="Formula: IIF([FirstWedge]&lt;0,[FirstWedge]+[NumWedges],[FirstWedge])" type="Int32" />
+            <Field name="LastWedge" source="Formula: IIF([LastWedge]&gt;=[NumWedges],[LastWedge]-[NumWedges],[LastWedge])" type="Int32" />
+            <Field name="Wedge" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Key" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxGenerateRows" />
+    </Node>
+    <Node ToolID="106">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="418.1" y="1224" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Key" action="GroupBy" rename="Key" />
+            <SummarizeField field="Weight" action="Sum" rename="Sum_Weight" />
+            <SummarizeField field="NumWedges" action="First" rename="NumWedges" />
+          </SummarizeFields>
+          <Separator>,</Separator>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Summarize (106)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="Summarize: GroupBy - Key" type="V_String" />
+            <Field name="Sum_Weight" source="Summarize: Sum - Weight" type="Double" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Key" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="107">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="341.1" y="1228" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="0">
+            <Field field="Key" order="Ascending" />
+            <Field field="Wedge" order="Ascending" />
+            <Field field="DistanceMiles" order="Descending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Sort (107)</Name>
+          <DefaultAnnotationText>Key - Ascending
+Wedge - Ascending
+DistanceMiles - Descending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="File: W:\_Temp\TAMacs\PWT\Stores.yxdb" type="V_String" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="OverSampleMultiplier" source="Formula: 1" type="Int32" />
+            <Field name="Weight" source="File: W:\_Temp\TAMacs\PWT\Customers.yxdb" type="Double" />
+            <Field name="DistanceMiles" source="Distance: Distance Source=Centroid Destination=cust_Point Units=Miles" type="Double" />
+            <Field name="DirectionRad" source="Formula: IIF(DirectionRad&lt;0,DirectionRad+2*PI(),DirectionRad)&#xA;&#xA;" type="Float" />
+            <Field name="Wedge" type="Int32" />
+          </RecordInfo>
+          <SortInfo locale="0">
+            <Field field="Key" order="Ascending" />
+            <Field field="Wedge" order="Ascending" />
+            <Field field="DistanceMiles" order="Descending" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="108">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="384.1" y="1121" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SelectFields>
+            <SelectField selected="True" field="Key" rename="" />
+            <SelectField selected="True" field="NumWedges" rename="" />
+            <SelectField selected="True" field="OverSampleMultiplier" rename="" />
+            <SelectField selected="False" field="cust_Point" type="SpatialObj" size="N/A" rename="" />
+            <SelectField selected="True" field="Weight" rename="" />
+            <SelectField selected="True" field="DistanceMiles" rename="" />
+            <SelectField selected="True" field="DirectionRad" rename="" />
+            <SelectField selected="False" field="WedgeWidth" rename="" />
+            <SelectField selected="False" field="OverSampleWidth" rename="" />
+            <SelectField selected="False" field="FirstWedge" rename="" />
+            <SelectField selected="False" field="LastWedge" rename="" />
+            <SelectField selected="True" field="Wedge" rename="" />
+            <SelectField selected="False" field="*Unknown" />
+          </SelectFields>
+          <OrderChanged value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Select (108)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="File: W:\_Temp\TAMacs\PWT\Stores.yxdb" type="V_String" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="OverSampleMultiplier" source="Formula: 1" type="Int32" />
+            <Field name="Weight" source="File: W:\_Temp\TAMacs\PWT\Customers.yxdb" type="Double" />
+            <Field name="DistanceMiles" source="Distance: Distance Source=Centroid Destination=cust_Point Units=Miles" type="Double" />
+            <Field name="DirectionRad" source="Formula: IIF(DirectionRad&lt;0,DirectionRad+2*PI(),DirectionRad)&#xA;&#xA;" type="Float" />
+            <Field name="Wedge" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Key" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="110">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="373.1" y="1356" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="Key" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="Key" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <SelectFields>
+                <SelectField selected="True" field="Left_Key" rename="" />
+                <SelectField selected="True" field="Left_NumWedges" rename="" />
+                <SelectField selected="True" field="Left_OverSampleMultiplier" rename="" />
+                <SelectField selected="True" field="Left_Weight" rename="" />
+                <SelectField selected="True" field="Left_DistanceMiles" rename="" />
+                <SelectField selected="True" field="Left_DirectionRad" rename="" />
+                <SelectField selected="True" field="Left_Wedge" rename="" />
+                <SelectField selected="False" field="Right_Key" rename="Right_Key" />
+                <SelectField selected="True" field="Right_Sum_Weight" rename="TotalWeight" />
+                <SelectField selected="True" field="Right_NumWedges" rename="Right_NumWedges" />
+                <SelectField selected="True" field="Right_OutlierDropFactor" rename="" />
+                <SelectField selected="True" field="Right_WeightToDropPerWedge" rename="" />
+                <SelectField selected="True" field="*Unknown" />
+              </SelectFields>
+              <OrderChanged value="False" />
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Join (110)</Name>
+          <DefaultAnnotationText>Key=Key</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="Key" size="32" source="File: W:\_Temp\TAMacs\PWT\Stores.yxdb" type="V_String" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="OverSampleMultiplier" source="Formula: 1" type="Int32" />
+            <Field name="Weight" source="File: W:\_Temp\TAMacs\PWT\Customers.yxdb" type="Double" />
+            <Field name="DistanceMiles" source="Distance: Distance Source=Centroid Destination=cust_Point Units=Miles" type="Double" />
+            <Field name="DirectionRad" source="Formula: IIF(DirectionRad&lt;0,DirectionRad+2*PI(),DirectionRad)&#xA;&#xA;" type="Float" />
+            <Field name="Wedge" type="Int32" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="Key" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="Key" size="32" source="File: W:\_Temp\TAMacs\PWT\Stores.yxdb" type="V_String" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="OverSampleMultiplier" source="Formula: 1" type="Int32" />
+            <Field name="Weight" source="File: W:\_Temp\TAMacs\PWT\Customers.yxdb" type="Double" />
+            <Field name="DistanceMiles" source="Distance: Distance Source=Centroid Destination=cust_Point Units=Miles" type="Double" />
+            <Field name="DirectionRad" source="Formula: IIF(DirectionRad&lt;0,DirectionRad+2*PI(),DirectionRad)&#xA;&#xA;" type="Float" />
+            <Field name="Wedge" type="Int32" />
+            <Field name="TotalWeight" source="Summarize: Sum - Weight" type="Double" />
+            <Field name="Right_NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="OutlierDropFactor" source="Formula: 0.1" type="Double" />
+            <Field name="WeightToDropPerWedge" source="Formula: ([Sum_Weight]/[NumWedges])*[OutlierDropFactor]&#xA;" type="Double" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Key" order="" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="Key" size="32" source="Summarize: GroupBy - Key" type="V_String" />
+            <Field name="Sum_Weight" source="Summarize: Sum - Weight" type="Double" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="OutlierDropFactor" source="Formula: 0.1" type="Double" />
+            <Field name="WeightToDropPerWedge" source="Formula: ([Sum_Weight]/[NumWedges])*[OutlierDropFactor]&#xA;" type="Double" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="Key" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="111">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="365.1" y="1428" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name>Key</UpdateField_Name>
+          <CreateField_Name>AggregateWeight</CreateField_Name>
+          <CreateField_Type>Double</CreateField_Type>
+          <CreateField_Size>8</CreateField_Size>
+          <OtherRows>Empty</OtherRows>
+          <NumRows value="1" />
+          <Expression>[Row-1:AggregateWeight]+[Weight]</Expression>
+          <GroupByFields>
+            <Field field="Key" />
+            <Field field="Wedge" />
+          </GroupByFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>MultiRowFormula (111)</Name>
+          <DefaultAnnotationText>[Row-1:AggregateWeight]+[Weight]</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="File: W:\_Temp\TAMacs\PWT\Stores.yxdb" type="V_String" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="OverSampleMultiplier" source="Formula: 1" type="Int32" />
+            <Field name="Weight" source="File: W:\_Temp\TAMacs\PWT\Customers.yxdb" type="Double" />
+            <Field name="DistanceMiles" source="Distance: Distance Source=Centroid Destination=cust_Point Units=Miles" type="Double" />
+            <Field name="DirectionRad" source="Formula: IIF(DirectionRad&lt;0,DirectionRad+2*PI(),DirectionRad)&#xA;&#xA;" type="Float" />
+            <Field name="Wedge" type="Int32" />
+            <Field name="TotalWeight" source="Summarize: Sum - Weight" type="Double" />
+            <Field name="Right_NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="OutlierDropFactor" source="Formula: 0.1" type="Double" />
+            <Field name="WeightToDropPerWedge" source="Formula: ([Sum_Weight]/[NumWedges])*[OutlierDropFactor]&#xA;" type="Double" />
+            <Field description="Formula: [Row-1:AggregateWeight]+[Weight]" name="AggregateWeight" source="Formula: [Row-1:AggregateWeight]+[Weight]" type="Double" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Key" order="Asc" />
+            <Field field="Wedge" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="112">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="365.1" y="1484" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[AggregateWeight]&gt; ([TotalWeight]/[NumWedges])*[OutlierDropFactor]</Expression>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Filter (112)</Name>
+          <DefaultAnnotationText>[AggregateWeight]&gt; ([TotalWeight]/[NumWedges])*[OutlierDropFa...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="Key" size="32" source="File: W:\_Temp\TAMacs\PWT\Stores.yxdb" type="V_String" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="OverSampleMultiplier" source="Formula: 1" type="Int32" />
+            <Field name="Weight" source="File: W:\_Temp\TAMacs\PWT\Customers.yxdb" type="Double" />
+            <Field name="DistanceMiles" source="Distance: Distance Source=Centroid Destination=cust_Point Units=Miles" type="Double" />
+            <Field name="DirectionRad" source="Formula: IIF(DirectionRad&lt;0,DirectionRad+2*PI(),DirectionRad)&#xA;&#xA;" type="Float" />
+            <Field name="Wedge" type="Int32" />
+            <Field name="TotalWeight" source="Summarize: Sum - Weight" type="Double" />
+            <Field name="Right_NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="OutlierDropFactor" source="Formula: 0.1" type="Double" />
+            <Field name="WeightToDropPerWedge" source="Formula: ([Sum_Weight]/[NumWedges])*[OutlierDropFactor]&#xA;" type="Double" />
+            <Field description="Formula: [Row-1:AggregateWeight]+[Weight]" name="AggregateWeight" source="Formula: [Row-1:AggregateWeight]+[Weight]" type="Double" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Key" order="Asc" />
+            <Field field="Wedge" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="Key" size="32" source="File: W:\_Temp\TAMacs\PWT\Stores.yxdb" type="V_String" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="OverSampleMultiplier" source="Formula: 1" type="Int32" />
+            <Field name="Weight" source="File: W:\_Temp\TAMacs\PWT\Customers.yxdb" type="Double" />
+            <Field name="DistanceMiles" source="Distance: Distance Source=Centroid Destination=cust_Point Units=Miles" type="Double" />
+            <Field name="DirectionRad" source="Formula: IIF(DirectionRad&lt;0,DirectionRad+2*PI(),DirectionRad)&#xA;&#xA;" type="Float" />
+            <Field name="Wedge" type="Int32" />
+            <Field name="TotalWeight" source="Summarize: Sum - Weight" type="Double" />
+            <Field name="Right_NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="OutlierDropFactor" source="Formula: 0.1" type="Double" />
+            <Field name="WeightToDropPerWedge" source="Formula: ([Sum_Weight]/[NumWedges])*[OutlierDropFactor]&#xA;" type="Double" />
+            <Field description="Formula: [Row-1:AggregateWeight]+[Weight]" name="AggregateWeight" source="Formula: [Row-1:AggregateWeight]+[Weight]" type="Double" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Key" order="Asc" />
+            <Field field="Wedge" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="113">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="349.1" y="1580" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Key" action="GroupBy" rename="Key" />
+            <SummarizeField field="Wedge" action="GroupBy" rename="Wedge" />
+            <SummarizeField field="DistanceMiles" action="First" rename="DistanceMiles" />
+          </SummarizeFields>
+          <Separator>,</Separator>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Summarize (113)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="Summarize: GroupBy - Key" type="V_String" />
+            <Field name="Wedge" source="Summarize: GroupBy - Wedge" type="Int32" />
+            <Field name="DistanceMiles" source="Distance: Distance Source=Centroid Destination=cust_Point Units=Miles" type="Double" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Key" order="Asc" />
+            <Field field="Wedge" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="115">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="336.1" y="1713" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="Key" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="Key" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <SelectFields>
+                <SelectField selected="True" field="Left_Key" rename="" />
+                <SelectField selected="True" field="Left_Wedge" rename="" />
+                <SelectField selected="True" field="Left_DistanceMiles" rename="" />
+                <SelectField selected="False" field="Right_Key" rename="Right_Key" />
+                <SelectField selected="True" field="Right_Centroid" type="SpatialObj" size="N/A" rename="" />
+                <SelectField selected="True" field="Right_NumWedges" rename="" />
+                <SelectField selected="False" field="Right_OverSampleMultiplier" rename="" />
+                <SelectField selected="True" field="*Unknown" />
+              </SelectFields>
+              <OrderChanged value="False" />
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Join (115)</Name>
+          <DefaultAnnotationText>Key=Key</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="Key" size="32" source="Summarize: GroupBy - Key" type="V_String" />
+            <Field name="Wedge" source="Summarize: GroupBy - Wedge" type="Int32" />
+            <Field name="DistanceMiles" source="Distance: Distance Source=Centroid Destination=cust_Point Units=Miles" type="Double" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="Key" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="Key" size="32" source="Summarize: GroupBy - Key" type="V_String" />
+            <Field name="Wedge" source="Summarize: GroupBy - Wedge" type="Int32" />
+            <Field name="DistanceMiles" source="Distance: Distance Source=Centroid Destination=cust_Point Units=Miles" type="Double" />
+            <Field name="Centroid" size="2147483647" source="SpatialInfo: CentroidObj Source=SpatialObj" type="SpatialObj" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Key" order="" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="Key" size="32" source="File: W:\_Temp\TAMacs\PWT\Stores.yxdb" type="V_String" />
+            <Field name="Centroid" size="2147483647" source="SpatialInfo: CentroidObj Source=SpatialObj" type="SpatialObj" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="Key" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="116">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.SpatialInfo.SpatialInfo">
+        <Position x="349.1" y="2100" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SpatialObj field="Centroid" />
+          <SelectedItems>
+            <Item name="CentroidXY" />
+          </SelectedItems>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>SpatialInfo (116)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="(Multiple Sources)" type="V_String" />
+            <Field name="Wedge" source="(Multiple Sources)" type="Int32" />
+            <Field name="DistanceMiles" source="(Multiple Sources)" type="Double" />
+            <Field name="Centroid" size="2147483647" source="SpatialInfo: CentroidObj Source=SpatialObj" type="SpatialObj" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="CentroidX" source="SpatialInfo: CentroidXY Source=Centroid" type="Double" />
+            <Field name="CentroidY" source="SpatialInfo: CentroidXY Source=Centroid" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSpatialInfo" />
+    </Node>
+    <Node ToolID="119">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="349.1" y="2172" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField field="MilesPerDegreeLat" type="Double" size="8" expression="69.0550427&#xA;" />
+            <FormulaField field="MilesPerDegLon" type="Double" size="8" expression="abs([MilesPerDegreeLat]*cos([CentroidY]*(PI()/180)))" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Formula (119)</Name>
+          <DefaultAnnotationText>MilesPerDegreeLat=69.0550427
+
+MilesPerDegLon=abs([MilesPerDegreeLat]*cos([CentroidY]*(PI()/...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="(Multiple Sources)" type="V_String" />
+            <Field name="Wedge" source="(Multiple Sources)" type="Int32" />
+            <Field name="DistanceMiles" source="(Multiple Sources)" type="Double" />
+            <Field name="Centroid" size="2147483647" source="SpatialInfo: CentroidObj Source=SpatialObj" type="SpatialObj" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="CentroidX" source="SpatialInfo: CentroidXY Source=Centroid" type="Double" />
+            <Field name="CentroidY" source="SpatialInfo: CentroidXY Source=Centroid" type="Double" />
+            <Field name="MilesPerDegreeLat" source="Formula: 69.0550427&#xA;" type="Double" />
+            <Field name="MilesPerDegLon" source="Formula: abs([MilesPerDegreeLat]*cos([CentroidY]*(PI()/180)))" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="129">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.GenerateRows.GenerateRows">
+        <Position x="461.1" y="1740" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name>Key</UpdateField_Name>
+          <CreateField_Name>Wedge</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>254</CreateField_Size>
+          <Expression_Init>0</Expression_Init>
+          <Expression_Cond>Wedge&lt;[NumWedges]</Expression_Cond>
+          <Expression_Loop>Wedge+1</Expression_Loop>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>GenerateRows (129)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="File: W:\_Temp\TAMacs\PWT\Stores.yxdb" type="V_String" />
+            <Field name="Centroid" size="2147483647" source="SpatialInfo: CentroidObj Source=SpatialObj" type="SpatialObj" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="OverSampleMultiplier" source="Formula: 1" type="Int32" />
+            <Field name="Wedge" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxGenerateRows" />
+    </Node>
+    <Node ToolID="130">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="397.1" y="1804" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="Key" />
+            <Field field="Wedge" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="Key" />
+            <Field field="Wedge" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <SelectFields>
+                <SelectField selected="True" field="Left_Key" rename="" />
+                <SelectField selected="True" field="Left_Wedge" rename="" />
+                <SelectField selected="True" field="Left_DistanceMiles" rename="" />
+                <SelectField selected="True" field="Right_Key" rename="Right_Key" />
+                <SelectField selected="True" field="Right_Centroid" type="SpatialObj" size="N/A" rename="" />
+                <SelectField selected="True" field="Right_NumWedges" rename="" />
+                <SelectField selected="True" field="Right_OverSampleMultiplier" rename="" />
+                <SelectField selected="True" field="Right_Wedge" rename="Right_Wedge" />
+                <SelectField selected="True" field="*Unknown" />
+              </SelectFields>
+              <OrderChanged value="False" />
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Join (130)</Name>
+          <DefaultAnnotationText>Key=Key
+Wedge=Wedge</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="Key" size="32" source="Summarize: GroupBy - Key" type="V_String" />
+            <Field name="Wedge" source="Summarize: GroupBy - Wedge" type="Int32" />
+            <Field name="DistanceMiles" source="Distance: Distance Source=Centroid Destination=cust_Point Units=Miles" type="Double" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="Key" />
+            <Field field="Wedge" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="Key" size="32" source="Summarize: GroupBy - Key" type="V_String" />
+            <Field name="Wedge" source="Summarize: GroupBy - Wedge" type="Int32" />
+            <Field name="DistanceMiles" source="Distance: Distance Source=Centroid Destination=cust_Point Units=Miles" type="Double" />
+            <Field name="Right_Key" size="32" source="File: W:\_Temp\TAMacs\PWT\Stores.yxdb" type="V_String" />
+            <Field name="Centroid" size="2147483647" source="SpatialInfo: CentroidObj Source=SpatialObj" type="SpatialObj" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="OverSampleMultiplier" source="Formula: 1" type="Int32" />
+            <Field name="Right_Wedge" type="Int32" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Key" order="" />
+            <Field field="Wedge" order="" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="Key" size="32" source="File: W:\_Temp\TAMacs\PWT\Stores.yxdb" type="V_String" />
+            <Field name="Centroid" size="2147483647" source="SpatialInfo: CentroidObj Source=SpatialObj" type="SpatialObj" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="OverSampleMultiplier" source="Formula: 1" type="Int32" />
+            <Field name="Wedge" type="Int32" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="Key" />
+            <Field field="Wedge" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="131">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Union.Union">
+        <Position x="357.1" y="2012" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <ByName_ErrorMode>Warning</ByName_ErrorMode>
+          <ByName_OutputMode>All</ByName_OutputMode>
+          <Mode>ByName</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Union (131)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="(Multiple Sources)" type="V_String" />
+            <Field name="Wedge" source="(Multiple Sources)" type="Int32" />
+            <Field name="DistanceMiles" source="(Multiple Sources)" type="Double" />
+            <Field name="Centroid" size="2147483647" source="SpatialInfo: CentroidObj Source=SpatialObj" type="SpatialObj" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxUnion" />
+    </Node>
+    <Node ToolID="132">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="413.1" y="1940" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SelectFields>
+            <SelectField selected="True" field="Key" rename="" />
+            <SelectField selected="True" field="Centroid" type="SpatialObj" size="N/A" rename="" />
+            <SelectField selected="True" field="NumWedges" rename="" />
+            <SelectField selected="False" field="OverSampleMultiplier" rename="" />
+            <SelectField selected="True" field="Wedge" rename="" />
+            <SelectField selected="True" field="DistanceMiles" rename="" />
+            <SelectField selected="True" field="*Unknown" />
+          </SelectFields>
+          <OrderChanged value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Select (132)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="File: W:\_Temp\TAMacs\PWT\Stores.yxdb" type="V_String" />
+            <Field name="Centroid" size="2147483647" source="SpatialInfo: CentroidObj Source=SpatialObj" type="SpatialObj" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="Wedge" type="Int32" />
+            <Field name="DistanceMiles" source="Formula: 0.1" type="Double" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Key" order="" />
+            <Field field="Wedge" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="133">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="413.1" y="1868" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField field="DistanceMiles" type="Double" size="8" expression="0.1" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Formula (133)</Name>
+          <DefaultAnnotationText>DistanceMiles=0.1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="File: W:\_Temp\TAMacs\PWT\Stores.yxdb" type="V_String" />
+            <Field name="Centroid" size="2147483647" source="SpatialInfo: CentroidObj Source=SpatialObj" type="SpatialObj" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="OverSampleMultiplier" source="Formula: 1" type="Int32" />
+            <Field name="Wedge" type="Int32" />
+            <Field name="DistanceMiles" source="Formula: 0.1" type="Double" />
+          </RecordInfo>
+          <SortInfo noProgress="True">
+            <Field field="Key" />
+            <Field field="Wedge" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="136">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="328.1" y="248" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField field="NumWedges" type="Int32" size="4" expression="16&#xA;" />
+            <FormulaField field="OverSampleMultiplier" type="Int32" size="4" expression="1" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Basic Config</Name>
+          <AnnotationText />
+          <DefaultAnnotationText>NumWedges=16
+
+OverSampleMultiplier=1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="File: W:\_Temp\TAMacs\PWT\Stores.yxdb" type="V_String" />
+            <Field name="SpatialObj" size="2147483647" source="File: W:\_Temp\TAMacs\PWT\Stores.yxdb" type="SpatialObj" />
+            <Field name="Centroid" size="2147483647" source="SpatialInfo: CentroidObj Source=SpatialObj" type="SpatialObj" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="OverSampleMultiplier" source="Formula: 1" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="158">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="413.1" y="1292" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField field="OutlierDropFactor" type="Double" size="8" expression="0.1" />
+            <FormulaField field="WeightToDropPerWedge" type="Double" size="8" expression="([Sum_Weight]/[NumWedges])*[OutlierDropFactor]&#xA;" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Formula : Outlier DropFactor</Name>
+          <AnnotationText />
+          <DefaultAnnotationText>OutlierDropFactor=0.1
+WeightToDropPerWedge=([Sum_Weight]/[NumWedges])*[OutlierDropF...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="Summarize: GroupBy - Key" type="V_String" />
+            <Field name="Sum_Weight" source="Summarize: Sum - Weight" type="Double" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="OutlierDropFactor" source="Formula: 0.1" type="Double" />
+            <Field name="WeightToDropPerWedge" source="Formula: ([Sum_Weight]/[NumWedges])*[OutlierDropFactor]&#xA;" type="Double" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Key" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="179">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="336.1" y="2449" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField field="WedgeAng" type="Double" size="8" expression="(([Wedge]+[wedgeLet]/[NumSegsPerPie])*(2*PI()/NumWedges))" />
+            <FormulaField field="Seq" type="Double" size="8" expression="[Wedge]*([NumSegsPerPie]+1)+[wedgeLet]" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Formula (179)</Name>
+          <DefaultAnnotationText>WedgeAng=(([Wedge]+[wedgeLet]/[NumSegsPerPie])*(2*PI()/NumWed...
+Seq=[Wedge]*([NumSegsPerPie]+1)+[wedgeLet]</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="(Multiple Sources)" type="V_String" />
+            <Field name="Wedge" source="(Multiple Sources)" type="Int32" />
+            <Field name="DistanceMiles" source="(Multiple Sources)" type="Double" />
+            <Field name="Centroid" size="2147483647" source="SpatialInfo: CentroidObj Source=SpatialObj" type="SpatialObj" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="CentroidX" source="SpatialInfo: CentroidXY Source=Centroid" type="Double" />
+            <Field name="CentroidY" source="SpatialInfo: CentroidXY Source=Centroid" type="Double" />
+            <Field name="MilesPerDegreeLat" source="Formula: 69.0550427&#xA;" type="Double" />
+            <Field name="MilesPerDegLon" source="Formula: abs([MilesPerDegreeLat]*cos([CentroidY]*(PI()/180)))" type="Double" />
+            <Field name="NumSegsPerPie" source="Formula: Ceil(64/[NumWedges])" type="Int32" />
+            <Field name="wedgeLet" type="Int32" />
+            <Field name="WedgeAng" source="Formula: (([Wedge]+[wedgeLet]/[NumSegsPerPie])*(2*PI()/NumWedges))" type="Double" />
+            <Field name="Seq" source="Formula: [Wedge]*([NumSegsPerPie]+1)+[wedgeLet]" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="182">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.CreatePoints.CreatePoints">
+        <Position x="344.1" y="2705" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Fields fieldX="X" fieldY="Y" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>CreatePoints (182)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="(Multiple Sources)" type="V_String" />
+            <Field name="Wedge" source="(Multiple Sources)" type="Int32" />
+            <Field name="DistanceMiles" source="(Multiple Sources)" type="Double" />
+            <Field name="Centroid" size="2147483647" source="SpatialInfo: CentroidObj Source=SpatialObj" type="SpatialObj" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="MilesPerDegreeLat" source="Formula: 69.0550427&#xA;" type="Double" />
+            <Field name="MilesPerDegLon" source="Formula: abs([MilesPerDegreeLat]*cos([CentroidY]*(PI()/180)))" type="Double" />
+            <Field name="NumSegsPerPie" source="Formula: Ceil(64/[NumWedges])" type="Int32" />
+            <Field name="wedgeLet" type="Int32" />
+            <Field name="WedgeAng" source="Formula: (([Wedge]+[wedgeLet]/[NumSegsPerPie])*(2*PI()/NumWedges))" type="Double" />
+            <Field name="Seq" source="Formula: [Wedge]*([NumSegsPerPie]+1)+[wedgeLet]" type="Double" />
+            <Field name="X" source="Formula: (cos([WedgeAng])*[DistanceMiles]) / [MilesPerDegLon] +CentroidX" type="Double" />
+            <Field name="Y" source="Formula: sin([WedgeAng])*[DistanceMiles]/[MilesPerDegreeLat]+CentroidY" type="Double" />
+            <Field name="Centroid2" size="2147483647" source="CreatePoints: x=X y=Y" type="SpatialObj" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxCreatePoints" />
+    </Node>
+    <Node ToolID="183">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.PolyBuild.PolyBuild">
+        <Position x="352.1" y="2785" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SpatialObj field="Centroid2" />
+          <GroupField field="Key" />
+          <BuildType>SequencePolygon</BuildType>
+          <SequenceField field="Seq" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>PolyBuild (183)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="(Multiple Sources)" type="V_String" />
+            <Field name="SpatialObj_Built" size="2147483647" source="PolyBuild: Method=SequencePolygon Source=Centroid2" type="SpatialObj" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Key" order="Asc" />
+            <Field field="Seq" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxPolyBuild" />
+    </Node>
+    <Node ToolID="226">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="336.1" y="2545" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField field="X" type="Double" size="8" expression="(cos([WedgeAng])*[DistanceMiles]) / [MilesPerDegLon] +CentroidX" />
+            <FormulaField field="Y" type="Double" size="8" expression="sin([WedgeAng])*[DistanceMiles]/[MilesPerDegreeLat]+CentroidY" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Formula (226)</Name>
+          <DefaultAnnotationText>X=(cos([WedgeAng])*[DistanceMiles]) / [MilesPerDegLon] +Centr...
+Y=sin([WedgeAng])*[DistanceMiles]/[MilesPerDegreeLat]+CentroidY</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="(Multiple Sources)" type="V_String" />
+            <Field name="Wedge" source="(Multiple Sources)" type="Int32" />
+            <Field name="DistanceMiles" source="(Multiple Sources)" type="Double" />
+            <Field name="Centroid" size="2147483647" source="SpatialInfo: CentroidObj Source=SpatialObj" type="SpatialObj" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="CentroidX" source="SpatialInfo: CentroidXY Source=Centroid" type="Double" />
+            <Field name="CentroidY" source="SpatialInfo: CentroidXY Source=Centroid" type="Double" />
+            <Field name="MilesPerDegreeLat" source="Formula: 69.0550427&#xA;" type="Double" />
+            <Field name="MilesPerDegLon" source="Formula: abs([MilesPerDegreeLat]*cos([CentroidY]*(PI()/180)))" type="Double" />
+            <Field name="NumSegsPerPie" source="Formula: Ceil(64/[NumWedges])" type="Int32" />
+            <Field name="wedgeLet" type="Int32" />
+            <Field name="WedgeAng" source="Formula: (([Wedge]+[wedgeLet]/[NumSegsPerPie])*(2*PI()/NumWedges))" type="Double" />
+            <Field name="Seq" source="Formula: [Wedge]*([NumSegsPerPie]+1)+[wedgeLet]" type="Double" />
+            <Field name="X" source="Formula: (cos([WedgeAng])*[DistanceMiles]) / [MilesPerDegLon] +CentroidX" type="Double" />
+            <Field name="Y" source="Formula: sin([WedgeAng])*[DistanceMiles]/[MilesPerDegreeLat]+CentroidY" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="255">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.SpatialInfo.SpatialInfo">
+        <Position x="352.1" y="641" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SpatialObj field="Centroid" />
+          <SelectedItems>
+            <Item name="CentroidXY" />
+          </SelectedItems>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>SpatialInfo (255)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="File: W:\_Temp\TAMacs\PWT\Stores.yxdb" type="V_String" />
+            <Field name="Centroid" size="2147483647" source="SpatialInfo: CentroidObj Source=SpatialObj" type="SpatialObj" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="OverSampleMultiplier" source="Formula: 1" type="Int32" />
+            <Field name="cust_Point" size="2147483647" source="File: W:\_Temp\TAMacs\PWT\Customers.yxdb" type="SpatialObj" />
+            <Field name="Weight" source="File: W:\_Temp\TAMacs\PWT\Customers.yxdb" type="Double" />
+            <Field name="DistanceMiles" source="Distance: Distance Source=Centroid Destination=cust_Point Units=Miles" type="Double" />
+            <Field name="CentroidX" source="SpatialInfo: CentroidXY Source=Centroid" type="Double" />
+            <Field name="CentroidY" source="SpatialInfo: CentroidXY Source=Centroid" type="Double" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Key" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSpatialInfo" />
+    </Node>
+    <Node ToolID="257">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.SpatialInfo.SpatialInfo">
+        <Position x="352.1" y="697" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SpatialObj field="cust_Point" />
+          <SelectedItems>
+            <Item name="CentroidXY" />
+          </SelectedItems>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>SpatialInfo (257)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="File: W:\_Temp\TAMacs\PWT\Stores.yxdb" type="V_String" />
+            <Field name="Centroid" size="2147483647" source="SpatialInfo: CentroidObj Source=SpatialObj" type="SpatialObj" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="OverSampleMultiplier" source="Formula: 1" type="Int32" />
+            <Field name="cust_Point" size="2147483647" source="File: W:\_Temp\TAMacs\PWT\Customers.yxdb" type="SpatialObj" />
+            <Field name="Weight" source="File: W:\_Temp\TAMacs\PWT\Customers.yxdb" type="Double" />
+            <Field name="DistanceMiles" source="Distance: Distance Source=Centroid Destination=cust_Point Units=Miles" type="Double" />
+            <Field name="CentroidX" source="SpatialInfo: CentroidXY Source=Centroid" type="Double" />
+            <Field name="CentroidY" source="SpatialInfo: CentroidXY Source=Centroid" type="Double" />
+            <Field name="CentroidX2" source="SpatialInfo: CentroidXY Source=cust_Point" type="Double" />
+            <Field name="CentroidY2" source="SpatialInfo: CentroidXY Source=cust_Point" type="Double" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Key" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSpatialInfo" />
+    </Node>
+    <Node ToolID="258">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="352.1" y="817" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField field="DirectionRad" type="Float" size="4" expression="ATAN2(([CentroidY2]-[CentroidY])*MilesPerDegreeLat, ([CentroidX2]-[CentroidX])*[MilesPerDegLon])" />
+            <FormulaField field="DirectionRad" type="Float" size="4" expression="IIF(DirectionRad&lt;0,DirectionRad+2*PI(),DirectionRad)&#xA;&#xA;" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Formula (258)</Name>
+          <DefaultAnnotationText>DirectionRad=ATAN2(([CentroidY2]-[CentroidY])*MilesPerDegreeL...
+DirectionRad=IIF(DirectionRad&lt;0,DirectionRad+2*PI(),Direction...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="File: W:\_Temp\TAMacs\PWT\Stores.yxdb" type="V_String" />
+            <Field name="Centroid" size="2147483647" source="SpatialInfo: CentroidObj Source=SpatialObj" type="SpatialObj" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="OverSampleMultiplier" source="Formula: 1" type="Int32" />
+            <Field name="cust_Point" size="2147483647" source="File: W:\_Temp\TAMacs\PWT\Customers.yxdb" type="SpatialObj" />
+            <Field name="Weight" source="File: W:\_Temp\TAMacs\PWT\Customers.yxdb" type="Double" />
+            <Field name="DistanceMiles" source="Distance: Distance Source=Centroid Destination=cust_Point Units=Miles" type="Double" />
+            <Field name="CentroidX" source="SpatialInfo: CentroidXY Source=Centroid" type="Double" />
+            <Field name="CentroidY" source="SpatialInfo: CentroidXY Source=Centroid" type="Double" />
+            <Field name="CentroidX2" source="SpatialInfo: CentroidXY Source=cust_Point" type="Double" />
+            <Field name="CentroidY2" source="SpatialInfo: CentroidXY Source=cust_Point" type="Double" />
+            <Field name="MilesPerDegreeLat" source="Formula: 69.0550427&#xA;" type="Double" />
+            <Field name="MilesPerDegLon" source="Formula: abs([MilesPerDegreeLat]*cos([CentroidY]*(PI()/180)))" type="Double" />
+            <Field name="DirectionRad" source="Formula: IIF(DirectionRad&lt;0,DirectionRad+2*PI(),DirectionRad)&#xA;&#xA;" type="Float" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Key" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="317">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="352.1" y="761" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField field="MilesPerDegreeLat" type="Double" size="8" expression="69.0550427&#xA;" />
+            <FormulaField field="MilesPerDegLon" type="Double" size="8" expression="abs([MilesPerDegreeLat]*cos([CentroidY]*(PI()/180)))" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Formula (317)</Name>
+          <AnnotationText />
+          <DefaultAnnotationText>MilesPerDegreeLat=69.0550427
+
+MilesPerDegLon=abs([MilesPerDegreeLat]*cos([CentroidY]*(PI()/...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="File: W:\_Temp\TAMacs\PWT\Stores.yxdb" type="V_String" />
+            <Field name="Centroid" size="2147483647" source="SpatialInfo: CentroidObj Source=SpatialObj" type="SpatialObj" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="OverSampleMultiplier" source="Formula: 1" type="Int32" />
+            <Field name="cust_Point" size="2147483647" source="File: W:\_Temp\TAMacs\PWT\Customers.yxdb" type="SpatialObj" />
+            <Field name="Weight" source="File: W:\_Temp\TAMacs\PWT\Customers.yxdb" type="Double" />
+            <Field name="DistanceMiles" source="Distance: Distance Source=Centroid Destination=cust_Point Units=Miles" type="Double" />
+            <Field name="CentroidX" source="SpatialInfo: CentroidXY Source=Centroid" type="Double" />
+            <Field name="CentroidY" source="SpatialInfo: CentroidXY Source=Centroid" type="Double" />
+            <Field name="CentroidX2" source="SpatialInfo: CentroidXY Source=cust_Point" type="Double" />
+            <Field name="CentroidY2" source="SpatialInfo: CentroidXY Source=cust_Point" type="Double" />
+            <Field name="MilesPerDegreeLat" source="Formula: 69.0550427&#xA;" type="Double" />
+            <Field name="MilesPerDegLon" source="Formula: abs([MilesPerDegreeLat]*cos([CentroidY]*(PI()/180)))" type="Double" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Key" order="" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="372">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="360.1" y="2273" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField field="NumSegsPerPie" type="Int32" size="4" expression="Ceil(64/[NumWedges])" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Formula (372)</Name>
+          <DefaultAnnotationText>NumSegsPerPie=Ceil(64/[NumWedges])</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="(Multiple Sources)" type="V_String" />
+            <Field name="Wedge" source="(Multiple Sources)" type="Int32" />
+            <Field name="DistanceMiles" source="(Multiple Sources)" type="Double" />
+            <Field name="Centroid" size="2147483647" source="SpatialInfo: CentroidObj Source=SpatialObj" type="SpatialObj" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="CentroidX" source="SpatialInfo: CentroidXY Source=Centroid" type="Double" />
+            <Field name="CentroidY" source="SpatialInfo: CentroidXY Source=Centroid" type="Double" />
+            <Field name="MilesPerDegreeLat" source="Formula: 69.0550427&#xA;" type="Double" />
+            <Field name="MilesPerDegLon" source="Formula: abs([MilesPerDegreeLat]*cos([CentroidY]*(PI()/180)))" type="Double" />
+            <Field name="NumSegsPerPie" source="Formula: Ceil(64/[NumWedges])" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="373">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.GenerateRows.GenerateRows">
+        <Position x="352.1" y="2361" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name>Key</UpdateField_Name>
+          <CreateField_Name>wedgeLet</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>254</CreateField_Size>
+          <Expression_Init>0</Expression_Init>
+          <Expression_Cond>wedgeLet&lt;=[NumSegsPerPie]</Expression_Cond>
+          <Expression_Loop>wedgeLet+1</Expression_Loop>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>GenerateRows (373)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="(Multiple Sources)" type="V_String" />
+            <Field name="Wedge" source="(Multiple Sources)" type="Int32" />
+            <Field name="DistanceMiles" source="(Multiple Sources)" type="Double" />
+            <Field name="Centroid" size="2147483647" source="SpatialInfo: CentroidObj Source=SpatialObj" type="SpatialObj" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="CentroidX" source="SpatialInfo: CentroidXY Source=Centroid" type="Double" />
+            <Field name="CentroidY" source="SpatialInfo: CentroidXY Source=Centroid" type="Double" />
+            <Field name="MilesPerDegreeLat" source="Formula: 69.0550427&#xA;" type="Double" />
+            <Field name="MilesPerDegLon" source="Formula: abs([MilesPerDegreeLat]*cos([CentroidY]*(PI()/180)))" type="Double" />
+            <Field name="NumSegsPerPie" source="Formula: Ceil(64/[NumWedges])" type="Int32" />
+            <Field name="wedgeLet" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxGenerateRows" />
+    </Node>
+    <Node ToolID="374">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="344.1" y="2633" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SelectFields>
+            <SelectField selected="True" field="Key" rename="" />
+            <SelectField selected="True" field="Wedge" rename="" />
+            <SelectField selected="True" field="DistanceMiles" rename="" />
+            <SelectField selected="True" field="Centroid" type="SpatialObj" size="N/A" rename="" />
+            <SelectField selected="True" field="NumWedges" rename="" />
+            <SelectField selected="False" field="CentroidX" rename="" />
+            <SelectField selected="False" field="CentroidY" rename="" />
+            <SelectField selected="True" field="MilesPerDegreeLat" rename="" />
+            <SelectField selected="True" field="MilesPerDegLon" rename="" />
+            <SelectField selected="True" field="NumSegsPerPie" rename="" />
+            <SelectField selected="True" field="wedgeLet" rename="" />
+            <SelectField selected="True" field="WedgeAng" rename="" />
+            <SelectField selected="True" field="Seq" rename="" />
+            <SelectField selected="True" field="X" rename="" />
+            <SelectField selected="True" field="Y" rename="" />
+            <SelectField selected="True" field="*Unknown" />
+          </SelectFields>
+          <OrderChanged value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Select (374)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="(Multiple Sources)" type="V_String" />
+            <Field name="Wedge" source="(Multiple Sources)" type="Int32" />
+            <Field name="DistanceMiles" source="(Multiple Sources)" type="Double" />
+            <Field name="Centroid" size="2147483647" source="SpatialInfo: CentroidObj Source=SpatialObj" type="SpatialObj" />
+            <Field name="NumWedges" source="Formula: 16&#xA;" type="Int32" />
+            <Field name="MilesPerDegreeLat" source="Formula: 69.0550427&#xA;" type="Double" />
+            <Field name="MilesPerDegLon" source="Formula: abs([MilesPerDegreeLat]*cos([CentroidY]*(PI()/180)))" type="Double" />
+            <Field name="NumSegsPerPie" source="Formula: Ceil(64/[NumWedges])" type="Int32" />
+            <Field name="wedgeLet" type="Int32" />
+            <Field name="WedgeAng" source="Formula: (([Wedge]+[wedgeLet]/[NumSegsPerPie])*(2*PI()/NumWedges))" type="Double" />
+            <Field name="Seq" source="Formula: [Wedge]*([NumSegsPerPie]+1)+[wedgeLet]" type="Double" />
+            <Field name="X" source="Formula: (cos([WedgeAng])*[DistanceMiles]) / [MilesPerDegLon] +CentroidX" type="Double" />
+            <Field name="Y" source="Formula: sin([WedgeAng])*[DistanceMiles]/[MilesPerDegreeLat]+CentroidY" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="379">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="456.1" y="433" width="240" height="151" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Match Customers to Stores and get distance &amp; direction</Text>
+          <Font name="Microsoft Sans Serif" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="0" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>TextBox (379)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="384">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Detour.Detour">
+        <Position x="352.1" y="2949" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <DetourRight value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Detour: Buffer Results</Name>
+          <AnnotationText />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="Key" size="32" source="(Multiple Sources)" type="V_String" />
+            <Field name="TradeArea" size="2147483647" source="PolyBuild: Method=SequencePolygon Source=Centroid2" type="SpatialObj" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Key" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="Key" size="32" source="(Multiple Sources)" type="V_String" />
+            <Field name="TradeArea" size="2147483647" source="PolyBuild: Method=SequencePolygon Source=Centroid2" type="SpatialObj" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Key" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetour" />
+    </Node>
+    <Node ToolID="386">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DetourEnd.DetourEnd">
+        <Position x="352.1" y="3145" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name>DetourEnd (386)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="(Multiple Sources)" type="V_String" />
+            <Field name="TradeArea" size="2147483647" source="PolyBuild: Method=SequencePolygon Source=Centroid2" type="SpatialObj" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Key" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetourEnd" />
+    </Node>
+    <Node ToolID="403">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="352.1" y="2867" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SelectFields>
+            <SelectField selected="True" field="Key" rename="" />
+            <SelectField selected="True" field="SpatialObj_Built" type="SpatialObj" size="N/A" rename="TradeArea" />
+            <SelectField selected="True" field="*Unknown" />
+          </SelectFields>
+          <OrderChanged value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Select (403)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" source="(Multiple Sources)" type="V_String" />
+            <Field name="TradeArea" size="2147483647" source="PolyBuild: Method=SequencePolygon Source=Centroid2" type="SpatialObj" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="Key" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="405">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="384.1" y="3089" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SelectFields>
+            <SelectField selected="True" field="Key" rename="" />
+            <SelectField selected="True" field="SpatialObj_Transform" type="SpatialObj" size="N/A" rename="TradeArea" />
+            <SelectField selected="True" field="*Unknown" />
+          </SelectFields>
+          <OrderChanged value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Select (405)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="32" type="V_String" />
+            <Field name="TradeArea" size="536870911" type="SpatialObj" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="434">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Buffer.Buffer">
+        <Position x="439.1" y="2996" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SpatialObjectField>TradeArea</SpatialObjectField>
+          <IncludeSourceInOutput value="False" />
+          <GeneralizeToOnePercent value="True" />
+          <BufferSizeSource>SpecificValue</BufferSizeSource>
+          <BufferSizeSpecificValue>2</BufferSizeSpecificValue>
+          <Units>Miles</Units>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>BufferPos (434)</Name>
+          <AnnotationText />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxBuffer" />
+    </Node>
+    <Node ToolID="435">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Buffer.Buffer">
+        <Position x="451.1" y="3065" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SpatialObjectField />
+          <IncludeSourceInOutput value="False" />
+          <GeneralizeToOnePercent value="False" />
+          <BufferSizeSource>SpecificValue</BufferSizeSource>
+          <BufferSizeSpecificValue>-1</BufferSizeSpecificValue>
+          <Units>Miles</Units>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>BufferNeg (435)</Name>
+          <AnnotationText />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxBuffer" />
+    </Node>
+    <Node ToolID="436">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="755.1" y="57" width="314" height="720" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Pie Wedge Trade Area
+
+This macro constructs trade areas around stores consisting of "pie wedges" whose extent depends on the distribution of customers around the store.
+
+There are two Inputs:
+"Stores" requires two fields:
+   -- "Key" is a unique identifier for the store
+   --"SpatialObj" is  a point with the store location
+ 
+"Customers" specifies three fields:
+   -- "Key" matches the Stores input and specifies which store theis customer is associated with
+  -- "SpatialObj" is a point with the customers location
+  -- "Weight" is a numeric field indicating the relative significance of this customer
+
+
+The macro works on each store (and its associated set of  customers) individually.  The customers will be assigned to wdges based on their direction from the store; some percentage of outlying customers will be dropped, and polygons will be constructed fro the wedges containing the remaining customers.  This is controlled by four configuration elements:
+
+-- Numberof Wedges: sets the number of wedges around each store location.  
+-- Oversample multiplier: Having a lot of customers close too, but just to one side of a wedge boundary can cause the resulting trade areas to be unreasonably spiky.  One way to correct this is with the "oversample" multiplier.  Setting this above 1 will effectively make each wedge wider by this fraction, so the sample areas of adjacent wedges will overlap and be less sensitive to such edge effects.  It is probably unreasonable to set this under 1 or over 2.
+--Fraction of outliers to drop:  To arrive at a core trade area, the macro will drop this fraction of outliers (adjusted by weight).  The total amount of "weight" to drop will be calculated, and split evenly between wedges.  After this many of the furthest customers have been removed, the wedge polygon wil be generated extending to the furthest remaining customer.
+--Buffer results:  Finally, the macro offers the ability to optionally buffer the resulting polygons.  this will round off the otherwise sharp-cornered polygons considerably.  Also, the macro uses a two-step process, apply a buffer twice the size specified, followed by a negative buffer of the size specified.  This results in an aproprtiate buffer, but preferentially fills in the narrow gaps the process is prone to.</Text>
+          <Font name="Microsoft Sans Serif" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="0" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>TextBox (436)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="447">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="448">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="449">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="335.1" y="65" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Stores</Name>
+          <Abbrev>S</Abbrev>
+          <ShowFieldMap value="True" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="1" />
+              <Fields>
+                <Field name="Key" />
+                <Field name="SpatialObj" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>1a</c>
+                  <c>{ "type": "Point", "coordinates": [ -105.245944, 40.037004 ] }</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Stores</Name>
+          <DefaultAnnotationText />
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="2" source="TextInput:" type="V_String" />
+            <Field name="SpatialObj" size="2147483647" source="TextInput:" type="SpatialObj" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="450">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="451">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="464.1" y="73" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Customers</Name>
+          <Abbrev>C</Abbrev>
+          <ShowFieldMap value="True" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="1" />
+              <Fields>
+                <Field name="Key" />
+                <Field name="Point" />
+                <Field name="Weight" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>1a</c>
+                  <c>{ "type": "Point", "coordinates": [ -105.245944, 40.037004 ] }</c>
+                  <c>3825.1</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Customers</Name>
+          <DefaultAnnotationText />
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Key" size="2" source="TextInput:" type="V_String" />
+            <Field name="Point" size="2147483647" source="TextInput:" type="SpatialObj" />
+            <Field name="Weight" source="TextInput:" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="452">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="352.1" y="3281" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Output</Name>
+          <Abbrev>
+          </Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Output</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="453">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="54" y="59" width="221.1" height="467.25" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Interface Tools</Caption>
+          <Folded value="False">False</Folded>
+          <Style Transparency="1" Margin="25" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="442">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
+            <Position x="79.00003" y="103" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>NumWedges</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="443">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
+            <Position x="79.00002" y="170.85" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>OverSample</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="444">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
+            <Position x="79" y="442.25" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>OutlierDropFactor</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="445">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
+            <Position x="79.00002" y="238.7" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>Buffer Size</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="446">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
+            <Position x="79.00005" y="374.4" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>BufferResults</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="437">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="191.1" y="103" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="438">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="191.1" y="170.85" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="439">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="191.1" y="374.4" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>DoBuffer</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="440">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="191.1" y="238.7" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>bufferpositive</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="441">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="191.1" y="306.55" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>buffer negative</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="4" Connection="Join" />
+      <Destination ToolID="69" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="5" Connection="Output" />
+      <Destination ToolID="4" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="6" Connection="Output" />
+      <Destination ToolID="4" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="5" Connection="Output" />
+      <Destination ToolID="115" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="113" Connection="Output" />
+      <Destination ToolID="115" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="5" Connection="Output" />
+      <Destination ToolID="129" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="54" Connection="Output" />
+      <Destination ToolID="136" Connection="Input" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="437" Connection="Action" />
+      <Destination ToolID="136" Connection="Action" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="438" Connection="Action" />
+      <Destination ToolID="136" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="69" Connection="Output" />
+      <Destination ToolID="255" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="103" Connection="Output" />
+      <Destination ToolID="104" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="104" Connection="Output" />
+      <Destination ToolID="105" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="105" Connection="Output" />
+      <Destination ToolID="108" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="106" Connection="Output" />
+      <Destination ToolID="158" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="107" Connection="Output" />
+      <Destination ToolID="110" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="158" Connection="Output" />
+      <Destination ToolID="110" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="108" Connection="Output" />
+      <Destination ToolID="107" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="108" Connection="Output" />
+      <Destination ToolID="106" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="110" Connection="Join" />
+      <Destination ToolID="111" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="111" Connection="Output" />
+      <Destination ToolID="112" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="112" Connection="True" />
+      <Destination ToolID="113" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="113" Connection="Output" />
+      <Destination ToolID="130" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="129" Connection="Output" />
+      <Destination ToolID="130" Connection="Right" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="115" Connection="Join" />
+      <Destination ToolID="131" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="132" Connection="Output" />
+      <Destination ToolID="131" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="116" Connection="Output" />
+      <Destination ToolID="119" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="119" Connection="Output" />
+      <Destination ToolID="372" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="130" Connection="Right" />
+      <Destination ToolID="133" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="131" Connection="Output" />
+      <Destination ToolID="116" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="133" Connection="Output" />
+      <Destination ToolID="132" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="136" Connection="Output" />
+      <Destination ToolID="5" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="179" Connection="Output" />
+      <Destination ToolID="226" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="182" Connection="Output" />
+      <Destination ToolID="183" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="183" Connection="Output" />
+      <Destination ToolID="403" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="226" Connection="Output" />
+      <Destination ToolID="374" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="255" Connection="Output" />
+      <Destination ToolID="257" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="257" Connection="Output" />
+      <Destination ToolID="317" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="258" Connection="Output" />
+      <Destination ToolID="103" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="317" Connection="Output" />
+      <Destination ToolID="258" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="372" Connection="Output" />
+      <Destination ToolID="373" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="373" Connection="Output" />
+      <Destination ToolID="179" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="374" Connection="Output" />
+      <Destination ToolID="182" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="384" Connection="Left" />
+      <Destination ToolID="386" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="405" Connection="Output" />
+      <Destination ToolID="386" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="384" Connection="Right" />
+      <Destination ToolID="434" Connection="Input" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="440" Connection="Action" />
+      <Destination ToolID="434" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="386" Connection="Output" />
+      <Destination ToolID="452" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="403" Connection="Output" />
+      <Destination ToolID="384" Connection="Input" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="439" Connection="Action" />
+      <Destination ToolID="384" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="434" Connection="Output" />
+      <Destination ToolID="435" Connection="Input" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="441" Connection="Action" />
+      <Destination ToolID="435" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="435" Connection="Output" />
+      <Destination ToolID="405" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="449" Connection="Output" />
+      <Destination ToolID="54" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="451" Connection="Output" />
+      <Destination ToolID="6" Connection="Input" />
+    </Connection>
+    <Connection name="NumWedges" Wireless="True">
+      <Origin ToolID="442" Connection="Question" />
+      <Destination ToolID="437" Connection="Question" />
+    </Connection>
+    <Connection name="OverSample" Wireless="True">
+      <Origin ToolID="443" Connection="Question" />
+      <Destination ToolID="438" Connection="Question" />
+    </Connection>
+    <Connection name="Buffer Size" Wireless="True">
+      <Origin ToolID="445" Connection="Question" />
+      <Destination ToolID="440" Connection="Question" />
+    </Connection>
+    <Connection name="Buffer Size" Wireless="True">
+      <Origin ToolID="445" Connection="Question" />
+      <Destination ToolID="441" Connection="Question" />
+    </Connection>
+    <Connection name="BufferResults" Wireless="True">
+      <Origin ToolID="446" Connection="Question" />
+      <Destination ToolID="439" Connection="Question" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="False" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Vertical</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>NumWedges</Name>
+        <Value />
+        <IsNumeric value="True" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>OverSample</Name>
+        <Value />
+        <IsNumeric value="True" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>OutlierDropFactor</Name>
+        <Value />
+        <IsNumeric value="True" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Buffer Size</Name>
+        <Value />
+        <IsNumeric value="True" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>BufferResults</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="False" />
+      <Name>Pie Wedge Trade Area</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName>Spatial</CategoryName>
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+    <RuntimeProperties>
+      <Actions>
+        <NoCondition>
+          <Type>NoCondition</Type>
+          <Description>(Always Run)</Description>
+          <True>
+            <Action>
+              <Type>UpdateValue</Type>
+              <Description>NumWedges</Description>
+              <ToolId value="437" />
+              <Mode>Simple</Mode>
+              <Variable>NumWedges</Variable>
+              <Replace value="False" />
+              <Destination>136/FormulaFields/FormulaField[@field='NumWedges']/@expression</Destination>
+            </Action>
+            <Action>
+              <Type>UpdateValue</Type>
+              <Description>OverSample</Description>
+              <ToolId value="438" />
+              <Mode>Simple</Mode>
+              <Variable>OverSample</Variable>
+              <Replace value="False" />
+              <Destination>136/FormulaFields/FormulaField[@field='OverSampleMultiplier']/@expression</Destination>
+            </Action>
+            <Action>
+              <Type>UpdateValue</Type>
+              <Description>BufferResults</Description>
+              <ToolId value="439" />
+              <Mode>Simple</Mode>
+              <Variable>BufferResults</Variable>
+              <Replace value="False" />
+              <Destination>384/DetourRight/@value</Destination>
+            </Action>
+            <Action>
+              <Type>UpdateValueFormula</Type>
+              <Description />
+              <ToolId value="440" />
+              <Expression>tonumber([Buffer Size])*2</Expression>
+              <Destination>434/BufferSizeSpecificValue</Destination>
+              <Mode>Expression</Mode>
+            </Action>
+            <Action>
+              <Type>UpdateValueFormula</Type>
+              <Description />
+              <ToolId value="441" />
+              <Expression>0-tonumber([Buffer Size])</Expression>
+              <Destination>435/BufferSizeSpecificValue</Destination>
+              <Mode>Expression</Mode>
+            </Action>
+          </True>
+        </NoCondition>
+      </Actions>
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (447)</Name>
+          <ToolId value="447" />
+          <Questions>
+            <Question>
+              <Type>NumericUpDown</Type>
+              <Description>Number of Wedges</Description>
+              <Name>NumWedges</Name>
+              <ToolId value="442" />
+              <Minimum value="2" />
+              <Maximum value="100" />
+              <Increment value="1" />
+              <Default value="16" />
+              <Decimals value="0" />
+            </Question>
+            <Question>
+              <Type>NumericUpDown</Type>
+              <Description>Over Sample Multiplier</Description>
+              <Name>OverSample</Name>
+              <ToolId value="443" />
+              <Minimum value="1" />
+              <Maximum value="100" />
+              <Increment value="1" />
+              <Default value="1" />
+              <Decimals value="0" />
+            </Question>
+            <Question>
+              <Type>NumericUpDown</Type>
+              <Description>Fraction of Outliers to Drop</Description>
+              <Name>OutlierDropFactor</Name>
+              <ToolId value="444" />
+              <Minimum value="0" />
+              <Maximum value="1" />
+              <Increment value="0.1" />
+              <Default value="0.2" />
+              <Decimals value="2" />
+            </Question>
+            <Question>
+              <Type>BooleanGroup</Type>
+              <Description>Buffer Results</Description>
+              <Name>BufferResults</Name>
+              <ToolId value="446" />
+              <Questions>
+                <Question>
+                  <Type>NumericUpDown</Type>
+                  <Description>Buffer Size</Description>
+                  <Name>Buffer Size</Name>
+                  <ToolId value="445" />
+                  <Minimum value="0.1" />
+                  <Maximum value="100" />
+                  <Increment value="1" />
+                  <Default value="1" />
+                  <Decimals value="1" />
+                </Question>
+              </Questions>
+              <Default value="False" />
+              <Collapsable value="False" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Output</Description>
+              <Name>Output</Name>
+              <ToolId value="452" />
+            </Question>
+          </Questions>
+        </Question>
+        <Question>
+          <Type>Tab</Type>
+          <Description>In - Stores</Description>
+          <Name>Tab (448)</Name>
+          <ToolId value="448" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description>Stores</Description>
+              <Name>Stores</Name>
+              <ToolId value="449" />
+            </Question>
+          </Questions>
+        </Question>
+        <Question>
+          <Type>Tab</Type>
+          <Description>In - Customers</Description>
+          <Name>Tab (450)</Name>
+          <ToolId value="450" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description>Customers</Description>
+              <Name>Customers</Name>
+              <ToolId value="451" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="True" />
+      <MacroCustomHelpLink>AlteryxHelp:PieWedgeTradeArea</MacroCustomHelpLink>
+      <MacroDynamicOutputFields value="False" />
+      <MacroImage>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</MacroImage>
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="449" Selected="True" />
+        <Tool ToolId="451" Selected="True" />
+        <Tool ToolId="452" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

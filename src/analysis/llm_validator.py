@@ -34,12 +34,17 @@ from translators.context import TranslationContext
 _BRACKET_RE = re.compile(r"\[([^\]]+)\]")
 _INTERNAL_COLS = {"_rn", "_stub", "_macro_stub", "_sort_order", "_deduped"}
 
+# Strips "AS [alias]" so that alias names on the right side of a rename are not
+# mistakenly treated as upstream column references.  Applied before bracket scanning.
+_AS_ALIAS_RE = re.compile(r"\bAS\s+\[[^\]]+\]", re.IGNORECASE)
+
 
 def _extract_col_refs(sql: str, known_ctes: set[str]) -> set[str]:
+    sql_no_aliases = _AS_ALIAS_RE.sub("", sql)
     return {
         m.group(1)
-        for m in _BRACKET_RE.finditer(sql)
-        if m.group(1) not in _INTERNAL_COLS and m.group(1) not in known_ctes
+        for m in _BRACKET_RE.finditer(sql_no_aliases)
+        if m.group(1) and m.group(1) not in _INTERNAL_COLS and m.group(1) not in known_ctes
     }
 
 

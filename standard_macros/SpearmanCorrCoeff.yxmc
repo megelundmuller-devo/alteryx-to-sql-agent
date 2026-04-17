@@ -1,0 +1,2451 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2024.2" RunE2="T">
+  <Nodes>
+    <Node ToolID="1">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="2">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="3">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="5">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Detour.Detour">
+        <Position x="342" y="342" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <DetourRight value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="Variable1" source="TextInput:" type="Double" />
+            <Field name="Variable2" source="TextInput:" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="Variable1" source="TextInput:" type="Double" />
+            <Field name="Variable2" source="TextInput:" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetour" />
+    </Node>
+    <Node ToolID="6">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="462" y="606" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="&quot;[Group]&quot;" field="__Group__" size="1073741823" type="V_WString" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Formula (85)</Name>
+          <AnnotationText><![CDATA[__Group__ = "[Group]"
+]]></AnnotationText>
+          <DefaultAnnotationText>Formula (85)</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Variable1" source="TextInput:" type="Double" />
+            <Field name="Variable2" source="TextInput:" type="Double" />
+            <Field name="__Group__" size="1073741823" source="Formula: &quot;[Group]&quot;" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="7">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="54" y="342" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Field Selection</Name>
+          <Abbrev />
+          <ShowFieldMap value="True" />
+          <Optional value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="100" />
+              <Fields>
+                <Field name="Variable1" />
+                <Field name="Variable2" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>17953.000001</c>
+                  <c>51858.0000002</c>
+                </r>
+                <r>
+                  <c>74105.000001</c>
+                  <c>180269.0000002</c>
+                </r>
+                <r>
+                  <c>10593.000001</c>
+                  <c>27986.0000002</c>
+                </r>
+                <r>
+                  <c>7581.000001</c>
+                  <c>22072.0000002</c>
+                </r>
+                <r>
+                  <c>19622.000001</c>
+                  <c>58382.0000002</c>
+                </r>
+                <r>
+                  <c>3997.000001</c>
+                  <c>10715.0000002</c>
+                </r>
+                <r>
+                  <c>8650.000001</c>
+                  <c>20330.0000002</c>
+                </r>
+                <r>
+                  <c>46121.000001</c>
+                  <c>113333.0000002</c>
+                </r>
+                <r>
+                  <c>14524.000001</c>
+                  <c>34847.0000002</c>
+                </r>
+                <r>
+                  <c>9981.000001</c>
+                  <c>25221.0000002</c>
+                </r>
+                <r>
+                  <c>15969.000001</c>
+                  <c>42823.0000002</c>
+                </r>
+                <r>
+                  <c>6469.000001</c>
+                  <c>14324.0000002</c>
+                </r>
+                <r>
+                  <c>10755.000001</c>
+                  <c>27150.0000002</c>
+                </r>
+                <r>
+                  <c>5865.000001</c>
+                  <c>13736.0000002</c>
+                </r>
+                <r>
+                  <c>5746.000001</c>
+                  <c>14929.0000002</c>
+                </r>
+                <r>
+                  <c>18976.000001</c>
+                  <c>47019.0000002</c>
+                </r>
+                <r>
+                  <c>23338.000001</c>
+                  <c>54875.0000002</c>
+                </r>
+                <r>
+                  <c>5853.000001</c>
+                  <c>13241.0000002</c>
+                </r>
+                <r>
+                  <c>4792.000001</c>
+                  <c>10818.0000002</c>
+                </r>
+                <r>
+                  <c>15791.000001</c>
+                  <c>37272.0000002</c>
+                </r>
+                <r>
+                  <c>5693.000001</c>
+                  <c>13776.0000002</c>
+                </r>
+                <r>
+                  <c>30519.000001</c>
+                  <c>78766.0000002</c>
+                </r>
+                <r>
+                  <c>19379.000001</c>
+                  <c>48330.0000002</c>
+                </r>
+                <r>
+                  <c>18035.000001</c>
+                  <c>43359.0000002</c>
+                </r>
+                <r>
+                  <c>23937.000001</c>
+                  <c>68548.0000002</c>
+                </r>
+                <r>
+                  <c>25754.000001</c>
+                  <c>77742.0000002</c>
+                </r>
+                <r>
+                  <c>14481.000001</c>
+                  <c>37790.0000002</c>
+                </r>
+                <r>
+                  <c>43186.000001</c>
+                  <c>103093.0000002</c>
+                </r>
+                <r>
+                  <c>7630.000001</c>
+                  <c>17915.0000002</c>
+                </r>
+                <r>
+                  <c>12396.000001</c>
+                  <c>30833.0000002</c>
+                </r>
+                <r>
+                  <c>10609.000001</c>
+                  <c>25983.0000002</c>
+                </r>
+                <r>
+                  <c>3998.000001</c>
+                  <c>9219.0000002</c>
+                </r>
+                <r>
+                  <c>6723.000001</c>
+                  <c>18283.0000002</c>
+                </r>
+                <r>
+                  <c>6735.000001</c>
+                  <c>16887.0000002</c>
+                </r>
+                <r>
+                  <c>35529.000001</c>
+                  <c>97614.0000002</c>
+                </r>
+                <r>
+                  <c>22205.000001</c>
+                  <c>53845.0000002</c>
+                </r>
+                <r>
+                  <c>259482.000001</c>
+                  <c>658606.0000002</c>
+                </r>
+                <r>
+                  <c>6542.000001</c>
+                  <c>14170.0000002</c>
+                </r>
+                <r>
+                  <c>34988.000001</c>
+                  <c>87386.0000002</c>
+                </r>
+                <r>
+                  <c>13834.000001</c>
+                  <c>34254.0000002</c>
+                </r>
+                <r>
+                  <c>53470.000001</c>
+                  <c>128727.0000002</c>
+                </r>
+                <r>
+                  <c>26350.000001</c>
+                  <c>74155.0000002</c>
+                </r>
+                <r>
+                  <c>4889.000001</c>
+                  <c>12572.0000002</c>
+                </r>
+                <r>
+                  <c>9111.000001</c>
+                  <c>22197.0000002</c>
+                </r>
+                <r>
+                  <c>123834.000001</c>
+                  <c>314964.0000002</c>
+                </r>
+                <r>
+                  <c>8880.000001</c>
+                  <c>21686.0000002</c>
+                </r>
+                <r>
+                  <c>12996.000001</c>
+                  <c>29946.0000002</c>
+                </r>
+                <r>
+                  <c>31810.000001</c>
+                  <c>88913.0000002</c>
+                </r>
+                <r>
+                  <c>146822.000001</c>
+                  <c>407591.0000002</c>
+                </r>
+                <r>
+                  <c>9574.000001</c>
+                  <c>23124.0000002</c>
+                </r>
+                <r>
+                  <c>89209.000001</c>
+                  <c>229167.0000002</c>
+                </r>
+                <r>
+                  <c>46004.000001</c>
+                  <c>117057.0000002</c>
+                </r>
+                <r>
+                  <c>4380.000001</c>
+                  <c>11022.0000002</c>
+                </r>
+                <r>
+                  <c>8199.000001</c>
+                  <c>19949.0000002</c>
+                </r>
+                <r>
+                  <c>12468.000001</c>
+                  <c>29689.0000002</c>
+                </r>
+                <r>
+                  <c>8786.000001</c>
+                  <c>22837.0000002</c>
+                </r>
+                <r>
+                  <c>21887.000001</c>
+                  <c>50396.0000002</c>
+                </r>
+                <r>
+                  <c>23212.000001</c>
+                  <c>63816.0000002</c>
+                </r>
+                <r>
+                  <c>72612.000001</c>
+                  <c>189535.0000002</c>
+                </r>
+                <r>
+                  <c>5784.000001</c>
+                  <c>13296.0000002</c>
+                </r>
+                <r>
+                  <c>28879.000001</c>
+                  <c>80458.0000002</c>
+                </r>
+                <r>
+                  <c>17010.000001</c>
+                  <c>40924.0000002</c>
+                </r>
+                <r>
+                  <c>70773.000001</c>
+                  <c>178404.0000002</c>
+                </r>
+                <r>
+                  <c>27668.000001</c>
+                  <c>70272.0000002</c>
+                </r>
+                <r>
+                  <c>6838.000001</c>
+                  <c>17564.0000002</c>
+                </r>
+                <r>
+                  <c>4880.000001</c>
+                  <c>12926.0000002</c>
+                </r>
+                <r>
+                  <c>10270.000001</c>
+                  <c>24632.0000002</c>
+                </r>
+                <r>
+                  <c>537.000001</c>
+                  <c>2676.0000002</c>
+                </r>
+                <r>
+                  <c>1332.000001</c>
+                  <c>5213.0000002</c>
+                </r>
+                <r>
+                  <c>103269.000001</c>
+                  <c>288473.0000002</c>
+                </r>
+                <r>
+                  <c>4520.000001</c>
+                  <c>17372.0000002</c>
+                </r>
+                <r>
+                  <c>471.000001</c>
+                  <c>977.0000002</c>
+                </r>
+                <r>
+                  <c>811.000001</c>
+                  <c>1844.0000002</c>
+                </r>
+                <r>
+                  <c>1592.000001</c>
+                  <c>4945.0000002</c>
+                </r>
+                <r>
+                  <c>28318.000001</c>
+                  <c>85687.0000002</c>
+                </r>
+                <r>
+                  <c>1034.000001</c>
+                  <c>2194.0000002</c>
+                </r>
+                <r>
+                  <c>11986.000001</c>
+                  <c>30535.0000002</c>
+                </r>
+                <r>
+                  <c>18636.000001</c>
+                  <c>52811.0000002</c>
+                </r>
+                <r>
+                  <c>5686.000001</c>
+                  <c>13097.0000002</c>
+                </r>
+                <r>
+                  <c>4857.000001</c>
+                  <c>12708.0000002</c>
+                </r>
+                <r>
+                  <c>592.000001</c>
+                  <c>1458.0000002</c>
+                </r>
+                <r>
+                  <c>21657.000001</c>
+                  <c>86316.0000002</c>
+                </r>
+                <r>
+                  <c>2685.000001</c>
+                  <c>9204.0000002</c>
+                </r>
+                <r>
+                  <c>2273.000001</c>
+                  <c>6328.0000002</c>
+                </r>
+                <r>
+                  <c>1784.000001</c>
+                  <c>7562.0000002</c>
+                </r>
+                <r>
+                  <c>2384.000001</c>
+                  <c>5505.0000002</c>
+                </r>
+                <r>
+                  <c>3514.000001</c>
+                  <c>8886.0000002</c>
+                </r>
+                <r>
+                  <c>1554.000001</c>
+                  <c>2974.0000002</c>
+                </r>
+                <r>
+                  <c>2166.000001</c>
+                  <c>6934.0000002</c>
+                </r>
+                <r>
+                  <c>3927.000001</c>
+                  <c>9682.0000002</c>
+                </r>
+                <r>
+                  <c>1596.000001</c>
+                  <c>7697.0000002</c>
+                </r>
+                <r>
+                  <c>2690.000001</c>
+                  <c>5865.0000002</c>
+                </r>
+                <r>
+                  <c>270.000001</c>
+                  <c>654.0000002</c>
+                </r>
+                <r>
+                  <c>2381.000001</c>
+                  <c>5601.0000002</c>
+                </r>
+                <r>
+                  <c>19016.000001</c>
+                  <c>69023.0000002</c>
+                </r>
+                <r>
+                  <c>50007.000001</c>
+                  <c>129374.0000002</c>
+                </r>
+                <r>
+                  <c>43820.000001</c>
+                  <c>121130.0000002</c>
+                </r>
+                <r>
+                  <c>21920.000001</c>
+                  <c>52488.0000002</c>
+                </r>
+                <r>
+                  <c>10699.000001</c>
+                  <c>33718.0000002</c>
+                </r>
+                <r>
+                  <c>3107.000001</c>
+                  <c>7486.0000002</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Field Selection</Name>
+          <DefaultAnnotationText>Field Selection</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Variable1" source="TextInput:" type="Double" />
+            <Field name="Variable2" source="TextInput:" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="8">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="246" y="342" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>!isempty([Variable1]) and !isempty([Variable2])</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>!isempty([Variable1]) and !isempty([Variable2])</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="Variable1" source="TextInput:" type="Double" />
+            <Field name="Variable2" source="TextInput:" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="Variable1" source="TextInput:" type="Double" />
+            <Field name="Variable2" source="TextInput:" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="10">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="546" y="606" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Variable1" selected="True" type="Double" forced="True" size="8" />
+            <SelectField field="Variable2" selected="True" type="Double" forced="True" size="8" />
+            <SelectField field="__Group__" selected="True" rename="Group" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Variable1" source="TextInput:" type="Double" />
+            <Field name="Variable2" source="TextInput:" type="Double" />
+            <Field name="Group" size="1073741823" source="Formula: &quot;[Group]&quot;" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="11">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="546" y="330" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Variable1" selected="True" type="Double" forced="True" size="8" />
+            <SelectField field="Variable2" selected="True" type="Double" forced="True" size="8" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Variable1" source="TextInput:" type="Double" />
+            <Field name="Variable2" source="TextInput:" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="12">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
+        <Position x="90" y="54" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name>Select Field to Group By</Name>
+          <DefaultAnnotationText>Select Field to Group By</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="13">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
+        <Position x="162" y="54" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name>Enable Group By</Name>
+          <DefaultAnnotationText>Enable Group By</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="14">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+        <Position x="162" y="174" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Update Detour Direction from Question</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="15">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+        <Position x="90" y="174" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Update Value with Formula</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="20">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RecordID.RecordID">
+        <Position x="666" y="330" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FieldName>UniqueIdentifier</FieldName>
+          <StartValue>1</StartValue>
+          <FieldType>Int32</FieldType>
+          <FieldSize>6</FieldSize>
+          <Position>0</Position>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable1" source="Formula: [Variable1]" type="Double" />
+            <Field name="Variable2" source="Formula: [Variable2]" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRecordID" />
+    </Node>
+    <Node ToolID="21">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="834" y="282" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="0">
+            <Field field="Variable1" order="Descending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Variable1 - Descending</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable1" source="Formula: [Variable1]" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="22">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="834" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="0">
+            <Field field="Variable2" order="Descending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Variable2 - Descending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable2" source="Formula: [Variable2]" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="23">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="762" y="282" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Variable2" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable1" source="Formula: [Variable1]" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="24">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="762" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Variable1" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable2" source="Formula: [Variable2]" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="25">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="1278" y="330" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="UniqueIdentifier" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="UniqueIdentifier" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_UniqueIdentifier" selected="False" rename="Left_UniqueIdentifier" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable1" source="Formula: [Variable1]" type="Double" />
+            <Field name="Variable1RANK" source="Summarize: Avg - Variable1RANK" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="Variable1" source="Formula: [Variable1]" type="Double" />
+            <Field name="Variable1RANK" source="Summarize: Avg - Variable1RANK" type="Double" />
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable2" source="Formula: [Variable2]" type="Double" />
+            <Field name="Variable2RANK" source="Summarize: Avg - Variable2RANK" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable2" source="Formula: [Variable2]" type="Double" />
+            <Field name="Variable2RANK" source="Summarize: Avg - Variable2RANK" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="26">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RecordID.RecordID">
+        <Position x="918" y="282" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FieldName>Variable1RANK</FieldName>
+          <StartValue>1</StartValue>
+          <FieldType>Int32</FieldType>
+          <FieldSize>6</FieldSize>
+          <Position>0</Position>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Variable1RANK" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable1" source="Formula: [Variable1]" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRecordID" />
+    </Node>
+    <Node ToolID="27">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RecordID.RecordID">
+        <Position x="918" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FieldName>Variable2RANK</FieldName>
+          <StartValue>1</StartValue>
+          <FieldType>Int32</FieldType>
+          <FieldSize>6</FieldSize>
+          <Position>0</Position>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Variable2RANK" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable2" source="Formula: [Variable2]" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRecordID" />
+    </Node>
+    <Node ToolID="28">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DetourEnd.DetourEnd">
+        <Position x="1758" y="462" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Result" source="Formula: [SSxy]/(SQRT([SSxx]*[SSyy]))" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetourEnd" />
+    </Node>
+    <Node ToolID="29">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1374" y="330" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[Variable1RANK]*[Variable2RANK]" field="Rank-x-times-Rank-y" size="8" type="Double" />
+            <FormulaField expression="[Variable1RANK]*[Variable1RANK]" field="Rank-x-squared" size="8" type="Double" />
+            <FormulaField expression="[Variable2RANK]*[Variable2RANK]" field="rank-y-squared" size="8" type="Double" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Rank-x-times-Rank-y = [Variable1RANK]*[Variable2RANK]
+Rank-x-squared = [Variable...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Variable1" source="TextInput:" type="Double" />
+            <Field name="Variable1RANK" source="Summarize: Avg - Variable1RANK" type="Double" />
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable2" source="TextInput:" type="Double" />
+            <Field name="Variable2RANK" source="Summarize: Avg - Variable2RANK" type="Double" />
+            <Field name="Rank-x-times-Rank-y" source="Formula: [Variable1RANK]*[Variable2RANK]" type="Double" />
+            <Field name="Rank-x-squared" source="Formula: [Variable1RANK]*[Variable1RANK]" type="Double" />
+            <Field name="rank-y-squared" source="Formula: [Variable2RANK]*[Variable2RANK]" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="30">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="1470" y="330" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Rank-x-times-Rank-y" action="Sum" rename="Sum_Rank-x-times-Rank-y" />
+            <SummarizeField field="Rank-x-squared" action="Sum" rename="Sum_Rank-x-squared" />
+            <SummarizeField field="rank-y-squared" action="Sum" rename="Sum_rank-y-squared" />
+            <SummarizeField field="RecordID" action="Count" rename="Count" />
+            <SummarizeField field="Variable1RANK" action="Sum" rename="Sum_Variable1RANK" />
+            <SummarizeField field="Variable2RANK" action="Sum" rename="Sum_Variable2RANK" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Sum_Rank-x-times-Rank-y" source="Summarize: Sum - Rank-x-times-Rank-y" type="Double" />
+            <Field name="Sum_Rank-x-squared" source="Summarize: Sum - Rank-x-squared" type="Double" />
+            <Field name="Sum_rank-y-squared" source="Summarize: Sum - rank-y-squared" type="Double" />
+            <Field name="Count" source="Summarize: Count - Variable1" type="Int64" />
+            <Field name="Sum_Variable1RANK" source="Summarize: Sum - Variable1RANK" type="Double" />
+            <Field name="Sum_Variable2RANK" source="Summarize: Sum - Variable2RANK" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="31">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1566" y="330" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[Sum_Rank-x-times-Rank-y]-((1/[Count])*([Sum_Variable1RANK])*([Sum_Variable2RANK]))" field="SSxy" size="8" type="Double" />
+            <FormulaField expression="[Sum_Rank-x-squared]-((1/[Count])*[Sum_Variable1RANK]*[Sum_Variable1RANK])" field="SSxx" size="8" type="Double" />
+            <FormulaField expression="[Sum_rank-y-squared]-((1/[Count])*([Sum_Variable2RANK])*[Sum_Variable2RANK])" field="SSyy" size="8" type="Double" />
+            <FormulaField expression="[SSxy]/(SQRT([SSxx]*[SSyy]))" field="Spearman" size="8" type="Double" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>SSxy = [Sum_Rank-x-times-Rank-y]-((1/[Count])*([Sum_Variable1RANK])*([Sum_Variab...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Sum_Rank-x-times-Rank-y" source="Summarize: Sum - Rank-x-times-Rank-y" type="Double" />
+            <Field name="Sum_Rank-x-squared" source="Summarize: Sum - Rank-x-squared" type="Double" />
+            <Field name="Sum_rank-y-squared" source="Summarize: Sum - rank-y-squared" type="Double" />
+            <Field name="Count" source="Summarize: Count - Variable1" type="Int64" />
+            <Field name="Sum_Variable1RANK" source="Summarize: Sum - Variable1RANK" type="Double" />
+            <Field name="Sum_Variable2RANK" source="Summarize: Sum - Variable2RANK" type="Double" />
+            <Field name="SSxy" source="Formula: [Sum_Rank-x-times-Rank-y]-((1/[Count])*([Sum_Variable1RANK])*([Sum_Variable2RANK]))" type="Double" />
+            <Field name="SSxx" source="Formula: [Sum_Rank-x-squared]-((1/[Count])*[Sum_Variable1RANK]*[Sum_Variable1RANK])" type="Double" />
+            <Field name="SSyy" source="Formula: [Sum_rank-y-squared]-((1/[Count])*([Sum_Variable2RANK])*[Sum_Variable2RANK])" type="Double" />
+            <Field name="Spearman" source="Formula: [SSxy]/(SQRT([SSxx]*[SSyy]))" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="32">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1662" y="330" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Spearman" selected="True" rename="Result" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Result" source="Formula: [SSxy]/(SQRT([SSxx]*[SSyy]))" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="33">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="1002" y="282" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name>Variable1RANK</UpdateField_Name>
+          <CreateField_Name>Var1_Group</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>4</CreateField_Size>
+          <OtherRows>Empty</OtherRows>
+          <NumRows value="1" />
+          <Expression>iif([Row-1:Variable1]==[Variable1],[Row-1:Var1_Group],[Row-1:Var1_Group]+1)</Expression>
+          <GroupByFields />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>iif([Row-1:Variable1]==[Variable1],[Row-1:Var1_Group],[Row-1:...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Variable1RANK" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable1" source="Formula: [Variable1]" type="Double" />
+            <Field name="Var1_Group" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="34">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="1098" y="306" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Var1_Group" action="GroupBy" rename="Var1_Group" />
+            <SummarizeField field="Variable1RANK" action="Avg" rename="Avg_Variable1RANK" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Var1_Group" source="Summarize: GroupBy - Var1_Group" type="Int32" />
+            <Field name="Avg_Variable1RANK" source="Summarize: Avg - Variable1RANK" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="35">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="1182" y="282" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="Var1_Group" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="Var1_Group" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_Variable1RANK" selected="False" input="Left_" />
+                <SelectField field="Left_Var1_Group" selected="False" input="Left_" />
+                <SelectField field="Right_Var1_Group" selected="False" rename="Right_Var1_Group" input="Right_" />
+                <SelectField field="Right_Avg_Variable1RANK" selected="True" rename="Variable1RANK" input="Right_" />
+                <SelectField field="Right_Variable1" selected="False" rename="Right_Variable1" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="Variable1RANK" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable1" source="Formula: [Variable1]" type="Double" />
+            <Field name="Var1_Group" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable1" source="Formula: [Variable1]" type="Double" />
+            <Field name="Variable1RANK" source="Summarize: Avg - Variable1RANK" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="Var1_Group" source="Summarize: GroupBy - Var1_Group" type="Int32" />
+            <Field name="Avg_Variable1RANK" source="Summarize: Avg - Variable1RANK" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="36">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="1002" y="378" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name>Variable1RANK</UpdateField_Name>
+          <CreateField_Name>Var2_Group</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>4</CreateField_Size>
+          <OtherRows>Empty</OtherRows>
+          <NumRows value="1" />
+          <Expression>iif([Row-1:Variable2]==[Variable2],[Row-1:Var2_Group],[Row-1:Var2_Group]+1)</Expression>
+          <GroupByFields />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>iif([Row-1:Variable2]==[Variable2],[Row-1:Var2_Group],[Row-1:...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Variable2RANK" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable2" source="Formula: [Variable2]" type="Double" />
+            <Field name="Var2_Group" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="37">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="1098" y="402" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Var2_Group" action="GroupBy" rename="Var2_Group" />
+            <SummarizeField field="Variable2RANK" action="Avg" rename="Avg_Variable2RANK" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Var2_Group" source="Summarize: GroupBy - Var2_Group" type="Int32" />
+            <Field name="Avg_Variable2RANK" source="Summarize: Avg - Variable2RANK" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="38">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="1182" y="390" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="Var2_Group" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="Var2_Group" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_Variable2RANK" selected="False" input="Left_" />
+                <SelectField field="Left_Var2_Group" selected="False" input="Left_" />
+                <SelectField field="Right_Var2_Group" selected="False" rename="Right_Var2_Group" input="Right_" />
+                <SelectField field="Right_Avg_Variable2RANK" selected="True" rename="Variable2RANK" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="Variable2RANK" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable2" source="Formula: [Variable2]" type="Double" />
+            <Field name="Var2_Group" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable2" source="Formula: [Variable2]" type="Double" />
+            <Field name="Variable2RANK" source="Summarize: Avg - Variable2RANK" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="Var2_Group" source="Summarize: GroupBy - Var2_Group" type="Int32" />
+            <Field name="Avg_Variable2RANK" source="Summarize: Avg - Variable2RANK" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="39">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="834" y="546" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="0">
+            <Field field="Group" order="Ascending" />
+            <Field field="Variable1" order="Descending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Group - Ascending
+Variable1 - Descending</DefaultAnnotationText>
+          <Left value="True" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable1" source="TextInput:" type="Double" />
+            <Field name="Group" size="1073741823" source="Formula: &quot;[Group]&quot;" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="40">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="834" y="654" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="0">
+            <Field field="Group" order="Ascending" />
+            <Field field="Variable2" order="Descending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Group - Ascending
+Variable2 - Descending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable2" source="TextInput:" type="Double" />
+            <Field name="Group" size="1073741823" source="Formula: &quot;[Group]&quot;" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="41">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="750" y="546" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Variable2" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable1" source="TextInput:" type="Double" />
+            <Field name="Group" size="1073741823" source="Formula: &quot;[Group]&quot;" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="42">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="750" y="654" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Variable1" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable2" source="TextInput:" type="Double" />
+            <Field name="Group" size="1073741823" source="Formula: &quot;[Group]&quot;" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="43">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="1278" y="594" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="Group" />
+            <Field field="UniqueIdentifier" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="Group" />
+            <Field field="UniqueIdentifier" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_UniqueIdentifier" selected="False" rename="Left_UniqueIdentifier" />
+                <SelectField field="Left_Right_Group" selected="False" input="Left_" />
+                <SelectField field="Right_Group" selected="False" rename="Right_Group" />
+                <SelectField field="Right_Name" selected="False" rename="Right_Name" input="Right_" />
+                <SelectField field="Right_Age" selected="False" rename="Right_Age" input="Right_" />
+                <SelectField field="Right_Years at Current Job" selected="False" rename="Right_Years at Current Job" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable1" source="TextInput:" type="Double" />
+            <Field name="Group" size="1073741823" source="Formula: &quot;[Group]&quot;" type="V_WString" />
+            <Field name="Var1_Group" type="Int32" />
+            <Field name="Right_Group" size="1073741823" source="Summarize: GroupBy - Group" type="V_WString" />
+            <Field name="Right_Var1_Group" source="Summarize: GroupBy - Var1_Group" type="Int32" />
+            <Field name="Variable1RANK" source="Summarize: Avg - Variable1RANK" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="Variable1" source="TextInput:" type="Double" />
+            <Field name="Group" size="1073741823" source="Formula: &quot;[Group]&quot;" type="V_WString" />
+            <Field name="Var1_Group" type="Int32" />
+            <Field name="Right_Var1_Group" source="Summarize: GroupBy - Var1_Group" type="Int32" />
+            <Field name="Variable1RANK" source="Summarize: Avg - Variable1RANK" type="Double" />
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable2" source="TextInput:" type="Double" />
+            <Field name="Var2_Group" type="Int32" />
+            <Field name="Right_Group" size="1073741823" source="Summarize: GroupBy - Group" type="V_WString" />
+            <Field name="Right_Var2_Group" source="Summarize: GroupBy - Var2_Group" type="Int32" />
+            <Field name="Variable2RANK" source="Summarize: Avg - Variable2RANK" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable2" source="TextInput:" type="Double" />
+            <Field name="Group" size="1073741823" source="Formula: &quot;[Group]&quot;" type="V_WString" />
+            <Field name="Var2_Group" type="Int32" />
+            <Field name="Right_Group" size="1073741823" source="Summarize: GroupBy - Group" type="V_WString" />
+            <Field name="Right_Var2_Group" source="Summarize: GroupBy - Var2_Group" type="Int32" />
+            <Field name="Variable2RANK" source="Summarize: Avg - Variable2RANK" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="44">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="918" y="654" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name />
+          <CreateField_Name>Variable2RANK</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>254</CreateField_Size>
+          <OtherRows>Empty</OtherRows>
+          <NumRows value="1" />
+          <Expression>[Row-1:Variable2RANK]+1</Expression>
+          <GroupByFields>
+            <Field field="Group" />
+          </GroupByFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Row-1:Variable2RANK]+1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable2" source="TextInput:" type="Double" />
+            <Field name="Group" size="1073741823" source="Formula: &quot;[Group]&quot;" type="V_WString" />
+            <Field name="Variable2RANK" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="45">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="918" y="546" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name />
+          <CreateField_Name>Variable1RANK</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>254</CreateField_Size>
+          <OtherRows>Empty</OtherRows>
+          <NumRows value="1" />
+          <Expression>[Row-1:Variable1RANK]+1</Expression>
+          <GroupByFields>
+            <Field field="Group" />
+          </GroupByFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Row-1:Variable1RANK]+1</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable1" source="TextInput:" type="Double" />
+            <Field name="Group" size="1073741823" source="Formula: &quot;[Group]&quot;" type="V_WString" />
+            <Field name="Variable1RANK" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="46">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RecordID.RecordID">
+        <Position x="654" y="606" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FieldName>UniqueIdentifier</FieldName>
+          <StartValue>1</StartValue>
+          <FieldType>Int32</FieldType>
+          <FieldSize>6</FieldSize>
+          <Position>0</Position>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable1" source="TextInput:" type="Double" />
+            <Field name="Variable2" source="TextInput:" type="Double" />
+            <Field name="Group" size="1073741823" source="Formula: &quot;[Group]&quot;" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRecordID" />
+    </Node>
+    <Node ToolID="47">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="1170" y="546" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="Var1_Group" />
+            <Field field="Group" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="Var1_Group" />
+            <Field field="Group" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_Variable1RANK" selected="False" input="Left_" />
+                <SelectField field="Right_Group" selected="True" rename="Right_Group" input="Right_" />
+                <SelectField field="Right_Var1_Group" selected="True" rename="Right_Var1_Group" input="Right_" />
+                <SelectField field="Right_Avg_Variable1RANK" selected="True" rename="Variable1RANK" input="Right_" />
+                <SelectField field="Right_Variable1" selected="False" rename="Right_Variable1" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable1" source="TextInput:" type="Double" />
+            <Field name="Group" size="1073741823" source="Formula: &quot;[Group]&quot;" type="V_WString" />
+            <Field name="Variable1RANK" type="Int32" />
+            <Field name="Var1_Group" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable1" source="TextInput:" type="Double" />
+            <Field name="Group" size="1073741823" source="Formula: &quot;[Group]&quot;" type="V_WString" />
+            <Field name="Var1_Group" type="Int32" />
+            <Field name="Right_Group" size="1073741823" source="Summarize: GroupBy - Group" type="V_WString" />
+            <Field name="Right_Var1_Group" source="Summarize: GroupBy - Var1_Group" type="Int32" />
+            <Field name="Variable1RANK" source="Summarize: Avg - Variable1RANK" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="Group" size="1073741823" source="Summarize: GroupBy - Group" type="V_WString" />
+            <Field name="Var1_Group" source="Summarize: GroupBy - Var1_Group" type="Int32" />
+            <Field name="Avg_Variable1RANK" source="Summarize: Avg - Variable1RANK" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="48">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="1098" y="558" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Group" action="GroupBy" rename="Group" />
+            <SummarizeField field="Var1_Group" action="GroupBy" rename="Var1_Group" />
+            <SummarizeField field="Variable1RANK" action="Avg" rename="Avg_Variable1RANK" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Group" size="1073741823" source="Summarize: GroupBy - Group" type="V_WString" />
+            <Field name="Var1_Group" source="Summarize: GroupBy - Var1_Group" type="Int32" />
+            <Field name="Avg_Variable1RANK" source="Summarize: Avg - Variable1RANK" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="49">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="1098" y="678" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Group" action="GroupBy" rename="Group" />
+            <SummarizeField field="Var2_Group" action="GroupBy" rename="Var2_Group" />
+            <SummarizeField field="Variable2RANK" action="Avg" rename="Avg_Variable2RANK" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Group" size="1073741823" source="Summarize: GroupBy - Group" type="V_WString" />
+            <Field name="Var2_Group" source="Summarize: GroupBy - Var2_Group" type="Int32" />
+            <Field name="Avg_Variable2RANK" source="Summarize: Avg - Variable2RANK" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="50">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1362" y="594" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[Variable1RANK]*[Variable2RANK]" field="Rank-x-times-Rank-y" size="8" type="Double" />
+            <FormulaField expression="[Variable1RANK]*[Variable1RANK]" field="Rank-x-squared" size="8" type="Double" />
+            <FormulaField expression="[Variable2RANK]*[Variable2RANK]" field="rank-y-squared" size="8" type="Double" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Rank-x-times-Rank-y = [Variable1RANK]*[Variable2RANK]
+Rank-x-squared = [Variable...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="51">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="1458" y="594" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Group" action="GroupBy" rename="Group" />
+            <SummarizeField field="Rank-x-times-Rank-y" action="Sum" rename="Sum_Rank-x-times-Rank-y" />
+            <SummarizeField field="Rank-x-squared" action="Sum" rename="Sum_Rank-x-squared" />
+            <SummarizeField field="rank-y-squared" action="Sum" rename="Sum_rank-y-squared" />
+            <SummarizeField field="RecordID" action="Count" rename="Count" />
+            <SummarizeField field="Variable1RANK" action="Sum" rename="Sum_Variable1RANK" />
+            <SummarizeField field="Variable2RANK" action="Sum" rename="Sum_Variable2RANK" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Group" size="1073741823" source="Summarize: GroupBy - Group" type="V_WString" />
+            <Field name="Sum_Rank-x-times-Rank-y" source="Summarize: Sum - Rank-x-times-Rank-y" type="Double" />
+            <Field name="Sum_Rank-x-squared" source="Summarize: Sum - Rank-x-squared" type="Double" />
+            <Field name="Sum_rank-y-squared" source="Summarize: Sum - rank-y-squared" type="Double" />
+            <Field name="Count" source="Summarize: Count - Variable1" type="Int64" />
+            <Field name="Sum_Variable1RANK" source="Summarize: Sum - Variable1RANK" type="Double" />
+            <Field name="Sum_Variable2RANK" source="Summarize: Sum - Variable2RANK" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="52">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="1554" y="594" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="[Sum_Rank-x-times-Rank-y]-((1/[Count])*([Sum_Variable1RANK])*([Sum_Variable2RANK]))" field="SSxy" size="8" type="Double" />
+            <FormulaField expression="[Sum_Rank-x-squared]-((1/[Count])*[Sum_Variable1RANK]*[Sum_Variable1RANK])" field="SSxx" size="8" type="Double" />
+            <FormulaField expression="[Sum_rank-y-squared]-((1/[Count])*([Sum_Variable2RANK])*[Sum_Variable2RANK])" field="SSyy" size="8" type="Double" />
+            <FormulaField expression="[SSxy]/(SQRT([SSxx]*[SSyy]))" field="Spearman" size="8" type="Double" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>SSxy = [Sum_Rank-x-times-Rank-y]-((1/[Count])*([Sum_Variable1RANK])*([Sum_Variab...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="53">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="1650" y="594" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <CommaDecimal value="False" />
+          <SelectFields>
+            <SelectField field="Group" selected="True" />
+            <SelectField field="Spearman" selected="True" rename="Result" />
+            <SelectField field="*Unknown" selected="False" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Group" size="1073741823" source="Summarize: GroupBy - Group" type="V_WString" />
+            <Field name="Result" source="Formula: [SSxy]/(SQRT([SSxx]*[SSyy]))" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="54">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+        <Position x="1170" y="654" />
+      </GuiSettings>
+      <Properties>
+        <Configuration joinByRecordPos="False">
+          <JoinInfo connection="Left">
+            <Field field="Var2_Group" />
+            <Field field="Group" />
+          </JoinInfo>
+          <JoinInfo connection="Right">
+            <Field field="Var2_Group" />
+            <Field field="Group" />
+          </JoinInfo>
+          <SelectConfiguration>
+            <Configuration outputConnection="Join">
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Left_Variable2RANK" selected="False" input="Left_" />
+                <SelectField field="Right_Group" selected="True" rename="Right_Group" input="Right_" />
+                <SelectField field="Right_Var2_Group" selected="True" rename="Right_Var2_Group" input="Right_" />
+                <SelectField field="Right_Avg_Variable2RANK" selected="True" rename="Variable2RANK" input="Right_" />
+                <SelectField field="Right_Variable2" selected="False" rename="Right_Variable2" input="Right_" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+          </SelectConfiguration>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable2" source="TextInput:" type="Double" />
+            <Field name="Group" size="1073741823" source="Formula: &quot;[Group]&quot;" type="V_WString" />
+            <Field name="Variable2RANK" type="Int32" />
+            <Field name="Var2_Group" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Join">
+          <RecordInfo>
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable2" source="TextInput:" type="Double" />
+            <Field name="Group" size="1073741823" source="Formula: &quot;[Group]&quot;" type="V_WString" />
+            <Field name="Var2_Group" type="Int32" />
+            <Field name="Right_Group" size="1073741823" source="Summarize: GroupBy - Group" type="V_WString" />
+            <Field name="Right_Var2_Group" source="Summarize: GroupBy - Var2_Group" type="Int32" />
+            <Field name="Variable2RANK" source="Summarize: Avg - Variable2RANK" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="Group" size="1073741823" source="Summarize: GroupBy - Group" type="V_WString" />
+            <Field name="Var2_Group" source="Summarize: GroupBy - Var2_Group" type="Int32" />
+            <Field name="Avg_Variable2RANK" source="Summarize: Avg - Variable2RANK" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+    </Node>
+    <Node ToolID="55">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="1002" y="654" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name>Variable1RANK</UpdateField_Name>
+          <CreateField_Name>Var2_Group</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>4</CreateField_Size>
+          <OtherRows>Empty</OtherRows>
+          <NumRows value="1" />
+          <Expression>iif([Row-1:Variable2]==[Variable2],[Row-1:Var2_Group],[Row-1:Var2_Group]+1)</Expression>
+          <GroupByFields>
+            <Field field="Group" />
+          </GroupByFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>iif([Row-1:Variable2]==[Variable2],[Row-1:Var2_Group],[Row-1:...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable2" source="TextInput:" type="Double" />
+            <Field name="Group" size="1073741823" source="Formula: &quot;[Group]&quot;" type="V_WString" />
+            <Field name="Variable2RANK" type="Int32" />
+            <Field name="Var2_Group" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="56">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+        <Position x="1002" y="546" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UpdateField value="False" />
+          <UpdateField_Name>Variable1RANK</UpdateField_Name>
+          <CreateField_Name>Var1_Group</CreateField_Name>
+          <CreateField_Type>Int32</CreateField_Type>
+          <CreateField_Size>4</CreateField_Size>
+          <OtherRows>Empty</OtherRows>
+          <NumRows value="1" />
+          <Expression>iif([Row-1:Variable1]==[Variable1],[Row-1:Var1_Group],[Row-1:Var1_Group]+1)</Expression>
+          <GroupByFields>
+            <Field field="Group" />
+          </GroupByFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>iif([Row-1:Variable1]==[Variable1],[Row-1:Var1_Group],[Row-1:...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="UniqueIdentifier" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Variable1" source="TextInput:" type="Double" />
+            <Field name="Group" size="1073741823" source="Formula: &quot;[Group]&quot;" type="V_WString" />
+            <Field name="Variable1RANK" type="Int32" />
+            <Field name="Var1_Group" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+    </Node>
+    <Node ToolID="57">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="1854" y="462" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Output16</Name>
+          <Abbrev />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Output16</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="59">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.FieldInfo.FieldInfo">
+        <Position x="390" y="774" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Name" size="9" source="FieldInfo" type="V_String" />
+            <Field name="Type" size="6" source="FieldInfo" type="String" />
+            <Field name="Size" source="FieldInfo" type="Int32" />
+            <Field name="Scale" source="FieldInfo" type="Int32" />
+            <Field name="Source" size="10" source="FieldInfo" type="V_WString" />
+            <Field name="Description" size="1" source="FieldInfo" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFieldInfo" />
+    </Node>
+    <Node ToolID="64">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Test.Test">
+        <Position x="618" y="774" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Tests>
+            <Test>
+              <Name>The same field is selected as a Variable and the Group By field.</Name>
+              <Connection>#1</Connection>
+              <Type>RecCountValue</Type>
+              <Value>1</Value>
+            </Test>
+          </Tests>
+          <DontReportSubsequent value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>The same field is selected as a Variable and the Group By field.</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTest" />
+    </Node>
+    <Node ToolID="63">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+        <Position x="498" y="774" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Expression>[Name] = [#1]</Expression>
+          <Mode>Custom</Mode>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>[Name] = [#1]</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="True">
+          <RecordInfo>
+            <Field name="Name" size="9" source="FieldInfo" type="V_String" />
+            <Field name="Type" size="6" source="FieldInfo" type="String" />
+            <Field name="Size" source="FieldInfo" type="Int32" />
+            <Field name="Scale" source="FieldInfo" type="Int32" />
+            <Field name="Source" size="10" source="FieldInfo" type="V_WString" />
+            <Field name="Description" size="1" source="FieldInfo" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="False">
+          <RecordInfo>
+            <Field name="Name" size="9" source="FieldInfo" type="V_String" />
+            <Field name="Type" size="6" source="FieldInfo" type="String" />
+            <Field name="Size" source="FieldInfo" type="Int32" />
+            <Field name="Scale" source="FieldInfo" type="Int32" />
+            <Field name="Source" size="10" source="FieldInfo" type="V_WString" />
+            <Field name="Description" size="1" source="FieldInfo" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+    </Node>
+    <Node ToolID="65">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="390" y="726" width="288" height="40" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Checks to make sure the Group By field is not also being used as a Variable field.</Text>
+          <Font name="Segoe UI" size="8.25" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="0" />
+          <Justification Justification="4" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="5" Connection="Left" />
+      <Destination ToolID="11" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="5" Connection="Right" />
+      <Destination ToolID="6" Connection="Input" />
+    </Connection>
+    <Connection name="#2" Wireless="True">
+      <Origin ToolID="15" Connection="Action" />
+      <Destination ToolID="6" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="5" Connection="Right" />
+      <Destination ToolID="59" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="6" Connection="Output" />
+      <Destination ToolID="10" Connection="Input" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="7" Connection="Question" />
+      <Destination ToolID="12" Connection="Question Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="7" Connection="Output" />
+      <Destination ToolID="8" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="8" Connection="True" />
+      <Destination ToolID="5" Connection="Input" />
+    </Connection>
+    <Connection name="#2" Wireless="True">
+      <Origin ToolID="14" Connection="Action" />
+      <Destination ToolID="5" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="10" Connection="Output" />
+      <Destination ToolID="46" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="11" Connection="Output" />
+      <Destination ToolID="20" Connection="Input" />
+    </Connection>
+    <Connection name="Select Field to Group By" Wireless="True">
+      <Origin ToolID="12" Connection="Question" />
+      <Destination ToolID="15" Connection="Question" />
+    </Connection>
+    <Connection name="#1" Wireless="True">
+      <Origin ToolID="12" Connection="Question" />
+      <Destination ToolID="63" Connection="Question" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="59" Connection="Output" />
+      <Destination ToolID="63" Connection="Input" />
+    </Connection>
+    <Connection name="Enable Group By" Wireless="True">
+      <Origin ToolID="13" Connection="Question" />
+      <Destination ToolID="14" Connection="Question" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="20" Connection="Output" />
+      <Destination ToolID="23" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="20" Connection="Output" />
+      <Destination ToolID="24" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="21" Connection="Output" />
+      <Destination ToolID="26" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="22" Connection="Output" />
+      <Destination ToolID="27" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="23" Connection="Output" />
+      <Destination ToolID="21" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="24" Connection="Output" />
+      <Destination ToolID="22" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="25" Connection="Join" />
+      <Destination ToolID="29" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="26" Connection="Output" />
+      <Destination ToolID="33" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="27" Connection="Output" />
+      <Destination ToolID="36" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="28" Connection="Output" />
+      <Destination ToolID="57" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="29" Connection="Output" />
+      <Destination ToolID="30" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="30" Connection="Output" />
+      <Destination ToolID="31" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="31" Connection="Output" />
+      <Destination ToolID="32" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="32" Connection="Output" />
+      <Destination ToolID="28" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="53" Connection="Output" />
+      <Destination ToolID="28" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="33" Connection="Output" />
+      <Destination ToolID="35" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="34" Connection="Output" />
+      <Destination ToolID="35" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="33" Connection="Output" />
+      <Destination ToolID="34" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="35" Connection="Join" />
+      <Destination ToolID="25" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="38" Connection="Join" />
+      <Destination ToolID="25" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="36" Connection="Output" />
+      <Destination ToolID="38" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="37" Connection="Output" />
+      <Destination ToolID="38" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="36" Connection="Output" />
+      <Destination ToolID="37" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="39" Connection="Output" />
+      <Destination ToolID="45" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="40" Connection="Output" />
+      <Destination ToolID="44" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="41" Connection="Output" />
+      <Destination ToolID="39" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="42" Connection="Output" />
+      <Destination ToolID="40" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="43" Connection="Join" />
+      <Destination ToolID="50" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="44" Connection="Output" />
+      <Destination ToolID="55" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="45" Connection="Output" />
+      <Destination ToolID="56" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="46" Connection="Output" />
+      <Destination ToolID="42" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="46" Connection="Output" />
+      <Destination ToolID="41" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="47" Connection="Join" />
+      <Destination ToolID="43" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="54" Connection="Join" />
+      <Destination ToolID="43" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="48" Connection="Output" />
+      <Destination ToolID="47" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="56" Connection="Output" />
+      <Destination ToolID="47" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="49" Connection="Output" />
+      <Destination ToolID="54" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="55" Connection="Output" />
+      <Destination ToolID="54" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="50" Connection="Output" />
+      <Destination ToolID="51" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="51" Connection="Output" />
+      <Destination ToolID="52" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="52" Connection="Output" />
+      <Destination ToolID="53" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="55" Connection="Output" />
+      <Destination ToolID="49" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="56" Connection="Output" />
+      <Destination ToolID="48" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="63" Connection="True" />
+      <Destination ToolID="64" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="False" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <SortedGrouping value="True" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <IsTemplate value="False" />
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Select Field to Group By</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Enable Group By</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="False" />
+      <Name>Spearman Correlation</Name>
+      <Description>Assesses how well an arbitrary monotonic function could describe the relationship between two variables without making any other assumptions about the particular nature of the relationship between the variables.</Description>
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName>Data Investigation</CategoryName>
+      <SearchTags>predictive, covariance, standard, deviation, standard deviation, correlation, coefficient, pearson, monotonic, data investigation category, macro, spearman, rs</SearchTags>
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description>Open Example</Description>
+        <File>11 Data Investigation\Spearman_Correlation.yxmd</File>
+      </Example>
+      <WorkflowId value="e0584142-54de-4eb2-8ca9-66ce8a77c2b3" />
+      <Telemetry>
+        <PreviousWorkflowId value="" />
+        <OriginWorkflowId value="e0584142-54de-4eb2-8ca9-66ce8a77c2b3" />
+      </Telemetry>
+      <PlatformWorkflowId value="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+    <RuntimeProperties>
+      <Actions>
+        <NoCondition>
+          <Type>NoCondition</Type>
+          <Description>(Always Run)</Description>
+          <True>
+            <Action>
+              <Type>Dynamic</Type>
+              <Description />
+              <ToolId value="14" />
+              <Expression>{{INPUT}}</Expression>
+              <Destination>5/DetourRight/@value</Destination>
+              <Mapping>Update Detour Direction from Question</Mapping>
+              <Mode>Expression</Mode>
+              <DynamicConfiguration />
+              <DefaultConfiguration value="True" />
+            </Action>
+            <Action>
+              <Type>UpdateValueFormula</Type>
+              <Description />
+              <ToolId value="15" />
+              <Expression>'['+[Select Field to Group By]+']'</Expression>
+              <Destination>6/FormulaFields/FormulaField/@expression</Destination>
+              <Mode>Expression</Mode>
+            </Action>
+          </True>
+        </NoCondition>
+      </Actions>
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (1)</Name>
+          <ToolId value="1" />
+          <Questions>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Output16</Description>
+              <Name>Output16</Name>
+              <ToolId value="57" />
+            </Question>
+          </Questions>
+        </Question>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Field Selection</Description>
+          <Name>Tab (2)</Name>
+          <ToolId value="2" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description>Field Selection</Description>
+              <Name>Field Selection</Name>
+              <ToolId value="7" />
+            </Question>
+          </Questions>
+        </Question>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Group By (Optional)</Description>
+          <Name>Tab (3)</Name>
+          <ToolId value="3" />
+          <Questions>
+            <Question>
+              <Type>BooleanGroup</Type>
+              <Description>Enable Group By</Description>
+              <Name>Enable Group By</Name>
+              <ToolId value="13" />
+              <Questions>
+                <Question>
+                  <Type>ListBox</Type>
+                  <Description>Select Field to Group By</Description>
+                  <Name>Select Field to Group By</Name>
+                  <ToolId value="12" />
+                  <Multiple value="False" />
+                  <Default />
+                  <Mode>MacroField</Mode>
+                  <MacroField_InputTool value="7" />
+                  <Field_IncludeNone value="False" />
+                  <MacroField_FilterTypes>Bool,Byte,Int16,Int32,Int64,FixedDecimal,Float,Double,String,WString,V_String,V_WString,Date,Time,DateTime,Blob,SpatialObj</MacroField_FilterTypes>
+                </Question>
+              </Questions>
+              <Default value="False" />
+              <Collapsable value="False" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="True" />
+      <MacroCustomHelpLink>AlteryxHelp:Macro-SpearmanCorrCoeff</MacroCustomHelpLink>
+      <MacroDynamicOutputFields value="False" />
+      <MacroImage>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</MacroImage>
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="7" Selected="True" />
+        <Tool ToolId="57" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

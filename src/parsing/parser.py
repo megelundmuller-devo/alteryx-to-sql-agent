@@ -18,6 +18,17 @@ from typing import Any
 from parsing.models import Connection, FieldSchema, ParsedWorkflow, ToolNode
 
 # ---------------------------------------------------------------------------
+# Standard macro catalogue
+# ---------------------------------------------------------------------------
+
+_STANDARD_MACROS_DIR = Path(__file__).parent.parent.parent / "standard_macros"
+_STANDARD_MACRO_NAMES: frozenset[str] = (
+    frozenset(p.name for p in _STANDARD_MACROS_DIR.glob("*.yxmc"))
+    if _STANDARD_MACROS_DIR.is_dir()
+    else frozenset()
+)
+
+# ---------------------------------------------------------------------------
 # Plugin → tool_type registry
 # ---------------------------------------------------------------------------
 
@@ -224,9 +235,7 @@ def _parse_node(node_elem: ET.Element) -> ToolNode:
                 plugin = f"macro:{macro_attr}"
 
     tool_type = (
-        "macro"
-        if macro_path and not plugin.startswith("Alteryx")
-        else _normalize_plugin(plugin)
+        "macro" if macro_path and not plugin.startswith("Alteryx") else _normalize_plugin(plugin)
     )
 
     # --- Configuration ---
@@ -250,6 +259,8 @@ def _parse_node(node_elem: ET.Element) -> ToolNode:
     if properties_elem is not None:
         output_schema = _parse_record_info(properties_elem)
 
+    is_standard_macro = macro_path is not None and Path(macro_path).name in _STANDARD_MACRO_NAMES
+
     return ToolNode(
         tool_id=tool_id,
         plugin=plugin,
@@ -259,6 +270,7 @@ def _parse_node(node_elem: ET.Element) -> ToolNode:
         position=(x, y),
         output_schema=output_schema,
         macro_path=macro_path,
+        is_standard_macro=is_standard_macro,
         source_type=_infer_source_type(tool_type, config),
     )
 

@@ -340,6 +340,11 @@ class TestChunkDagExample:
             for input_cte in chunk.input_cte_names:
                 assert input_cte in seen_ctes, f"CTE '{input_cte}' used before produced"
             seen_ctes.add(chunk.output_cte_name)
+            # Multi-output tools produce anchor-specific secondary CTEs at translation
+            # time (e.g. cte_join_4_L, cte_join_4_R, cte_filter_3_false).  Register
+            # all possible suffixed variants so downstream chunks can validate cleanly.
+            base = chunk.output_cte_name
+            seen_ctes |= {f"{base}_L", f"{base}_R", f"{base}_false"}
 
     def test_joins_start_their_chunk(self):
         # A join always starts a new chunk (multi-input boundary).

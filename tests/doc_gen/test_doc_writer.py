@@ -51,7 +51,7 @@ def _minimal_dag():
     graph = nx.DiGraph()
     graph.add_nodes_from([1, 2])
     conn = Connection(origin_id=1, origin_anchor="Output", dest_id=2, dest_anchor="Input")
-    graph.add_edge(1, 2, connection=conn)
+    graph.add_edge(1, 2, connections=[conn])
 
     return AlteryxDAG(graph, {1: src, 2: flt}, [conn])
 

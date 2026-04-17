@@ -42,19 +42,27 @@ _BRACKET_RE = re.compile(r"\[([^\]]+)\]")
 # Column names that are internal to our generated SQL and should be ignored.
 _INTERNAL_COLS = {"_rn", "_stub", "_macro_stub", "_sort_order", "_deduped"}
 
-
-def _is_cte_name(name: str, known_ctes: set[str]) -> bool:
-    return name in known_ctes
+# Strips "AS [alias]" so that alias names on the right side of a rename are not
+# mistakenly treated as upstream column references.  Applied before bracket scanning.
+_AS_ALIAS_RE = re.compile(r"\bAS\s+\[[^\]]+\]", re.IGNORECASE)
 
 
 def _extract_col_refs(sql: str, known_ctes: set[str]) -> set[str]:
-    """Return column names referenced in *sql*, excluding CTE names and internals."""
+    """Return column names referenced in *sql*, excluding CTE names and internals.
+
+    ``AS [alias]`` pairs are stripped first so that the alias name on the right-hand
+    side of a SELECT rename (e.g. ``[ITEMNUMBER] AS [ItemNumber]``) is not counted
+    as a missing upstream column reference.
+    """
+    sql_no_aliases = _AS_ALIAS_RE.sub("", sql)
     refs: set[str] = set()
-    for m in _BRACKET_RE.finditer(sql):
+    for m in _BRACKET_RE.finditer(sql_no_aliases):
         name = m.group(1)
+        if not name:
+            continue
         if name in _INTERNAL_COLS:
             continue
-        if _is_cte_name(name, known_ctes):
+        if name in known_ctes:
             continue
         refs.add(name)
     return refs

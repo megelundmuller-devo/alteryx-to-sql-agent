@@ -146,16 +146,20 @@ def translate_text_input(
     _input_ctes: list[str],
     ctx: TranslationContext,
 ) -> CTEFragment:
-    """Translate a TextInput node into a VALUES CTE.
+    """Translate a TextInput node into a T-SQL VALUES CTE.
 
-    Alteryx TextInput config structure:
-        <Fields>
-            <Field name="col" ... />
-        </Fields>
-        <Data>
-            <R><C v="val1" /><C v="val2" /></R>
-            ...
-        </Data>
+    Alteryx TextInput config structure (as produced by _elem_to_value):
+
+        Fields.Field  — list[dict] with a "name" key per column
+        Data.r        — list[dict] per data row  (key is lowercase "r")
+          .c          — list[str] or str per cell (key is lowercase "c")
+
+    Single-row Data yields a dict for "r" (not a list); single-column rows
+    yield a scalar string for "c" (not a list).  Both are normalised below.
+
+    Empty cells (<c />) are emitted as NULL; all non-empty values are emitted
+    as N'...' string literals (NVARCHAR-compatible).  If a row has fewer cells
+    than declared columns the trailing slots are padded with NULL.
     """
     cfg = node.config
     fields_cfg = cfg.get("Fields", {})
@@ -179,34 +183,48 @@ def translate_text_input(
             is_stub=True,
         )
 
-    # Build column header line
     col_list = ", ".join(f"[{c}]" for c in col_names)
 
-    # Normalise rows to a list
-    row_entries = data_cfg.get("R", [])
+    # Normalise rows to a list.
+    # _elem_to_value preserves XML tag case, so rows live under lowercase "r".
+    # A single <r> element becomes a dict; multiple become a list.
+    row_entries = data_cfg.get("r", data_cfg.get("R", []))
     if isinstance(row_entries, dict):
         row_entries = [row_entries]
 
     if not row_entries:
-        # Empty TextInput — return a typed empty SELECT
+        # Empty TextInput — typed empty result set
         nul_cols = ", ".join(f"NULL AS [{c}]" for c in col_names)
         sql = f"SELECT {nul_cols} WHERE 1 = 0"
         return CTEFragment(name=cte_name, sql=sql, source_tool_ids=[node.tool_id])
 
     value_rows: list[str] = []
     for row in row_entries:
-        cells = row.get("C", [])
-        if isinstance(cells, dict):
+        # Cells live under lowercase "c".  A single-column row gives a scalar
+        # string instead of a list, so we normalise to list[str | dict] here.
+        cells = row.get("c", row.get("C", []))
+        if isinstance(cells, str):
             cells = [cells]
-        vals = []
+        elif isinstance(cells, dict):
+            # Old XML format: <c v="..." /> — treat as a single cell dict
+            cells = [cells]
+
+        vals: list[str] = []
         for cell in cells:
-            v = cell.get("v", "")
-            if v is None or v == "":
+            # _elem_to_value yields plain strings for text-content elements.
+            # Older formats used attribute dicts {v: "..."} — handle both.
+            v: str = cell if isinstance(cell, str) else cell.get("v", "")
+            if not v:
                 vals.append("NULL")
             else:
                 escaped = str(v).replace("'", "''")
-                vals.append(f"'{escaped}'")
-        value_rows.append(f"    ({', '.join(vals)})")
+                vals.append(f"N'{escaped}'")
+
+        # Pad short rows so every row has the same column count.
+        while len(vals) < len(col_names):
+            vals.append("NULL")
+
+        value_rows.append(f"    ({', '.join(vals[: len(col_names)])})")
 
     rows_sql = ",\n".join(value_rows)
     sql = f"SELECT {col_list}\nFROM (VALUES\n{rows_sql}\n) AS _t ({col_list})"

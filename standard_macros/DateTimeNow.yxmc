@@ -1,0 +1,535 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="9.0" autoTranslate="true">
+  <Nodes>
+    <Node ToolID="6">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="24" y="16.10001" width="702" height="85.89999" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Date Time Now Macro</Text>
+          <Font name="Microsoft Sans Serif" size="18" style="0" />
+          <TextColor name="White" />
+          <FillColor r="95" g="152" b="171" />
+          <Shape shape="0" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="14">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="54" y="250.1" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="11">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="186" y="222" width="362.0166" height="131.4475" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Date Time Macro</Caption>
+          <Style TextColor="#2f4f4f" FillColor="#d3b6d2" BorderColor="#2f4f4f" Transparency="66" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="1">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.GenerateRows.GenerateRows">
+            <Position x="211" y="266" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <UpdateField value="False" />
+              <UpdateField_Name />
+              <CreateField_Name>NewField</CreateField_Name>
+              <CreateField_Type>DateTime</CreateField_Type>
+              <CreateField_Size>19</CreateField_Size>
+              <Expression_Init>DateTimeNow()</Expression_Init>
+              <Expression_Cond>!IsNull(NewField)</Expression_Cond>
+              <Expression_Loop>Null()</Expression_Loop>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name>GenerateRows (1)</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="NewField" type="DateTime" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxGenerateRows" />
+        </Node>
+        <Node ToolID="3">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.DateTime.DateTime">
+            <Position x="293" y="266" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <IsFrom value="True" />
+              <InputFieldName>NewField</InputFieldName>
+              <Format>day, dd Month, yyyy</Format>
+              <OutputFieldName>DateTimeNow</OutputFieldName>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name>DateTime (3)</Name>
+              <DefaultAnnotationText>Convert NewField To:
+day, dd Month, yyyy</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="NewField" type="DateTime" />
+                <Field name="DateTimeNow" size="29" source="DateTime: From day, dd Month, yyyy" type="String" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDateTime" />
+        </Node>
+        <Node ToolID="4">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+            <Position x="375" y="269.4474" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <OrderChanged value="False" />
+              <SelectFields>
+                <SelectField field="NewField" selected="False" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name>Select (4)</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="DateTimeNow" size="29" source="DateTime: From day, dd Month, yyyy" type="String" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+        </Node>
+        <Node ToolID="15">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+            <Position x="464.0166" y="267.6796" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Name>Output</Name>
+              <Abbrev>
+              </Abbrev>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name>Output</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="8">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="571" y="33.09998" width="138.6955" height="19" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Module Description</Caption>
+          <Style TextColor="#2f4f4f" FillColor="#ffffff" BorderColor="#2f4f4f" Transparency="10" Margin="10" />
+          <Disabled value="False" />
+          <Folded value="True" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="7">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="581" y="62.09998" width="91" height="312" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>Input the current date and time at module runtime, in a format of the user's choosing. (Useful for adding a date-time header to a report.)</Text>
+              <Font name="Microsoft Sans Serif" size="9.75" style="0" />
+              <TextColor name="DarkSlateGray" />
+              <FillColor name="White" />
+              <Shape shape="0" />
+              <Justification Justification="0" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="10">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="607" y="69.09998" width="98.89567" height="19" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Tools Used</Caption>
+          <Style TextColor="#2f4f4f" FillColor="#ffffff" BorderColor="#2f4f4f" Transparency="10" Margin="10" />
+          <Disabled value="False" />
+          <Folded value="True" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="9">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="617" y="98.09998" width="96" height="128" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text><![CDATA[TOOLS USED:
+Generate Rows
+Date Time
+Select
+Output
+]]></Text>
+              <Font name="Microsoft Sans Serif" size="9.75" style="0" />
+              <TextColor name="DarkSlateGray" />
+              <FillColor name="White" />
+              <Shape shape="0" />
+              <Justification Justification="2" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="16">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="26.99998" y="118" width="116.529" height="236.1" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Interface Tools</Caption>
+          <Style TextColor="#2f4f4f" FillColor="#ecf2f2" BorderColor="#2f4f4f" Transparency="1" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="13">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
+            <Position x="54" y="162" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>OutputFormat</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="12">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="51.99998" y="270.1" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="1" Connection="Output" />
+      <Destination ToolID="3" Connection="Input" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="12" Connection="Action" />
+      <Destination ToolID="3" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="3" Connection="Output" />
+      <Destination ToolID="4" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="4" Connection="Output" />
+      <Destination ToolID="15" Connection="Input" />
+    </Connection>
+    <Connection name="OutputFormat" Wireless="True">
+      <Origin ToolID="13" Connection="Question" />
+      <Destination ToolID="12" Connection="Question" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="False" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>OutputFormat</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="False" />
+      <Name>Date Time Now</Name>
+      <Description>Input the current date and time at module runtime, in a format of the user's choosing. (Useful for adding a date-time header to a report.)</Description>
+      <CategoryName>In/Out</CategoryName>
+      <SearchTags>date, time, now, in/out category, current, runtime, calendar, clock</SearchTags>
+      <Author>Alteryx</Author>
+      <Company>Alteryx, Inc.</Company>
+      <Copyright>Alteryx, Inc.</Copyright>
+      <DescriptionLink actual="" displayed="" />
+	  <RootToolName>Date Time Now</RootToolName>
+      <ToolVersion>1</ToolVersion>
+      <Example>
+            <Description>Open Example</Description>
+            <File>01 In Out\DateTimeNow.yxmd</File>
+          </Example>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+    <RuntimeProperties>
+      <Actions>
+        <NoCondition>
+          <Type>NoCondition</Type>
+          <Description>(Always Run)</Description>
+          <True>
+            <Action>
+              <Type>UpdateValue</Type>
+              <Description>OutputFormat</Description>
+              <ToolId value="12" />
+              <Mode>Simple</Mode>
+              <Variable>OutputFormat</Variable>
+              <Replace value="False" />
+              <Destination>3/Format</Destination>
+            </Action>
+          </True>
+        </NoCondition>
+      </Actions>
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (14)</Name>
+          <ToolId value="14" />
+          <Questions>
+            <Question>
+              <Type>ListBox</Type>
+              <Description>Output Format</Description>
+              <Name>OutputFormat</Name>
+              <ToolId value="13" />
+              <Multiple value="False" />
+              <Default>day, dd Month, yyyy</Default>
+              <Mode>Manual</Mode>
+              <Manual_Values><![CDATA[yyyy-MM-dd
+yyyyMMdd
+MM/dd/yy
+MM/dd/yyyy
+MM-dd-yy
+MM-dd-yyyy
+Month dd, yyyy
+Month, yyyy
+Mon dd
+dd/MM/yy
+dd/MM/yyyy
+dd-MM-yy
+dd-MM-yyyy
+dy., Month dd, yyyy
+day, dd Month, yyyy
+dd Month, yyyy
+yyyy-MM-dd hhːmmːss:yyyy-MM-dd hh:mm:ss
+MM/dd/yyyy hhːmmːss:MM/dd/yyyy hh:mm:ss
+MM/dd/yy hhːmmːss:MM/dd/yy hh:mm:ss
+dd/MM/yyyy hhːmmːss:dd/MM/yyyy hh:mm:ss
+dd/MM/yy hhːmmːss:dd/MM/yy hh:mm:ss
+]]></Manual_Values>
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Output</Description>
+              <Name>Output</Name>
+              <ToolId value="15" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="True" />
+      <MacroCustomHelpLink>AlteryxHelp:Macro-DateTimeNow</MacroCustomHelpLink>
+      <MacroDynamicOutputFields value="False" />
+      <MacroImage>iVBORw0KGgoAAAANSUhEUgAAAKsAAACrCAYAAAAZ6GwZAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ
+bWFnZVJlYWR5ccllPAAAA2RpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdp
+bj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6
+eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDE0IDc5LjE1
+Njc5NywgMjAxNC8wOC8yMC0wOTo1MzowMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJo
+dHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlw
+dGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEu
+MC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVz
+b3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1N
+Ok9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo5RjJCMzRCMjQyNDZFMjExOEVFM0NBQzZBRjFF
+RDgzMSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpBNjkzNjBCQkIwOEMxMUU0ODYxN0MwRTM5
+MzQ5OEIxNiIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpBNjkzNjBCQUIwOEMxMUU0ODYxN0Mw
+RTM5MzQ5OEIxNiIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IFdpbmRvd3Mi
+PiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDozRDJDNDNFOTA3
+NzRFNDExOTI1N0VBNUVBMkVEMkZBNyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo5RjJCMzRC
+MjQyNDZFMjExOEVFM0NBQzZBRjFFRDgzMSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRG
+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
+j3kAAAAASUVORK5CYII=
+</MacroImage>
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="15" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

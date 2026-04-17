@@ -27,6 +27,7 @@ import sys
 from pathlib import Path
 
 from rich.console import Console
+from rich.markup import escape
 from rich.progress import Progress, SpinnerColumn, TextColumn, TimeElapsedColumn
 from rich.table import Table
 
@@ -263,7 +264,7 @@ def main() -> None:
             if warnings:
                 console.print(f"    [yellow]{len(warnings)} warning(s):[/yellow]")
                 for w in warnings:
-                    console.print(f"      [yellow]⚠[/yellow]  {w}")
+                    console.print(f"      [yellow]⚠[/yellow]  {escape(w)}")
         except Exception as exc:  # noqa: BLE001
             failed.append((workflow_path.name, str(exc)))
             console.print(f"  [bold red]ERROR:[/bold red] {exc}")

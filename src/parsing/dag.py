@@ -84,17 +84,26 @@ class AlteryxDAG:
         return [self._nodes[s] for s in self._graph.successors(tool_id)]
 
     def in_edges(self, tool_id: int) -> list[Connection]:
-        """Return all Connection objects arriving at tool_id."""
+        """Return all Connection objects arriving at tool_id.
+
+        Multiple connections between the same origin and destination (e.g. a
+        Join emitting both J and R to the same Union) are all returned.
+        """
         return [
-            data["connection"]
+            conn
             for _, _, data in self._graph.in_edges(tool_id, data=True)
+            for conn in data["connections"]
         ]
 
     def out_edges(self, tool_id: int) -> list[Connection]:
-        """Return all Connection objects leaving tool_id."""
+        """Return all Connection objects leaving tool_id.
+
+        Multiple connections between the same pair of nodes are all returned.
+        """
         return [
-            data["connection"]
+            conn
             for _, _, data in self._graph.out_edges(tool_id, data=True)
+            for conn in data["connections"]
         ]
 
     # ------------------------------------------------------------------
@@ -188,7 +197,10 @@ def build_dag(parsed: ParsedWorkflow) -> AlteryxDAG:
                 f"Connection references unknown tool_id: "
                 f"{conn.origin_id} → {conn.dest_id}"
             )
-        graph.add_edge(conn.origin_id, conn.dest_id, connection=conn)
+        if graph.has_edge(conn.origin_id, conn.dest_id):
+            graph[conn.origin_id][conn.dest_id]["connections"].append(conn)
+        else:
+            graph.add_edge(conn.origin_id, conn.dest_id, connections=[conn])
         dag_connections.append(conn)
 
     if not nx.is_directed_acyclic_graph(graph):

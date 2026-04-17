@@ -1,0 +1,1795 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2022.1" autoTranslate="true">
+  <Nodes>
+    <Node ToolID="1">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="52">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="54.99997" y="54" width="616" height="80" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Alteryx Macro:
+Base64 Encoder</Text>
+          <Font name="Microsoft Sans Serif" size="18" style="0" />
+          <TextColor name="White" />
+          <FillColor r="95" g="152" b="171" />
+          <Shape shape="0" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="57">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="54.99998" y="145.9997" width="1278" height="677.0002" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Macro Container</Caption>
+          <Style TextColor="#2f4f4f" FillColor="#d3b6d2" BorderColor="#2f4f4f" Transparency="66" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="2">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+            <Position x="369.0001" y="189.9999" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <FormulaFields>
+                <FormulaField field="pad" type="V_String" size="64" expression="IF Mod(Length([Text]), 3) == 1 THEN &#xA;'==' &#xA;ELSEIF &#xA;Mod(Length([Text]), 3) == 2 THEN &#xA;'=' &#xA;ELSE &#xA;''&#xA;ENDIF" />
+              </FormulaFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>pad=IF Mod(Length([Text]), 3) == 1 THEN 
+'==' 
+ELSEIF 
+Mod(Le...</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="TextID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="Text" size="63" source="TextInput:" type="V_String" />
+                <Field name="pad" size="64" source="Formula: IF Mod(Length([Text]), 3) == 1 THEN &#xA;'==' &#xA;ELSEIF &#xA;Mod(Length([Text]), 3) == 2 THEN &#xA;'=' &#xA;ELSE &#xA;''&#xA;ENDIF" type="V_String" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="TextID" order="Asc" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+        </Node>
+        <Node ToolID="3">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.RegEx.RegEx">
+            <Position x="529.0001" y="190" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Field>Text</Field>
+              <RegExExpression value="[\w\W]" />
+              <CaseInsensitve value="True" />
+              <Method>ParseSimple</Method>
+              <Replace expression="">
+                <CopyUnmatched value="True" />
+              </Replace>
+              <ParseSimple>
+                <SplitToRows value="True" />
+              </ParseSimple>
+              <ParseComplex>
+                <Field field="No Marked Groups Found" type="No Marked Groups Found" size="No Marked Groups Found" />
+              </ParseComplex>
+              <Match>
+                <Field>Text_Matched</Field>
+                <ErrorUnmatched value="False" />
+              </Match>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>Tokenize:
+[\w\W]</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="TextID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="Text" size="63" source="TextInput:" type="V_String" />
+                <Field name="pad" size="64" source="Formula: IF Mod(Length([Text]), 3) == 1 THEN &#xA;'==' &#xA;ELSEIF &#xA;Mod(Length([Text]), 3) == 2 THEN &#xA;'=' &#xA;ELSE &#xA;''&#xA;ENDIF" type="V_String" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="TextID" order="Asc" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRegEx" />
+        </Node>
+        <Node ToolID="4">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.RecordID.RecordID">
+            <Position x="689" y="190.0001" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <StartValue>1</StartValue>
+              <FieldName>char_seq</FieldName>
+              <FieldType>Int32</FieldType>
+              <Position>1</Position>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="TextID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="Text" size="63" source="TextInput:" type="V_String" />
+                <Field name="pad" size="64" source="Formula: IF Mod(Length([Text]), 3) == 1 THEN &#xA;'==' &#xA;ELSEIF &#xA;Mod(Length([Text]), 3) == 2 THEN &#xA;'=' &#xA;ELSE &#xA;''&#xA;ENDIF" type="V_String" />
+                <Field name="char_seq" source="RecordID: Starting Value=1" type="Int32" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="TextID" order="Asc" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRecordID" />
+        </Node>
+        <Node ToolID="5">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="529" y="246" width="100" height="108" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>split the "bearer" string so each character has its' own row 
+(note: could also use text-to-column tool)</Text>
+              <Font name="Segoe UI" size="8.25" style="0" />
+              <TextColor name="Black" />
+              <FillColor name="White" />
+              <Shape shape="0" />
+              <Justification Justification="3" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="6">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="689" y="246" width="100" height="96" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>give each row a numeric id to ensure the order of the "bearer" string (i.e., pre-regex)</Text>
+              <Font name="Segoe UI" size="8.25" style="0" />
+              <TextColor name="White" />
+              <FillColor r="111" g="111" b="111" />
+              <Shape shape="0" />
+              <Justification Justification="3" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="7">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="849" y="246" width="100" height="108" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>generate the utf8 binary value
+(note: broken-out into 3 func to illustrate.  could be done in single func)</Text>
+              <Font name="Segoe UI" size="8.25" style="0" />
+              <TextColor name="Black" />
+              <FillColor name="White" />
+              <Shape shape="0" />
+              <Justification Justification="3" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="8">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+            <Position x="849" y="189.9999" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <FormulaFields>
+                <FormulaField expression="// calculate the unicode value of the char&#xA;CharToInt([Text])" field="int_val" size="4" type="Int32" />
+                <FormulaField expression="IntToBin([int_val])" field="bin_val" size="1073741823" type="V_WString" />
+                <FormulaField expression="// generate the utf8 binary value of the character&#xA;IF [int_val] &lt;= HexToNumber('007F') THEN PadLeft([bin_val],8,'0') &#xA;ELSEIF [int_val] &lt;= HexToNumber('07FF') THEN &#xA;'110'+Substring(PadLeft([bin_val],11,'0'),0,5)+'10'+Substring(PadLeft([bin_val],11,'0'),5,6)&#xA;ELSEIF [int_val] &lt;= HexToNumber('FFFF') THEN &#xA;'1110'+Substring(PadLeft([bin_val],16,'0'),0,4)+'10'+Substring(PadLeft([bin_val],16,'0'),4,6)+'10'+Substring(PadLeft([bin_val],16,'0'),10,6)&#xA;ELSE &#xA;'11110'+Substring(PadLeft([bin_val],21,'0'),0,3)+'10'+Substring(PadLeft([bin_val],21,'0'),3,6)+'10'+Substring(PadLeft([bin_val],21,'0'),9,6)+'10'+Substring(PadLeft([bin_val],21,'0'),15,6)&#xA;ENDIF" field="utf8_bin_val" size="64" type="V_String" />
+              </FormulaFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>int_val = // calculate the unicode value of the char
+CharToInt([Text])
+bin_val =...</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="TextID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="Text" size="1073741823" source="TextInput:" type="V_WString" />
+                <Field name="pad" size="64" source="Formula: IF Mod(Length([Text]), 3) == 1 THEN &#xA;'==' &#xA;ELSEIF &#xA;Mod(Length([Text]), 3) == 2 THEN &#xA;'=' &#xA;ELSE &#xA;''&#xA;ENDIF" type="V_String" />
+                <Field name="char_seq" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="int_val" source="Formula: // calculate the unicode value of the char&#xA;CharToInt([Text])" type="Int32" />
+                <Field name="bin_val" size="1073741823" source="Formula: IntToBin([int_val])" type="V_WString" />
+                <Field name="utf8_bin_val" size="64" source="Formula: // generate the utf8 binary value of the character&#xA;IF [int_val] &lt;= HexToNumber('007F') THEN PadLeft([bin_val],8,'0') &#xA;ELSEIF [int_val] &lt;= HexToNumber('07FF') THEN &#xA;'110'+Substring(PadLeft([bin_val],11,'0'),0,5)+'10'+Substring(PadLeft([bin_val],11,'0'),5,6)&#xA;ELSEIF [int_val] &lt;= HexToNumber('FFFF') THEN &#xA;'1110'+Substring(PadLeft([bin_val],16,'0'),0,4)+'10'+Substring(PadLeft([bin_val],16,'0'),4,6)+'10'+Substring(PadLeft([bin_val],16,'0'),10,6)&#xA;ELSE &#xA;'11110'+Substring(PadLeft([bin_val],21,'0'),0,3)+'10'+Substring(PadLeft([bin_val],21,'0'),3,6)+'10'+Substring(PadLeft([bin_val],21,'0'),9,6)+'10'+Substring(PadLeft([bin_val],21,'0'),15,6)&#xA;ENDIF" type="V_String" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+        </Node>
+        <Node ToolID="9">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+            <Position x="1001" y="190" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <OrderChanged value="False" />
+              <SelectFields>
+                <SelectField field="int_val" selected="False" />
+                <SelectField field="bin_val" selected="False" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="TextID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="Text" size="1073741823" source="TextInput:" type="V_WString" />
+                <Field name="pad" size="64" source="Formula: IF Mod(Length([Text]), 3) == 1 THEN &#xA;'==' &#xA;ELSEIF &#xA;Mod(Length([Text]), 3) == 2 THEN &#xA;'=' &#xA;ELSE &#xA;''&#xA;ENDIF" type="V_String" />
+                <Field name="char_seq" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="utf8_bin_val" size="64" source="Formula: // generate the utf8 binary value of the character&#xA;IF [int_val] &lt;= HexToNumber('007F') THEN PadLeft([bin_val],8,'0') &#xA;ELSEIF [int_val] &lt;= HexToNumber('07FF') THEN &#xA;'110'+Substring(PadLeft([bin_val],11,'0'),0,5)+'10'+Substring(PadLeft([bin_val],11,'0'),5,6)&#xA;ELSEIF [int_val] &lt;= HexToNumber('FFFF') THEN &#xA;'1110'+Substring(PadLeft([bin_val],16,'0'),0,4)+'10'+Substring(PadLeft([bin_val],16,'0'),4,6)+'10'+Substring(PadLeft([bin_val],16,'0'),10,6)&#xA;ELSE &#xA;'11110'+Substring(PadLeft([bin_val],21,'0'),0,3)+'10'+Substring(PadLeft([bin_val],21,'0'),3,6)+'10'+Substring(PadLeft([bin_val],21,'0'),9,6)+'10'+Substring(PadLeft([bin_val],21,'0'),15,6)&#xA;ENDIF" type="V_String" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="TextID" order="Asc" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+        </Node>
+        <Node ToolID="10">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="1001" y="246" width="100" height="48" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>a little housekeeping to "reduce the noise"</Text>
+              <Font name="Segoe UI" size="8.25" style="0" />
+              <TextColor name="White" />
+              <FillColor r="111" g="111" b="111" />
+              <Shape shape="0" />
+              <Justification Justification="3" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="11">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.RegEx.RegEx">
+            <Position x="369.0001" y="381.9999" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Field>utf8_bin_val</Field>
+              <RegExExpression value="[\d]" />
+              <CaseInsensitve value="True" />
+              <Method>ParseSimple</Method>
+              <Replace expression="">
+                <CopyUnmatched value="True" />
+              </Replace>
+              <ParseSimple>
+                <SplitToRows value="True" />
+              </ParseSimple>
+              <ParseComplex>
+                <Field field="No Marked Groups Found" type="No Marked Groups Found" size="No Marked Groups Found" />
+              </ParseComplex>
+              <Match>
+                <Field>8-bit_bin_val_Matched</Field>
+                <ErrorUnmatched value="False" />
+              </Match>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>Tokenize:
+[\d]</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="TextID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="Text" size="1073741823" source="TextInput:" type="V_WString" />
+                <Field name="pad" size="64" source="Formula: IF Mod(Length([Text]), 3) == 1 THEN &#xA;'==' &#xA;ELSEIF &#xA;Mod(Length([Text]), 3) == 2 THEN &#xA;'=' &#xA;ELSE &#xA;''&#xA;ENDIF" type="V_String" />
+                <Field name="char_seq" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="utf8_bin_val" size="64" source="Formula: // generate the utf8 binary value of the character&#xA;IF [int_val] &lt;= HexToNumber('007F') THEN PadLeft([bin_val],8,'0') &#xA;ELSEIF [int_val] &lt;= HexToNumber('07FF') THEN &#xA;'110'+Substring(PadLeft([bin_val],11,'0'),0,5)+'10'+Substring(PadLeft([bin_val],11,'0'),5,6)&#xA;ELSEIF [int_val] &lt;= HexToNumber('FFFF') THEN &#xA;'1110'+Substring(PadLeft([bin_val],16,'0'),0,4)+'10'+Substring(PadLeft([bin_val],16,'0'),4,6)+'10'+Substring(PadLeft([bin_val],16,'0'),10,6)&#xA;ELSE &#xA;'11110'+Substring(PadLeft([bin_val],21,'0'),0,3)+'10'+Substring(PadLeft([bin_val],21,'0'),3,6)+'10'+Substring(PadLeft([bin_val],21,'0'),9,6)+'10'+Substring(PadLeft([bin_val],21,'0'),15,6)&#xA;ENDIF" type="V_String" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="TextID" order="Asc" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRegEx" />
+        </Node>
+        <Node ToolID="12">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="368.9999" y="442" width="100" height="104" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>ONE MORE TIME!!
+split the "8-bit" string like we did w/ the "bearer" str
+(note: could use text-to-column tool)</Text>
+              <Font name="Segoe UI" size="8.25" style="0" />
+              <TextColor name="Black" />
+              <FillColor name="White" />
+              <Shape shape="0" />
+              <Justification Justification="3" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="13">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.RecordID.RecordID">
+            <Position x="534" y="382" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <StartValue>1</StartValue>
+              <FieldName>bit_pattern</FieldName>
+              <FieldType>Int32</FieldType>
+              <Position>1</Position>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="TextID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="Text" size="1073741823" source="TextInput:" type="V_WString" />
+                <Field name="pad" size="64" source="Formula: IF Mod(Length([Text]), 3) == 1 THEN &#xA;'==' &#xA;ELSEIF &#xA;Mod(Length([Text]), 3) == 2 THEN &#xA;'=' &#xA;ELSE &#xA;''&#xA;ENDIF" type="V_String" />
+                <Field name="char_seq" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="utf8_bin_val" size="64" source="Formula: // generate the utf8 binary value of the character&#xA;IF [int_val] &lt;= HexToNumber('007F') THEN PadLeft([bin_val],8,'0') &#xA;ELSEIF [int_val] &lt;= HexToNumber('07FF') THEN &#xA;'110'+Substring(PadLeft([bin_val],11,'0'),0,5)+'10'+Substring(PadLeft([bin_val],11,'0'),5,6)&#xA;ELSEIF [int_val] &lt;= HexToNumber('FFFF') THEN &#xA;'1110'+Substring(PadLeft([bin_val],16,'0'),0,4)+'10'+Substring(PadLeft([bin_val],16,'0'),4,6)+'10'+Substring(PadLeft([bin_val],16,'0'),10,6)&#xA;ELSE &#xA;'11110'+Substring(PadLeft([bin_val],21,'0'),0,3)+'10'+Substring(PadLeft([bin_val],21,'0'),3,6)+'10'+Substring(PadLeft([bin_val],21,'0'),9,6)+'10'+Substring(PadLeft([bin_val],21,'0'),15,6)&#xA;ENDIF" type="V_String" />
+                <Field name="bit_pattern" source="RecordID: Starting Value=1" type="Int32" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="TextID" order="Asc" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRecordID" />
+        </Node>
+        <Node ToolID="14">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="529" y="442" width="100" height="80" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>give each row a numeric id to ensure the 8-bit pattern is maintained</Text>
+              <Font name="Segoe UI" size="8.25" style="0" />
+              <TextColor name="White" />
+              <FillColor r="111" g="111" b="111" />
+              <Shape shape="0" />
+              <Justification Justification="3" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="15">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+            <Position x="786" y="382" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <FormulaFields>
+                <FormulaField expression="IF Mod([bit_pattern], 6) == 0 THEN Mod([bit_pattern], 6) ELSE 6 - Mod([bit_pattern], 6) ENDIF" field="pow" size="4" type="Int32" />
+                <FormulaField expression="ToNumber([utf8_bin_val]) * POW(2, [pow])" field="base64_index_subtotal" size="8" type="Int64" />
+              </FormulaFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>pow=IF Mod([bit_pattern], 6) == 0 THEN Mod([bit_pattern], 6) ...
+base64_index_subtotal=ToNumber([8-bit_bin_val]) * POW(2, [pow])</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="TextID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="Text" size="1073741823" source="TextInput:" type="V_WString" />
+                <Field name="pad" size="64" source="Formula: IF Mod(Length([Text]), 3) == 1 THEN &#xA;'==' &#xA;ELSEIF &#xA;Mod(Length([Text]), 3) == 2 THEN &#xA;'=' &#xA;ELSE &#xA;''&#xA;ENDIF" type="V_String" />
+                <Field name="char_seq" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="utf8_bin_val" size="64" source="Formula: // generate the utf8 binary value of the character&#xA;IF [int_val] &lt;= HexToNumber('007F') THEN PadLeft([bin_val],8,'0') &#xA;ELSEIF [int_val] &lt;= HexToNumber('07FF') THEN &#xA;'110'+Substring(PadLeft([bin_val],11,'0'),0,5)+'10'+Substring(PadLeft([bin_val],11,'0'),5,6)&#xA;ELSEIF [int_val] &lt;= HexToNumber('FFFF') THEN &#xA;'1110'+Substring(PadLeft([bin_val],16,'0'),0,4)+'10'+Substring(PadLeft([bin_val],16,'0'),4,6)+'10'+Substring(PadLeft([bin_val],16,'0'),10,6)&#xA;ELSE &#xA;'11110'+Substring(PadLeft([bin_val],21,'0'),0,3)+'10'+Substring(PadLeft([bin_val],21,'0'),3,6)+'10'+Substring(PadLeft([bin_val],21,'0'),9,6)+'10'+Substring(PadLeft([bin_val],21,'0'),15,6)&#xA;ENDIF" type="V_String" />
+                <Field name="bit_pattern" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="pow" source="Formula: IF Mod([bit_pattern], 6) == 0 THEN Mod([bit_pattern], 6) ELSE 6 - Mod([bit_pattern], 6) ENDIF" type="Int32" />
+                <Field name="base64_index_subtotal" source="Formula: ToNumber([utf8_bin_val]) * POW(2, [pow])" type="Int64" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="TextID" order="Asc" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+        </Node>
+        <Node ToolID="16">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="762" y="442" width="100" height="104" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>calculate the value of each binary digit using binary counting rules.
+***see ADD'L NOTES for more information***</Text>
+              <Font name="Segoe UI" size="8.25" style="0" />
+              <TextColor name="White" />
+              <FillColor r="111" g="111" b="111" />
+              <Shape shape="0" />
+              <Justification Justification="3" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="17">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+            <Position x="906" y="382" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <UpdateField value="False" />
+              <UpdateField_Name>char_seq</UpdateField_Name>
+              <CreateField_Name>6-bit_group</CreateField_Name>
+              <CreateField_Type>Int32</CreateField_Type>
+              <CreateField_Size>254</CreateField_Size>
+              <OtherRows>Empty</OtherRows>
+              <NumRows value="1" />
+              <Expression>IF [Row-1:pow] == 0 THEN [Row-1:6-bit_group] + 1 ELSE [Row-1:6-bit_group] ENDIF</Expression>
+              <GroupByFields />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>IF [Row-1:pow] == 0 THEN [Row-1:6-bit_group] + 1 ELSE [Row-1:...</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="TextID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="Text" size="1073741823" source="TextInput:" type="V_WString" />
+                <Field name="pad" size="64" source="Formula: IF Mod(Length([Text]), 3) == 1 THEN &#xA;'==' &#xA;ELSEIF &#xA;Mod(Length([Text]), 3) == 2 THEN &#xA;'=' &#xA;ELSE &#xA;''&#xA;ENDIF" type="V_String" />
+                <Field name="char_seq" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="utf8_bin_val" size="64" source="Formula: // generate the utf8 binary value of the character&#xA;IF [int_val] &lt;= HexToNumber('007F') THEN PadLeft([bin_val],8,'0') &#xA;ELSEIF [int_val] &lt;= HexToNumber('07FF') THEN &#xA;'110'+Substring(PadLeft([bin_val],11,'0'),0,5)+'10'+Substring(PadLeft([bin_val],11,'0'),5,6)&#xA;ELSEIF [int_val] &lt;= HexToNumber('FFFF') THEN &#xA;'1110'+Substring(PadLeft([bin_val],16,'0'),0,4)+'10'+Substring(PadLeft([bin_val],16,'0'),4,6)+'10'+Substring(PadLeft([bin_val],16,'0'),10,6)&#xA;ELSE &#xA;'11110'+Substring(PadLeft([bin_val],21,'0'),0,3)+'10'+Substring(PadLeft([bin_val],21,'0'),3,6)+'10'+Substring(PadLeft([bin_val],21,'0'),9,6)+'10'+Substring(PadLeft([bin_val],21,'0'),15,6)&#xA;ENDIF" type="V_String" />
+                <Field name="bit_pattern" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="pow" source="Formula: IF Mod([bit_pattern], 6) == 0 THEN Mod([bit_pattern], 6) ELSE 6 - Mod([bit_pattern], 6) ENDIF" type="Int32" />
+                <Field name="base64_index_subtotal" source="Formula: ToNumber([utf8_bin_val]) * POW(2, [pow])" type="Int64" />
+                <Field name="6-bit_group" type="Int32" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="TextID" order="Asc" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+        </Node>
+        <Node ToolID="18">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="882" y="442" width="100" height="128" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>generate the 6-bit group values which will be used as the 'groupby' field for generating the Base64 index value</Text>
+              <Font name="Segoe UI" size="8.25" style="0" />
+              <TextColor name="Black" />
+              <FillColor name="White" />
+              <Shape shape="0" />
+              <Justification Justification="3" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="19">
+          <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+            <Position x="1001" y="382" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <SummarizeFields>
+                <SummarizeField field="TextID" action="GroupBy" rename="TextID" />
+                <SummarizeField field="6-bit_group" action="GroupBy" rename="6-bit_group" />
+                <SummarizeField field="base64_index_subtotal" action="Sum" rename="index" />
+                <SummarizeField field="pad" action="GroupBy" rename="pad" />
+              </SummarizeFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="TextID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="6-bit_group" type="Int32" />
+                <Field name="index" source="Summarize: Sum - base64_index_subtotal" type="Int64" />
+                <Field name="pad" size="64" source="Formula: IF Mod(Length([Text]), 3) == 1 THEN &#xA;'==' &#xA;ELSEIF &#xA;Mod(Length([Text]), 3) == 2 THEN &#xA;'=' &#xA;ELSE &#xA;''&#xA;ENDIF" type="V_String" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="TextID" order="Asc" />
+                <Field field="6-bit_group" order="Asc" />
+                <Field field="pad" order="Asc" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+        </Node>
+        <Node ToolID="21">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+            <Position x="368.9999" y="586" />
+          </GuiSettings>
+          <Properties>
+            <Configuration joinByRecordPos="False">
+              <JoinInfo connection="Left">
+                <Field field="index" />
+              </JoinInfo>
+              <JoinInfo connection="Right">
+                <Field field="value" />
+              </JoinInfo>
+              <SelectConfiguration>
+                <Configuration outputConnection="Join">
+                  <OrderChanged value="True" />
+                  <SelectFields>
+                    <SelectField field="Left_6-bit_group" selected="True" />
+                    <SelectField field="Left_index" selected="False" />
+                    <SelectField field="Right_value" selected="False" />
+                    <SelectField field="Right_char" selected="True" />
+                    <SelectField field="Left_pad" selected="True" />
+                    <SelectField field="*Unknown" selected="True" />
+                  </SelectFields>
+                </Configuration>
+              </SelectConfiguration>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Left">
+              <RecordInfo>
+                <Field name="TextID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="6-bit_group" type="Int32" />
+                <Field name="index" source="Summarize: Sum - base64_index_subtotal" type="Int64" />
+                <Field name="pad" size="64" source="Formula: IF Mod(Length([Text]), 3) == 1 THEN &#xA;'==' &#xA;ELSEIF &#xA;Mod(Length([Text]), 3) == 2 THEN &#xA;'=' &#xA;ELSE &#xA;''&#xA;ENDIF" type="V_String" />
+              </RecordInfo>
+              <SortInfo noProgress="True">
+                <Field field="index" />
+              </SortInfo>
+            </MetaInfo>
+            <MetaInfo connection="Join">
+              <RecordInfo>
+                <Field name="6-bit_group" type="Int32" />
+                <Field name="char" size="1" source="TextInput:" type="String" />
+                <Field name="pad" size="64" source="Formula: IF Mod(Length([Text]), 3) == 1 THEN &#xA;'==' &#xA;ELSEIF &#xA;Mod(Length([Text]), 3) == 2 THEN &#xA;'=' &#xA;ELSE &#xA;''&#xA;ENDIF" type="V_String" />
+                <Field name="TextID" source="RecordID: Starting Value=1" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Right">
+              <RecordInfo>
+                <Field name="value" source="TextInput:" type="Int32" />
+                <Field name="char" size="1" source="TextInput:" type="String" />
+              </RecordInfo>
+              <SortInfo noProgress="True">
+                <Field field="value" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+        </Node>
+        <Node ToolID="22">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+            <Position x="528.9999" y="586" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <SortInfo locale="0">
+                <Field field="6-bit_group" order="Ascending" />
+              </SortInfo>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>6-bit_group - Ascending</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="6-bit_group" type="Int32" />
+                <Field name="char" size="1" source="TextInput:" type="String" />
+                <Field name="pad" size="64" source="Formula: IF Mod(Length([Text]), 3) == 1 THEN &#xA;'==' &#xA;ELSEIF &#xA;Mod(Length([Text]), 3) == 2 THEN &#xA;'=' &#xA;ELSE &#xA;''&#xA;ENDIF" type="V_String" />
+                <Field name="TextID" source="RecordID: Starting Value=1" type="Int32" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+        </Node>
+        <Node ToolID="23">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="81.00011" y="654.0002" width="100" height="48.00012" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>Base64 Index table</Text>
+              <Font name="Segoe UI" size="8.25" style="0" />
+              <TextColor name="White" />
+              <FillColor r="111" g="111" b="111" />
+              <Shape shape="0" />
+              <Justification Justification="3" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="24">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="368.9998" y="654" width="100" height="108" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>join the results from the 6-bit group calculation to the value field of the Base64 Index to character code</Text>
+              <Font name="Segoe UI" size="8.25" style="0" />
+              <TextColor name="Black" />
+              <FillColor name="White" />
+              <Shape shape="0" />
+              <Justification Justification="3" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="25">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="528.9996" y="653.9999" width="100" height="72.00006" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>it's a good thing we can force the order of the 6-bit groups</Text>
+              <Font name="Segoe UI" size="8.25" style="0" />
+              <TextColor name="White" />
+              <FillColor r="111" g="111" b="111" />
+              <Shape shape="0" />
+              <Justification Justification="3" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="26">
+          <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+            <Position x="689.0001" y="586" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <SummarizeFields>
+                <SummarizeField field="TextID" action="GroupBy" rename="TextID" />
+                <SummarizeField field="pad" action="GroupBy" rename="pad" />
+                <SummarizeField field="char" action="Concat" rename="Base64_encoded">
+                  <Concat_Start />
+                  <Separator />
+                  <Concat_End />
+                </SummarizeField>
+              </SummarizeFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="TextID" source="Summarize: GroupBy - TextID" type="Int32" />
+                <Field name="pad" size="64" source="Summarize: GroupBy - pad" type="V_String" />
+                <Field name="Base64_encoded" size="2147483647" source="Summarize: Concat - char" type="V_String" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="TextID" order="Asc" />
+                <Field field="pad" order="Asc" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+        </Node>
+        <Node ToolID="27">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="689" y="654" width="100" height="72" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>let's put it all together by concatenating all of the records</Text>
+              <Font name="Segoe UI" size="8.25" style="0" />
+              <TextColor name="Black" />
+              <FillColor name="White" />
+              <Shape shape="0" />
+              <Justification Justification="3" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="28">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="849" y="654" width="100" height="144" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>depending on the length of the incoming stream , use the FORMULA tool to append (i.e., "pad") a '=' or '==' to the 'Base64_encoded' string.</Text>
+              <Font name="Segoe UI" size="8.25" style="0" />
+              <TextColor name="White" />
+              <FillColor r="111" g="111" b="111" />
+              <Shape shape="0" />
+              <Justification Justification="3" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="31">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+            <Position x="845" y="586" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <FormulaFields>
+                <FormulaField field="Base64_encoded" type="V_String" size="2147483647" expression="[Base64_encoded] + [pad]" />
+              </FormulaFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>Base64_encoded=[Base64_encoded] + [pad]</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="TextID" source="Summarize: GroupBy - TextID" type="Int32" />
+                <Field name="pad" size="64" source="Summarize: GroupBy - pad" type="V_String" />
+                <Field name="Base64_encoded" size="2147483647" source="Formula: [Base64_encoded] + [pad]" type="V_String" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="TextID" order="Asc" />
+                <Field field="pad" order="Asc" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+        </Node>
+        <Node ToolID="32">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="368.9998" y="246.0002" width="100" height="108" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>the length of the incoming string determines if the encoded value requires any padding characters.</Text>
+              <Font name="Segoe UI" size="8.25" style="0" />
+              <TextColor name="White" />
+              <FillColor r="111" g="111" b="111" />
+              <Shape shape="0" />
+              <Justification Justification="3" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="35">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="1001" y="442" width="100" height="68" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>SUMMARIZE: calculate the index value of each 6-bit group</Text>
+              <Font name="Segoe UI" size="8.25" style="0" />
+              <TextColor name="White" />
+              <FillColor r="111" g="111" b="111" />
+              <Shape shape="0" />
+              <Justification Justification="3" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="36">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+            <Position x="88.00014" y="189.9997" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <UseFileInput value="False" />
+              <Name>Macro Input</Name>
+              <Abbrev />
+              <ShowFieldMap value="True" />
+              <TextInput>
+                <Configuration>
+                  <NumRows value="3" />
+                  <Fields>
+                    <Field name="Text" />
+                  </Fields>
+                  <Data>
+                    <r>
+                      <c>eyfmPgYXyVAFpRGviRIcQ:4ldxztGEEFDdN5vjTzAMh8DQ1yQXHSjJNpPvcZQWU</c>
+                    </r>
+                    <r>
+                      <c>GarthHamiltonMiles20</c>
+                    </r>
+                  </Data>
+                </Configuration>
+              </TextInput>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="True" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Text" size="1073741823" source="TextInput:" type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+        </Node>
+        <Node ToolID="38">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.RecordID.RecordID">
+            <Position x="208" y="189.9997" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <StartValue>1</StartValue>
+              <FieldName>TextID</FieldName>
+              <FieldType>Int32</FieldType>
+              <Position>0</Position>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="TextID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="Text" size="1073741823" source="TextInput:" type="V_WString" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="TextID" order="Asc" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRecordID" />
+        </Node>
+        <Node ToolID="44">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="209.0002" y="245.9996" width="100" height="60.00009" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>Append a record ID to each incoming string field</Text>
+              <Font name="Segoe UI" size="8.25" style="0" />
+              <TextColor name="Black" />
+              <FillColor name="White" />
+              <Shape shape="0" />
+              <Justification Justification="3" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="45">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+            <Position x="1249" y="586" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Name>Output</Name>
+              <Abbrev />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+        </Node>
+        <Node ToolID="50">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+            <Position x="1000" y="586" />
+          </GuiSettings>
+          <Properties>
+            <Configuration joinByRecordPos="False">
+              <JoinInfo connection="Left">
+                <Field field="TextID" />
+              </JoinInfo>
+              <JoinInfo connection="Right">
+                <Field field="TextID" />
+              </JoinInfo>
+              <SelectConfiguration>
+                <Configuration outputConnection="Join">
+                  <OrderChanged value="True" />
+                  <SelectFields>
+                    <SelectField field="Left_TextID" selected="True" />
+                    <SelectField field="Left_Text" selected="True" />
+                    <SelectField field="Right_TextID" selected="False" />
+                    <SelectField field="Right_pad" selected="False" />
+                    <SelectField field="*Unknown" selected="True" />
+                    <SelectField field="Right_Base64_encoded" selected="True" />
+                  </SelectFields>
+                </Configuration>
+              </SelectConfiguration>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Left">
+              <RecordInfo>
+                <Field name="TextID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="Text" size="1073741823" source="TextInput:" type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Join">
+              <RecordInfo>
+                <Field name="Text" size="1073741823" source="TextInput:" type="V_WString" />
+                <Field name="Base64_encoded" size="2147483647" source="Formula: [Base64_encoded] + [pad]" type="V_String" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Right">
+              <RecordInfo>
+                <Field name="TextID" source="Summarize: GroupBy - TextID" type="Int32" />
+                <Field name="pad" size="64" source="Summarize: GroupBy - pad" type="V_String" />
+                <Field name="Base64_encoded" size="2147483647" source="Formula: [Base64_encoded] + [pad]" type="V_String" />
+              </RecordInfo>
+              <SortInfo noProgress="True">
+                <Field field="TextID" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+        </Node>
+        <Node ToolID="51">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="997" y="654" width="100" height="72" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>Append non-encoded fields from the input stream</Text>
+              <Font name="Segoe UI" size="8.25" style="0" />
+              <TextColor name="Black" />
+              <FillColor name="White" />
+              <Shape shape="0" />
+              <Justification Justification="3" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="58">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.TextInput.TextInput">
+            <Position x="88.00002" y="586.0002" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <NumRows value="65" />
+              <Fields>
+                <Field name="value" />
+                <Field name="char" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>0</c>
+                  <c>A</c>
+                </r>
+                <r>
+                  <c>1</c>
+                  <c>B</c>
+                </r>
+                <r>
+                  <c>2</c>
+                  <c>C</c>
+                </r>
+                <r>
+                  <c>3</c>
+                  <c>D</c>
+                </r>
+                <r>
+                  <c>4</c>
+                  <c>E</c>
+                </r>
+                <r>
+                  <c>5</c>
+                  <c>F</c>
+                </r>
+                <r>
+                  <c>6</c>
+                  <c>G</c>
+                </r>
+                <r>
+                  <c>7</c>
+                  <c>H</c>
+                </r>
+                <r>
+                  <c>8</c>
+                  <c>I</c>
+                </r>
+                <r>
+                  <c>9</c>
+                  <c>J</c>
+                </r>
+                <r>
+                  <c>10</c>
+                  <c>K</c>
+                </r>
+                <r>
+                  <c>11</c>
+                  <c>L</c>
+                </r>
+                <r>
+                  <c>12</c>
+                  <c>M</c>
+                </r>
+                <r>
+                  <c>13</c>
+                  <c>N</c>
+                </r>
+                <r>
+                  <c>14</c>
+                  <c>O</c>
+                </r>
+                <r>
+                  <c>15</c>
+                  <c>P</c>
+                </r>
+                <r>
+                  <c>16</c>
+                  <c>Q</c>
+                </r>
+                <r>
+                  <c>17</c>
+                  <c>R</c>
+                </r>
+                <r>
+                  <c>18</c>
+                  <c>S</c>
+                </r>
+                <r>
+                  <c>19</c>
+                  <c>T</c>
+                </r>
+                <r>
+                  <c>20</c>
+                  <c>U</c>
+                </r>
+                <r>
+                  <c>21</c>
+                  <c>V</c>
+                </r>
+                <r>
+                  <c>22</c>
+                  <c>W</c>
+                </r>
+                <r>
+                  <c>23</c>
+                  <c>X</c>
+                </r>
+                <r>
+                  <c>24</c>
+                  <c>Y</c>
+                </r>
+                <r>
+                  <c>25</c>
+                  <c>Z</c>
+                </r>
+                <r>
+                  <c>26</c>
+                  <c>a</c>
+                </r>
+                <r>
+                  <c>27</c>
+                  <c>b</c>
+                </r>
+                <r>
+                  <c>28</c>
+                  <c>c</c>
+                </r>
+                <r>
+                  <c>29</c>
+                  <c>d</c>
+                </r>
+                <r>
+                  <c>30</c>
+                  <c>e</c>
+                </r>
+                <r>
+                  <c>31</c>
+                  <c>f</c>
+                </r>
+                <r>
+                  <c>32</c>
+                  <c>g</c>
+                </r>
+                <r>
+                  <c>33</c>
+                  <c>h</c>
+                </r>
+                <r>
+                  <c>34</c>
+                  <c>i</c>
+                </r>
+                <r>
+                  <c>35</c>
+                  <c>j</c>
+                </r>
+                <r>
+                  <c>36</c>
+                  <c>k</c>
+                </r>
+                <r>
+                  <c>37</c>
+                  <c>l</c>
+                </r>
+                <r>
+                  <c>38</c>
+                  <c>m</c>
+                </r>
+                <r>
+                  <c>39</c>
+                  <c>n</c>
+                </r>
+                <r>
+                  <c>40</c>
+                  <c>o</c>
+                </r>
+                <r>
+                  <c>41</c>
+                  <c>p</c>
+                </r>
+                <r>
+                  <c>42</c>
+                  <c>q</c>
+                </r>
+                <r>
+                  <c>43</c>
+                  <c>r</c>
+                </r>
+                <r>
+                  <c>44</c>
+                  <c>s</c>
+                </r>
+                <r>
+                  <c>45</c>
+                  <c>t</c>
+                </r>
+                <r>
+                  <c>46</c>
+                  <c>u</c>
+                </r>
+                <r>
+                  <c>47</c>
+                  <c>v</c>
+                </r>
+                <r>
+                  <c>48</c>
+                  <c>w</c>
+                </r>
+                <r>
+                  <c>49</c>
+                  <c>x</c>
+                </r>
+                <r>
+                  <c>50</c>
+                  <c>y</c>
+                </r>
+                <r>
+                  <c>51</c>
+                  <c>z</c>
+                </r>
+                <r>
+                  <c>52</c>
+                  <c>0</c>
+                </r>
+                <r>
+                  <c>53</c>
+                  <c>1</c>
+                </r>
+                <r>
+                  <c>54</c>
+                  <c>2</c>
+                </r>
+                <r>
+                  <c>55</c>
+                  <c>3</c>
+                </r>
+                <r>
+                  <c>56</c>
+                  <c>4</c>
+                </r>
+                <r>
+                  <c>57</c>
+                  <c>5</c>
+                </r>
+                <r>
+                  <c>58</c>
+                  <c>6</c>
+                </r>
+                <r>
+                  <c>59</c>
+                  <c>7</c>
+                </r>
+                <r>
+                  <c>60</c>
+                  <c>8</c>
+                </r>
+                <r>
+                  <c>61</c>
+                  <c>9</c>
+                </r>
+                <r>
+                  <c>62</c>
+                  <c>+</c>
+                </r>
+                <r>
+                  <c>63</c>
+                  <c>/</c>
+                </r>
+              </Data>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="value" source="TextInput:" type="Int32" />
+                <Field name="char" size="2147483647" source="TextInput:" type="V_String" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxTextInput" />
+        </Node>
+        <Node ToolID="59">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+            <Position x="208" y="585.9999" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <OrderChanged value="False" />
+              <SelectFields>
+                <SelectField field="value" selected="True" type="Int32" size="4" />
+                <SelectField field="char" selected="True" type="String" forced="True" size="1" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="value" source="TextInput:" type="Int32" />
+                <Field name="char" size="1" source="TextInput:" type="String" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+        </Node>
+        <Node ToolID="60">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+            <Position x="1158" y="586" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <OrderChanged value="False" />
+              <SelectFields>
+                <SelectField field="TextID" selected="False" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Text" size="1073741823" source="TextInput:" type="V_WString" />
+                <Field name="Base64_encoded" size="2147483647" source="Formula: [Base64_encoded] + [pad]" type="V_String" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+        </Node>
+        <Node ToolID="61">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="88" y="382.0001" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="62">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="79.99998" y="442.0001" width="100" height="104" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>Updates the final Select tool with the Base64 string while maintaining the original incoming field names</Text>
+              <Font name="Segoe UI" size="8.25" style="0" />
+              <TextColor name="Black" />
+              <FillColor r="222" g="254" b="156" />
+              <Shape shape="0" />
+              <Justification Justification="3" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="63">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.MultiRowFormula.MultiRowFormula">
+            <Position x="654" y="382" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <UpdateField value="True" />
+              <UpdateField_Name>bit_pattern</UpdateField_Name>
+              <CreateField_Name>New Field</CreateField_Name>
+              <CreateField_Type>Int32</CreateField_Type>
+              <CreateField_Size>4</CreateField_Size>
+              <OtherRows>Empty</OtherRows>
+              <NumRows value="1" />
+              <Expression>if [Row-1:TextID] == [TextID] THEN [Row-1:bit_pattern]+1 ELSE 1 ENDIF</Expression>
+              <GroupByFields />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>if [Row-1:TextID] == [TextID] THEN [Row-1:bit_pattern]+1 ELSE...</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="TextID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="Text" size="1073741823" source="TextInput:" type="V_WString" />
+                <Field name="pad" size="64" source="Formula: IF Mod(Length([Text]), 3) == 1 THEN &#xA;'==' &#xA;ELSEIF &#xA;Mod(Length([Text]), 3) == 2 THEN &#xA;'=' &#xA;ELSE &#xA;''&#xA;ENDIF" type="V_String" />
+                <Field name="char_seq" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="utf8_bin_val" size="64" source="Formula: // generate the utf8 binary value of the character&#xA;IF [int_val] &lt;= HexToNumber('007F') THEN PadLeft([bin_val],8,'0') &#xA;ELSEIF [int_val] &lt;= HexToNumber('07FF') THEN &#xA;'110'+Substring(PadLeft([bin_val],11,'0'),0,5)+'10'+Substring(PadLeft([bin_val],11,'0'),5,6)&#xA;ELSEIF [int_val] &lt;= HexToNumber('FFFF') THEN &#xA;'1110'+Substring(PadLeft([bin_val],16,'0'),0,4)+'10'+Substring(PadLeft([bin_val],16,'0'),4,6)+'10'+Substring(PadLeft([bin_val],16,'0'),10,6)&#xA;ELSE &#xA;'11110'+Substring(PadLeft([bin_val],21,'0'),0,3)+'10'+Substring(PadLeft([bin_val],21,'0'),3,6)+'10'+Substring(PadLeft([bin_val],21,'0'),9,6)+'10'+Substring(PadLeft([bin_val],21,'0'),15,6)&#xA;ENDIF" type="V_String" />
+                <Field name="bit_pattern" source="RecordID: Starting Value=1" type="Int32" />
+              </RecordInfo>
+              <SortInfo>
+                <Field field="TextID" order="Asc" />
+              </SortInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMultiRowFormula" />
+        </Node>
+        <Node ToolID="64">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="642" y="442" width="96" height="72" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>Reset bit_pattern for each row</Text>
+              <Font name="Segoe UI" size="8.25" style="0" />
+              <TextColor name="Black" />
+              <FillColor name="White" />
+              <Shape shape="0" />
+              <Justification Justification="3" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="65">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+            <Position x="1074" y="586" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <SortInfo locale="1033">
+                <Field field="TextID" order="Ascending" />
+              </SortInfo>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>TextID - Ascending</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="TextID" source="RecordID: Starting Value=1" type="Int32" />
+                <Field name="Text" size="2147483647" source="TextInput:" type="V_String" />
+                <Field name="Base64_encoded" size="2147483647" source="Formula: [Base64_encoded] + [pad]" type="V_String" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="54">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="497.0001" y="69" width="162.9484" height="19" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Macro Description</Caption>
+          <Style TextColor="#2f4f4f" FillColor="#ffffff" BorderColor="#2f4f4f" Transparency="10" Margin="10" />
+          <Disabled value="False" />
+          <Folded value="True" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="53">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="507.0001" y="98" width="190.9999" height="72" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>Issues a Base64 encode string</Text>
+              <Font name="Microsoft Sans Serif" size="9.75" style="0" />
+              <TextColor name="DarkSlateGray" />
+              <FillColor name="White" />
+              <Shape shape="0" />
+              <Justification Justification="0" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="56">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="531" y="101" width="128.8957" height="19" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Tools Used</Caption>
+          <Style TextColor="#2f4f4f" FillColor="#ffffff" BorderColor="#2f4f4f" Transparency="10" Margin="10" />
+          <Disabled value="False" />
+          <Folded value="True" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="55">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="541" y="130" width="147" height="196" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text><![CDATA[TOOLS USED:
+Macro Input
+Record ID
+Formula
+RegEx
+Select
+Multi-Row Formula
+Summarize
+Text Input
+Join
+Sort
+Auto Field
+Macro Output
+]]></Text>
+              <Font name="Microsoft Sans Serif" size="9.75" style="0" />
+              <TextColor name="DarkSlateGray" />
+              <FillColor r="255" g="243" b="196" />
+              <Shape shape="0" />
+              <Justification Justification="3" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="2" Connection="Output" />
+      <Destination ToolID="3" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="3" Connection="Output" />
+      <Destination ToolID="4" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="4" Connection="Output" />
+      <Destination ToolID="8" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="8" Connection="Output" />
+      <Destination ToolID="9" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="9" Connection="Output" />
+      <Destination ToolID="11" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="11" Connection="Output" />
+      <Destination ToolID="13" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="13" Connection="Output" />
+      <Destination ToolID="63" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="15" Connection="Output" />
+      <Destination ToolID="17" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="17" Connection="Output" />
+      <Destination ToolID="19" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="19" Connection="Output" />
+      <Destination ToolID="21" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="59" Connection="Output" />
+      <Destination ToolID="21" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="21" Connection="Join" />
+      <Destination ToolID="22" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="22" Connection="Output" />
+      <Destination ToolID="26" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="26" Connection="Output" />
+      <Destination ToolID="31" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="31" Connection="Output" />
+      <Destination ToolID="50" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="38" Connection="Output" />
+      <Destination ToolID="50" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="36" Connection="Output" />
+      <Destination ToolID="38" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="36" Connection="Question" />
+      <Destination ToolID="61" Connection="Question" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="38" Connection="Output" />
+      <Destination ToolID="2" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="50" Connection="Join" />
+      <Destination ToolID="65" Connection="Input" />
+    </Connection>
+    <Connection name="#1" Wireless="True">
+      <Origin ToolID="61" Connection="Action" />
+      <Destination ToolID="60" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="58" Connection="Output" />
+      <Destination ToolID="59" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="60" Connection="Output" />
+      <Destination ToolID="45" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="65" Connection="Output" />
+      <Destination ToolID="60" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="63" Connection="Output" />
+      <Destination ToolID="15" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="False" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <RunWithE2 value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <MetaInfo>
+      <NameIsFileName value="False" />
+      <Name>Base64 Encoder</Name>
+      <Description>Issues a Base64 encode string</Description>
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName>Developer</CategoryName>
+      <SearchTags>base64, string encoding, utilities</SearchTags>
+      <Author>Garth Miles</Author>
+      <Company>Alteryx, Inc.</Company>
+      <Copyright>Alteryx, Inc. 2014</Copyright>
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description>Open Example</Description>
+        <File>22 Developer\Base64_Encoder.yxmd</File>
+      </Example>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+    <RuntimeProperties>
+      <Actions>
+        <NoCondition>
+          <Type>NoCondition</Type>
+          <Description>(Always Run)</Description>
+          <True>
+            <Action>
+              <Type>ReverseFieldMap</Type>
+              <Description>Macro Input (36)</Description>
+              <ToolId value="61" />
+              <Variable>Macro Input (36)</Variable>
+              <SelectTool value="-1" />
+            </Action>
+          </True>
+        </NoCondition>
+      </Actions>
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (1)</Name>
+          <ToolId value="1" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description>Macro Input (36)</Description>
+              <Name>Macro Input (36)</Name>
+              <ToolId value="36" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (45)</Description>
+              <Name>Macro Output (45)</Name>
+              <ToolId value="45" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="True" />
+      <MacroCustomHelpLink>AlteryxHelp:Base64_Encoder</MacroCustomHelpLink>
+      <MacroDynamicOutputFields value="True" />
+      <MacroImage>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</MacroImage>
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="36" Selected="True" />
+        <Tool ToolId="45" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

@@ -37,6 +37,20 @@ from parsing.models import Chunk, Connection, ToolNode
 # even if only one upstream connection is present in the workflow.
 _MULTI_INPUT_TYPES = {"join", "union", "append_fields"}
 
+# Tool types that always end their chunk regardless of successor count, because
+# they emit named output anchors that downstream chunks must reference by suffix.
+_ALWAYS_FLUSH_AFTER = {"join"}
+
+# Map from Alteryx output anchor name → CTE name suffix appended to the
+# upstream chunk's canonical output CTE name.  Anchors not listed here (e.g.
+# "Output", "True", "Join", "Unique") are treated as the primary output and
+# receive no suffix.
+_ANCHOR_SUFFIX: dict[str, str] = {
+    "False": "_false",
+    "Left": "_L",
+    "Right": "_R",
+}
+
 
 def _cte_name(nodes: list[ToolNode]) -> str:
     """Generate a stable CTE name for a list of nodes."""
@@ -60,10 +74,16 @@ def _is_chunk_boundary_before(node: ToolNode, dag: AlteryxDAG) -> bool:
 def _is_chunk_boundary_after(node: ToolNode, dag: AlteryxDAG) -> bool:
     """Return True if this node's chunk must end here.
 
-    Triggered when the node fans out to more than one downstream tool — each
-    branch needs its own chunk so anchor names (True/False, Left/Right) can be
-    used unambiguously in CTE references.
+    Two triggers:
+    - The node fans out to more than one downstream tool (each branch needs its
+      own chunk so anchor names can be resolved unambiguously).
+    - The node is in _ALWAYS_FLUSH_AFTER (e.g. join) because it can emit
+      multiple named anchors even with only one downstream consumer, and the
+      anchor suffix must be applied by the chunker when building input_cte_names
+      for the consuming chunk.
     """
+    if node.tool_type in _ALWAYS_FLUSH_AFTER:
+        return True
     return len(dag.successors(node.tool_id)) > 1
 
 
@@ -149,10 +169,13 @@ def chunk_dag(dag: AlteryxDAG) -> list[Chunk]:
                 key=lambda c: (c.dest_anchor or "", c.order or 0),
             )
             for conn in external:
-                upstream_cte = chain_cte.get(conn.origin_id)
-                if upstream_cte and upstream_cte not in seen:
-                    input_cte_names.append(upstream_cte)
-                    seen.add(upstream_cte)
+                base_cte = chain_cte.get(conn.origin_id)
+                if base_cte:
+                    suffix = _ANCHOR_SUFFIX.get(conn.origin_anchor, "")
+                    upstream_cte = f"{base_cte}{suffix}"
+                    if upstream_cte not in seen:
+                        input_cte_names.append(upstream_cte)
+                        seen.add(upstream_cte)
 
         chunks.append(
             Chunk(

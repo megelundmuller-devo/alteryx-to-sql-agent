@@ -1,0 +1,1215 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="9.0" autoTranslate="true">
+  <Nodes>
+    <Node ToolID="11">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="54" y="54" width="906" height="85.89999" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>Alteryx Macro:
+Report Footer</Text>
+          <Font name="Microsoft Sans Serif" size="18" style="0" />
+          <TextColor name="White" />
+          <FillColor r="95" g="152" b="171" />
+          <Shape shape="0" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="52">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Label.Label">
+        <Position x="84" y="276" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="54">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Label.Label">
+        <Position x="84" y="276" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="57">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="84" y="276" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="58">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="84" y="276" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="15">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="834" y="103" width="98.89567" height="19" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Tools Used</Caption>
+          <Style TextColor="#2f4f4f" FillColor="#ffffff" BorderColor="#2f4f4f" Transparency="10" Margin="10" />
+          <Disabled value="False" />
+          <Folded value="True" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="14">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="844" y="132" width="142" height="113" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>TOOLS USED:
+Text
+Join
+Layout
+Input
+Append Fields
+Browse
+Output</Text>
+              <Font name="Microsoft Sans Serif" size="9.75" style="0" />
+              <TextColor name="Black" />
+              <FillColor r="255" g="243" b="196" />
+              <Shape shape="0" />
+              <Justification Justification="2" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="16">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="55" y="403.9" width="661" height="263" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Creating a Report Footer</Caption>
+          <Style TextColor="#2f4f4f" FillColor="#d3b6d2" BorderColor="#2f4f4f" Transparency="66" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="2">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AppendFields.AppendFields">
+            <Position x="536" y="495.8999" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <CartesianMode>Error</CartesianMode>
+              <SelectConfiguration>
+                <Configuration outputConnection="Output">
+                  <OrderChanged value="False" />
+                  <SelectFields>
+                    <SelectField field="Source_Layout" selected="True" rename="Footer" />
+                    <SelectField field="*Unknown" selected="True" />
+                  </SelectFields>
+                </Configuration>
+              </SelectConfiguration>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Layout" size="2147483647" source="Report:Layout:" type="V_String" />
+                <Field name="Footer" size="2147483647" source="Report:Layout:" type="V_String" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAppendFields" />
+        </Node>
+        <Node ToolID="3">
+          <GuiSettings Plugin="PortfolioPluginsGui.ComposerText.PortfolioComposerText">
+            <Position x="80" y="487.9" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Images />
+              <Output>Footer</Output>
+              <HeaderMode value="False" />
+              <RawMode value="False" />
+              <ValidatePCXML value="True" />
+              <Message />
+              <RichTextMode value="True" />
+              <RichTextString><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil\fcharset0 Microsoft Sans Serif;}}
+{\colortbl ;\red169\green169\blue169;}
+\viewkind4\uc1\pard\cf1\fs17 Alteryx, Inc. - info@alteryx.com - <Link www.alteryx.com|www.alteryx.com>  - 888 836 4274.\f1\fs17\par
+\cf0\fs29\par
+}
+]]></RichTextString>
+              <Styles>
+                <Style Name="TextStyle" />
+              </Styles>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <AnnotationText>Footer</AnnotationText>
+              <DefaultAnnotationText>Alteryx, Inc. - info@alteryx.c...</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Footer" size="2147483647" source="Report:Text:" type="V_String" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerTextPlugin" />
+        </Node>
+        <Node ToolID="5">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+            <Position x="632" y="447.9" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <TempFile>C:\Users\TMCCOY~1\Local\Temp\Engine_3464_115a43dbd311409bb64465061ed24c92\Engine_4856_dfbbf5ae78284a68b98f3161eb78d46a.yxdb</TempFile>
+              <Layout>
+                <ViewMode>Single</ViewMode>
+                <ViewSize value="100" />
+                <View1>
+                  <DefaultTab>Report</DefaultTab>
+                  <Hints />
+                </View1>
+                <View2 />
+              </Layout>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+        </Node>
+        <Node ToolID="6">
+          <GuiSettings Plugin="PortfolioPluginsGui.ComposerText.PortfolioComposerText">
+            <Position x="148" y="582.9" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Images />
+              <Output>Footer</Output>
+              <HeaderMode value="False" />
+              <RawMode value="False" />
+              <ValidatePCXML value="True" />
+              <Message />
+              <RichTextMode value="True" />
+              <RichTextString><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Arial;}}
+{\colortbl ;\red169\green169\blue169;}
+\viewkind4\uc1\pard\qr\cf1\fs17 Page <pg#> of <#pgs>\par
+\cf0\par
+}
+]]></RichTextString>
+              <Styles>
+                <Style Name="TextStyle" />
+              </Styles>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <AnnotationText>Footer</AnnotationText>
+              <DefaultAnnotationText><![CDATA[Page <pg#> of <#pgs>
+]]></DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Footer" size="2147483647" source="Report:Text:" type="V_String" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerTextPlugin" />
+        </Node>
+        <Node ToolID="8">
+          <GuiSettings Plugin="PortfolioPluginsGui.ComposerText.PortfolioComposerText">
+            <Position x="323" y="533.9" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Images />
+              <Output>Text</Output>
+              <HeaderMode value="False" />
+              <RawMode value="False" />
+              <ValidatePCXML value="True" />
+              <Message />
+              <RichTextMode value="True" />
+              <RichTextString><![CDATA[{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}{\f1\fnil\fcharset0 Arial;}}
+{\colortbl ;\red169\green169\blue169;}
+\viewkind4\uc1\pard\qc\f0\fs29 <hr/> \cf1\fs17\par
+\f1\fs17 2013 Alteryx, Inc.  All rights reserved. Alteryx is a registered trademark of Alteryx, Inc.\cf0\par
+}
+]]></RichTextString>
+              <Styles>
+                <Style Name="TextStyle" />
+              </Styles>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <AnnotationText>Footer</AnnotationText>
+              <DefaultAnnotationText><![CDATA[ 
+2013 Alteryx, Inc.  All righ...]]></DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Layout" size="2147483647" source="Report:Layout:" type="V_String" />
+                <Field name="Text" size="2147483647" source="Report:Text:" type="V_String" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerTextPlugin" />
+        </Node>
+        <Node ToolID="9">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+            <Position x="211" y="533.9" />
+          </GuiSettings>
+          <Properties>
+            <Configuration joinByRecordPos="True">
+              <SelectConfiguration>
+                <Configuration outputConnection="Join">
+                  <OrderChanged value="False" />
+                  <SelectFields>
+                    <SelectField field="Right_Footer" selected="True" rename="Right_Footer" />
+                    <SelectField field="*Unknown" selected="True" />
+                  </SelectFields>
+                </Configuration>
+              </SelectConfiguration>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Left">
+              <RecordInfo>
+                <Field name="Footer" size="2147483647" source="Report:Text:" type="V_String" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Join">
+              <RecordInfo>
+                <Field name="Footer" size="2147483647" source="Report:Text:" type="V_String" />
+                <Field name="Right_Footer" size="2147483647" source="Report:Text:" type="V_String" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Right">
+              <RecordInfo>
+                <Field name="Footer" size="2147483647" source="Report:Text:" type="V_String" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+        </Node>
+        <Node ToolID="10">
+          <GuiSettings Plugin="PortfolioPluginsGui.ComposerLayout.PortfolioComposerLayout">
+            <Position x="275" y="533.9" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <GroupingMode>PerRecord</GroupingMode>
+              <PreserveSourceFields value="False" />
+              <Orientation>H</Orientation>
+              <Separator>Continuous</Separator>
+              <Width>100%</Width>
+              <Height />
+              <BorderStyle Enabled="false" Color="#000000" Width="2" />
+              <SeparatorStyle Enabled="false" Color="#000000" Width="1" />
+              <Padding>0</Padding>
+              <LayoutFields orderChanged="False">
+                <Field name="Footer" selected="True" Alignment="Center" />
+                <Field name="Right_Footer" selected="True" Alignment="Center" Width="" />
+              </LayoutFields>
+              <MergeIntoTable value="False" />
+              <SectionNameForGroup />
+              <SectionNameForAllRecords />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>Horizontal Layout
+Each Individual Record</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Layout" size="2147483647" source="Report:Layout:" type="V_String" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerLayoutPlugin" />
+        </Node>
+        <Node ToolID="47">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+            <Position x="451" y="581.9" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <TempFile>C:\Users\TMCCOY~1\Local\Temp\Engine_3464_115a43dbd311409bb64465061ed24c92\Engine_4856_205bc4c7110644309f4a571f9db33e3a.yxdb</TempFile>
+              <Layout>
+                <ViewMode>Single</ViewMode>
+                <ViewSize value="100" />
+                <View1>
+                  <DefaultTab>Report</DefaultTab>
+                  <Hints />
+                </View1>
+                <View2 />
+              </Layout>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+        </Node>
+        <Node ToolID="48">
+          <GuiSettings Plugin="PortfolioPluginsGui.ComposerLayout.PortfolioComposerLayout">
+            <Position x="387" y="549.9" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <GroupingMode>PerRecord</GroupingMode>
+              <PreserveSourceFields value="False" />
+              <Orientation>V</Orientation>
+              <Separator>Continuous</Separator>
+              <Width>100%</Width>
+              <Height />
+              <BorderStyle Enabled="false" Color="#000000" Width="2" />
+              <SeparatorStyle Enabled="false" Color="#000000" Width="1" />
+              <Padding>0</Padding>
+              <LayoutFields orderChanged="True">
+                <Field name="Text" selected="True" Width="" Alignment="Center" />
+                <Field name="Layout" selected="True" Alignment="Center" />
+              </LayoutFields>
+              <MergeIntoTable value="False" />
+              <SectionNameForGroup />
+              <SectionNameForAllRecords />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>Vertical Layout
+Each Individual Record</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Layout" size="2147483647" source="Report:Layout:" type="V_String" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerLayoutPlugin" />
+        </Node>
+        <Node ToolID="59">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+            <Position x="456" y="455.9002" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <UseFileInput value="False" />
+              <Name>Report Layout</Name>
+              <Abbrev />
+              <ShowFieldMap value="False" />
+              <TextInput>
+                <Configuration>
+                  <NumRows value="1" />
+                  <Fields>
+                    <Field name="Text" />
+                  </Fields>
+                  <Data>
+                    <r>
+                      <c>&lt;div class="DefaultText" style="width:100%;"&gt;&lt;span style="font-family:Arial;font-size:12.0pt;"&gt;Hi&lt;/span&gt;&lt;/div&gt;</c>
+                    </r>
+                  </Data>
+                </Configuration>
+              </TextInput>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name>Report Layout</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Layout" size="536870911" source="Report:Layout:" type="V_String" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+        </Node>
+        <Node ToolID="60">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+            <Position x="632" y="495.9002" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Name>Output</Name>
+              <Abbrev>
+              </Abbrev>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name>Output</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="13">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="810" y="66.99997" width="138.6955" height="19" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Module Description</Caption>
+          <Style TextColor="#2f4f4f" FillColor="#ffffff" BorderColor="#2f4f4f" Transparency="10" Margin="10" />
+          <Disabled value="False" />
+          <Folded value="True" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="12">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="820" y="95.99994" width="83" height="150" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>This macro will allow a user to easily setup and put a footer onto their report.</Text>
+              <Font name="Microsoft Sans Serif" size="9.75" style="0" />
+              <TextColor name="Black" />
+              <FillColor name="White" />
+              <Shape shape="0" />
+              <Justification Justification="0" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="45">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="54" y="681.9" width="286.2716" height="19" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Expand this container to display tool descriptions</Caption>
+          <Style TextColor="#2f4f4f" FillColor="#ffffff" BorderColor="#2f4f4f" Transparency="25" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="True" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="33">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="78.99998" y="725.9" width="71" height="111.9999" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>The Text tool is used to create the left alligned inofrmation text for the footer.</Text>
+              <Font name="Microsoft Sans Serif" size="8.25" style="0" />
+              <TextColor name="White" />
+              <FillColor r="111" g="111" b="111" />
+              <Shape shape="0" />
+              <Justification Justification="0" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="36">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="227" y="725.9" width="67" height="112" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>Join tool: joins the information text to the page number text.</Text>
+              <Font name="Microsoft Sans Serif" size="8.25" style="0" />
+              <TextColor name="White" />
+              <FillColor r="111" g="111" b="111" />
+              <Shape shape="0" />
+              <Justification Justification="0" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="37">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="306" y="725.9001" width="89" height="75.99995" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>Layout tool: places the two sets of text next to each other horizontally.</Text>
+              <Font name="Microsoft Sans Serif" size="8.25" style="0" />
+              <TextColor name="DarkSlateGray" />
+              <FillColor name="White" />
+              <Shape shape="0" />
+              <Justification Justification="0" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="40">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="402" y="725.9001" width="73" height="135.9998" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>Text tool: places a horizontal line and the copyright text above the information and page number text.</Text>
+              <Font name="Microsoft Sans Serif" size="8.25" style="0" />
+              <TextColor name="White" />
+              <FillColor r="111" g="111" b="111" />
+              <Shape shape="0" />
+              <Justification Justification="0" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="41">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="479.0001" y="725.9" width="64" height="75.99995" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>Input tool: this is the users input from the macro.</Text>
+              <Font name="Microsoft Sans Serif" size="8.25" style="0" />
+              <TextColor name="DarkSlateGray" />
+              <FillColor name="White" />
+              <Shape shape="0" />
+              <Justification Justification="0" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="42">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="555" y="725.9001" width="75" height="87.99982" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>Append Fields: the footer is appended to the users data.</Text>
+              <Font name="Microsoft Sans Serif" size="8.25" style="0" />
+              <TextColor name="White" />
+              <FillColor r="111" g="111" b="111" />
+              <Shape shape="0" />
+              <Justification Justification="0" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="43">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="642.9999" y="725.9005" width="107" height="63.99957" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>Output tool: this is the output from the macro.</Text>
+              <Font name="Microsoft Sans Serif" size="8.25" style="0" />
+              <TextColor name="DarkSlateGray" />
+              <FillColor name="White" />
+              <Shape shape="0" />
+              <Justification Justification="0" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="44">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="162" y="873.8998" width="483" height="36" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>Check out the Design settings (from Module Properties - Questions/Actions tabs to see how this macro works.</Text>
+              <Font name="Microsoft Sans Serif" size="8.25" style="0" />
+              <TextColor name="Black" />
+              <FillColor r="254" g="152" b="157" />
+              <Shape shape="0" />
+              <Justification Justification="1" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="46">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="154.9999" y="725.9" width="67.00006" height="123.9999" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>The Text tool is used to create the right alligned page number text.</Text>
+              <Font name="Microsoft Sans Serif" size="8.25" style="0" />
+              <TextColor name="DarkSlateGray" />
+              <FillColor name="White" />
+              <Shape shape="0" />
+              <Justification Justification="0" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="61">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="54.99998" y="151.9" width="244.7" height="240.1" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Interface Tools</Caption>
+          <Style TextColor="#2f4f4f" FillColor="#ecf2f2" BorderColor="#2f4f4f" Transparency="1" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="53">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.TextBox.QuestionTextBox">
+            <Position x="79.99998" y="195.9" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>CopyrightText</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="55">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.TextBox.QuestionTextBox">
+            <Position x="147.85" y="195.9" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>InfoText</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="56">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
+            <Position x="215.7" y="195.9" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>PageNumbers</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="49">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="147.85" y="308" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>Update Info Text</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="50">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="215.7" y="308" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>Update Page Number Text</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="51">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="79.99998" y="308" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>Update Copyright Text</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="2" Connection="Output" />
+      <Destination ToolID="5" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="2" Connection="Output" />
+      <Destination ToolID="60" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="3" Connection="Output" />
+      <Destination ToolID="9" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="6" Connection="Output" />
+      <Destination ToolID="9" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="8" Connection="Output" />
+      <Destination ToolID="48" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="9" Connection="Join" />
+      <Destination ToolID="10" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="10" Connection="Output" />
+      <Destination ToolID="8" Connection="Input" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="51" Connection="Action" />
+      <Destination ToolID="8" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="48" Connection="Output" />
+      <Destination ToolID="2" Connection="Source" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="59" Connection="Output" />
+      <Destination ToolID="2" Connection="Targets" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="48" Connection="Output" />
+      <Destination ToolID="47" Connection="Input" />
+    </Connection>
+    <Connection name="CopyrightText" Wireless="True">
+      <Origin ToolID="53" Connection="Question" />
+      <Destination ToolID="51" Connection="Question" />
+    </Connection>
+    <Connection name="InfoText" Wireless="True">
+      <Origin ToolID="55" Connection="Question" />
+      <Destination ToolID="49" Connection="Question" />
+    </Connection>
+    <Connection name="PageNumbers" Wireless="True">
+      <Origin ToolID="56" Connection="Question" />
+      <Destination ToolID="50" Connection="Question" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="49" Connection="Action" />
+      <Destination ToolID="3" Connection="Action" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="50" Connection="Action" />
+      <Destination ToolID="6" Connection="Action" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="False" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>CopyrightText</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>InfoText</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>PageNumbers</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="False" />
+      <Name>Report Footer</Name>
+      <Description>Add a footer to a report for output via the Render tool.</Description>
+      <CategoryName>Reporting</CategoryName>
+      <SearchTags>report, presentation, macro, footer, bottom, number, page, feet, reporting category, foot, Mike Akey</SearchTags>
+      <Author>Alteryx, Inc.</Author>
+      <Company>Alteryx, Inc.</Company>
+      <Copyright>Alteryx, Inc. 2012</Copyright>
+      <DescriptionLink actual="" displayed="" />
+	  <Example>
+        <Description>Open Example</Description>
+        <File>07 Reporting\Report_Footer.yxmd</File>
+      </Example>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+    <RuntimeProperties>
+      <Actions>
+        <NoCondition>
+          <Type>NoCondition</Type>
+          <Description>(Always Run)</Description>
+          <True>
+            <Action>
+              <Type>UpdateValue</Type>
+              <Description>InfoText</Description>
+              <ToolId value="49" />
+              <Mode>Simple</Mode>
+              <Variable>InfoText</Variable>
+              <Replace value="True" />
+              <ReplaceText>Alteryx, Inc. - info@alteryx.com - &lt;Link www.alteryx.com|www.alteryx.com&gt;  - 888 836 4274.</ReplaceText>
+              <Destination>3/RichTextString</Destination>
+            </Action>
+            <Action>
+              <Type>UpdateValueFormula</Type>
+              <Description />
+              <ToolId value="50" />
+              <Expression>IF [PageNumbers] == 'True' THEN [Destination] 
+ELSE Replace([Destination], "Page &lt;pg#&gt; of &lt;#pgs&gt;", "")
+ENDIF</Expression>
+              <Destination>6/RichTextString</Destination>
+              <Mode>Expression</Mode>
+            </Action>
+            <Action>
+              <Type>UpdateValueFormula</Type>
+              <Description />
+              <ToolId value="51" />
+              <Expression>IF IsEmpty([CopyrightText]) THEN "{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Microsoft Sans Serif;}}
+\viewkind4\uc1\pard\qc\f0\fs29 &lt;hr/&gt; \fs29\par
+}" 
+ELSE Replace([Destination], "2013 Alteryx, Inc.  All rights reserved. Alteryx is a registered trademark of Alteryx, Inc.", replace([CopyrightText], '[CurrentYear]', left(DateTimeToday(), 4)) )
+ENDIF</Expression>
+              <Destination>8/RichTextString</Destination>
+              <Mode>Expression</Mode>
+            </Action>
+          </True>
+        </NoCondition>
+      </Actions>
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Configuration</Description>
+          <Name>Tab (57)</Name>
+          <ToolId value="57" />
+          <Questions>
+            <Question>
+              <Type>Label</Type>
+              <Description>The Report Footer macro will append the created footer to your supplied data, this new field can then be used in a Render tool as a Footer for your report.</Description>
+              <Name>Label (52)</Name>
+              <ToolId value="52" />
+            </Question>
+            <Question>
+              <Type>TextBox</Type>
+              <Description>Copyright text:</Description>
+              <Name>CopyrightText</Name>
+              <ToolId value="53" />
+              <Default>© [CurrentYear] Alteryx, Inc.  All rights reserved. Alteryx is a registered trademark of Alteryx, Inc.</Default>
+              <Password value="False" />
+              <Multiline value="False" />
+              <Hidden value="False" />
+            </Question>
+            <Question>
+              <Type>Label</Type>
+              <Description>Using the [CurrentYear] tag in the copyright text box will put the current year into your copyright.</Description>
+              <Name>Label (54)</Name>
+              <ToolId value="54" />
+            </Question>
+            <Question>
+              <Type>TextBox</Type>
+              <Description>Information text: (Will be shown on the bottom line of the footer, left aligned.)</Description>
+              <Name>InfoText</Name>
+              <ToolId value="55" />
+              <Default>Alteryx, Inc. - info@alteryx.com - &lt;Link www.alteryx.com|www.alteryx.com&gt;  - 888 836 4274</Default>
+              <Password value="False" />
+              <Multiline value="False" />
+              <Hidden value="False" />
+            </Question>
+            <Question>
+              <Type>BooleanGroup</Type>
+              <Description>Include page numbers. (Will be shown on the bottom line of the footer, right aligned.)</Description>
+              <Name>PageNumbers</Name>
+              <ToolId value="56" />
+              <Questions />
+              <Default value="True" />
+              <Collapsable value="False" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Output</Description>
+              <Name>Output</Name>
+              <ToolId value="60" />
+            </Question>
+          </Questions>
+        </Question>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Report Layout</Description>
+          <Name>Tab (58)</Name>
+          <ToolId value="58" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description>Report Layout</Description>
+              <Name>Report Layout</Name>
+              <ToolId value="59" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="True" />
+      <MacroCustomHelpLink>AlteryxHelp:ReportFooter</MacroCustomHelpLink>
+      <MacroDynamicOutputFields value="False" />
+      <MacroImage>iVBORw0KGgoAAAANSUhEUgAAAKsAAACrCAYAAAAZ6GwZAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ
+bWFnZVJlYWR5ccllPAAAA25pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdp
+bj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6
+eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDE0IDc5LjE1
+Njc5NywgMjAxNC8wOC8yMC0wOTo1MzowMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJo
+dHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlw
+dGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEu
+MC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVz
+b3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1N
+Ok9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpCQ0IzRTE1NkI3MzlFMjExQTY3NkI5Nzg3RDZG
+Qjg1MyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo3NkRCOTREOEU3OEQxMUU0QkNDMkVFQThE
+NzY3NTJEMCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo3NkRCOTREN0U3OEQxMUU0QkNDMkVF
+QThENzY3NTJEMCIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxNCAoV2lu
+ZG93cykiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo1MTBh
+YTdjNC02NDllLWFmNDctYTBiNS05YWQ4MjQwOTE1MTkiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5k
+aWQ6QkNCM0UxNTZCNzM5RTIxMUE2NzZCOTc4N0Q2RkI4NTMiLz4gPC9yZGY6RGVzY3JpcHRpb24+
+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
+</MacroImage>
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="5" Selected="False" />
+        <Tool ToolId="47" Selected="False" />
+        <Tool ToolId="59" Selected="True" />
+        <Tool ToolId="60" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

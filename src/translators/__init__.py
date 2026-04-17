@@ -42,6 +42,8 @@ from translators.schema_inference import infer_output_schema
 from translators.context import TranslationContext
 from translators.filter import translate_filter
 from translators.find_replace import translate_find_replace
+from translators.reg_ex import translate_reg_ex
+from translators.text_to_columns import translate_text_to_columns
 from translators.formula import translate_formula
 from translators.input_output import (
     translate_db_file_input,
@@ -96,6 +98,8 @@ _REGISTRY: dict[str, TranslatorFn] = {
     "append_fields": translate_append,
     # Special
     "find_replace": translate_find_replace,
+    "reg_ex": translate_reg_ex,
+    "text_to_columns": translate_text_to_columns,
     "macro": translate_macro,
 }
 
@@ -154,7 +158,11 @@ def translate_chunk(chunk: Chunk, ctx: TranslationContext) -> list[CTEFragment]:
 
         if isinstance(result, list):
             for frag in result:
-                ctx.cte_schema[frag.name] = inferred_schema
+                # Translators (e.g. join) may pre-set ctx.cte_schema for
+                # anchor-specific CTEs (L, R) with the correct per-anchor
+                # schema.  Don't overwrite those with the inferred J schema.
+                if frag.name not in ctx.cte_schema:
+                    ctx.cte_schema[frag.name] = inferred_schema
                 ctx.cte_inputs[frag.name] = list(input_ctes)
             fragments.extend(result)
         else:

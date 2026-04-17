@@ -33,6 +33,7 @@ class ToolNode(BaseModel):
     position: tuple[int, int]
     output_schema: list[FieldSchema]  # From <MetaInfo>/<RecordInfo>; may be empty
     macro_path: str | None = None  # Set for macro nodes (EngineSettings Macro="…")
+    is_standard_macro: bool = False  # True when macro_path matches a file in standard_macros/
     source_type: str | None = None  # Set for input tools, e.g. "SQL Database", "Amazon S3"
 
 

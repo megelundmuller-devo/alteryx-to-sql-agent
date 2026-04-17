@@ -177,15 +177,12 @@ def translate_filter(
         true_sql = f"SELECT *\nFROM [{upstream}]\nWHERE {condition}"
         true_frag = CTEFragment(name=cte_name, sql=true_sql, source_tool_ids=[node.tool_id])
 
-    # Check if the False output is connected
-    successors = ctx.dag.successors(node.tool_id)
+    # Check if the False output anchor has at least one downstream consumer.
     has_false_branch = any(
-        conn.origin_anchor == "False"
-        for conn in ctx.dag.graph.edges(node.tool_id, data="conn")
-        if conn[2] is not None
+        conn.origin_anchor == "False" for conn in ctx.dag.out_edges(node.tool_id)
     )
 
-    if not has_false_branch or len(successors) < 2:
+    if not has_false_branch:
         return [true_frag]
 
     # Emit False branch

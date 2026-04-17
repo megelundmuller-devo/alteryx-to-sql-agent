@@ -70,9 +70,27 @@ def infer_output_schema(
         return list(primary)
     if t == "record_id":
         return _infer_record_id(cfg, primary)
+    if t == "text_input":
+        return _infer_text_input(cfg)
+    if t == "text_to_columns":
+        return _infer_text_to_columns(cfg, primary)
 
-    # macro, unknown, text_box, db_file_output, etc. — schema unknown.
-    return []
+    if t == "macro":
+        # Macros preserve the column set (Cleanse, CountRecords, etc. don't add/remove columns).
+        return list(primary)
+
+    # Sink / visual tools — no output schema to propagate.
+    _SINKS = {
+        "db_file_output", "odbc_output", "db_file_input", "odbc_input",
+        "browse", "tool_container", "comment",
+    }
+    if t in _SINKS:
+        return []
+
+    # Unknown transform tools (reg_ex, text_to_columns, …) — pass through upstream schema.
+    # The column list may be incomplete when the tool adds new columns, but it is strictly
+    # better than returning [] which breaks schema propagation for all downstream CTEs.
+    return list(primary)
 
 
 # ---------------------------------------------------------------------------
@@ -234,3 +252,26 @@ def _infer_summarize(cfg: dict, input_schema: list[FieldSchema]) -> list[FieldSc
 def _infer_record_id(cfg: dict, input_schema: list[FieldSchema]) -> list[FieldSchema]:
     field_name = cfg.get("FieldName", "RecordID")
     return list(input_schema) + [_fs(field_name, "Int64")]
+
+
+def _infer_text_to_columns(cfg: dict, input_schema: list[FieldSchema]) -> list[FieldSchema]:
+    field = cfg.get("Field", "")
+    root_name = cfg.get("RootName", "") or field
+    num_raw = cfg.get("NumFields", {})
+    num_str = num_raw.get("value", "2") if isinstance(num_raw, dict) else str(num_raw)
+    try:
+        num_cols = max(1, int(num_str))
+    except (ValueError, TypeError):
+        num_cols = 2
+    result = list(input_schema)
+    for i in range(1, num_cols + 1):
+        result.append(_fs(f"{root_name}{i}", "V_WString"))
+    return result
+
+
+def _infer_text_input(cfg: dict) -> list[FieldSchema]:
+    fields_cfg = cfg.get("Fields", {})
+    entries = fields_cfg.get("Field", [])
+    if isinstance(entries, dict):
+        entries = [entries]
+    return [_fs(e.get("name", ""), "V_String") for e in entries if e.get("name")]

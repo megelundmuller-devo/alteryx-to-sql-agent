@@ -1,0 +1,1117 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="9.0" autoTranslate="true">
+  <Nodes>
+    <Node ToolID="2">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="329.6354" y="440.2" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField field="RandomRecords_rand" type="Double" size="8" expression="RAND()" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Formula (2)</Name>
+          <DefaultAnnotationText>RandomRecords_rand=RAND()</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RandomRecords_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Name" size="64" source="Allocate: Software\SRC\Portfolio\6.20\SRC_US_Census_07A" type="V_String" />
+            <Field name="Key" size="32" source="Allocate: Software\SRC\Portfolio\6.20\SRC_US_Census_07A" type="V_String" />
+            <Field name="SpatialObj" size="536870911" source="Allocate: Software\SRC\Portfolio\6.20\SRC_US_Census_07A" type="SpatialObj" />
+            <Field name="RandomRecords_rand" source="Formula: RAND()" type="Double" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RandomRecords_RecordID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="3">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="567.6354" y="478.1448" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="0">
+            <Field field="RandomRecords_rand" order="Ascending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Sort (3)</Name>
+          <DefaultAnnotationText>RandomRecords_rand - Ascending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RandomRecords_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Name" size="64" source="Allocate: Software\SRC\Portfolio\6.20\SRC_US_Census_07A" type="V_String" />
+            <Field name="Key" size="32" source="Allocate: Software\SRC\Portfolio\6.20\SRC_US_Census_07A" type="V_String" />
+            <Field name="SpatialObj" size="536870911" source="Allocate: Software\SRC\Portfolio\6.20\SRC_US_Census_07A" type="SpatialObj" />
+            <Field name="RandomRecords_rand" size="32" source="Formula: MD5_ASCII(ToString([RandomRecords_RecordID]) + &quot;MySeed&quot;)" type="String" />
+          </RecordInfo>
+          <SortInfo locale="0">
+            <Field field="RandomRecords_rand" order="Ascending" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="4">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sample.Sample">
+        <Position x="649.6354" y="489.3492" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <GroupFields orderChanged="False" />
+          <Mode>First</Mode>
+          <N>100</N>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Sample (4)</Name>
+          <DefaultAnnotationText>First 100</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RandomRecords_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Name" size="64" source="Allocate: Software\SRC\Portfolio\6.20\SRC_US_Census_07A" type="V_String" />
+            <Field name="Key" size="32" source="Allocate: Software\SRC\Portfolio\6.20\SRC_US_Census_07A" type="V_String" />
+            <Field name="SpatialObj" size="536870911" source="Allocate: Software\SRC\Portfolio\6.20\SRC_US_Census_07A" type="SpatialObj" />
+            <Field name="RandomRecords_rand" size="32" source="Formula: MD5_ASCII(ToString([RandomRecords_RecordID]) + &quot;MySeed&quot;)" type="String" />
+          </RecordInfo>
+          <SortInfo locale="0">
+            <Field field="RandomRecords_rand" order="Ascending" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSample" />
+    </Node>
+    <Node ToolID="7">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.RecordID.RecordID">
+        <Position x="166" y="473.8354" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <StartValue>1</StartValue>
+          <FieldName>RandomRecords_RecordID</FieldName>
+          <FieldType>Int32</FieldType>
+          <Position>0</Position>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>RecordID (7)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RandomRecords_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Name" size="64" source="Allocate: Software\SRC\Portfolio\6.20\SRC_US_Census_07A" type="V_String" />
+            <Field name="Key" size="32" source="Allocate: Software\SRC\Portfolio\6.20\SRC_US_Census_07A" type="V_String" />
+            <Field name="SpatialObj" size="536870911" source="Allocate: Software\SRC\Portfolio\6.20\SRC_US_Census_07A" type="SpatialObj" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RandomRecords_RecordID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxRecordID" />
+    </Node>
+    <Node ToolID="8">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Sort.Sort">
+        <Position x="731.6354" y="491.9348" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SortInfo locale="0">
+            <Field field="RandomRecords_RecordID" order="Ascending" />
+          </SortInfo>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Sort (8)</Name>
+          <DefaultAnnotationText>RandomRecords_RecordID - Ascending</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RandomRecords_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Name" size="64" source="Allocate: Software\SRC\Portfolio\6.20\SRC_US_Census_07A" type="V_String" />
+            <Field name="Key" size="32" source="Allocate: Software\SRC\Portfolio\6.20\SRC_US_Census_07A" type="V_String" />
+            <Field name="SpatialObj" size="536870911" source="Allocate: Software\SRC\Portfolio\6.20\SRC_US_Census_07A" type="SpatialObj" />
+            <Field name="RandomRecords_rand" size="32" source="Formula: MD5_ASCII(ToString([RandomRecords_RecordID]) + &quot;MySeed&quot;)" type="String" />
+          </RecordInfo>
+          <SortInfo locale="0">
+            <Field field="RandomRecords_RecordID" order="Ascending" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSort" />
+    </Node>
+    <Node ToolID="9">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="813.6354" y="494.5204" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <SelectFields>
+            <SelectField field="RandomRecords_RecordID" selected="False" />
+            <SelectField field="RandomRecords_rand" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Select (9)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Name" size="64" source="Allocate: Software\SRC\Portfolio\6.20\SRC_US_Census_07A" type="V_String" />
+            <Field name="Key" size="32" source="Allocate: Software\SRC\Portfolio\6.20\SRC_US_Census_07A" type="V_String" />
+            <Field name="SpatialObj" size="536870911" source="Allocate: Software\SRC\Portfolio\6.20\SRC_US_Census_07A" type="SpatialObj" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="10">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+        <Position x="895.6354" y="609.1503" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <TempFile>C:\Users\ned.SRC\AppData\Local\Temp\Alteryx_6048_dbf849f31e1b4165ace82b50cfb155d7.yxdb</TempFile>
+          <Layout>
+            <ViewMode>Single</ViewMode>
+            <ViewSize value="100" />
+            <View1>
+              <DefaultTab>Table</DefaultTab>
+              <Hints>
+                <Map>
+                  <BaseMap>[No Base Map]</BaseMap>
+                </Map>
+              </Hints>
+            </View1>
+            <View2 />
+          </Layout>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Browse (10)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+    </Node>
+    <Node ToolID="11">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Detour.Detour">
+        <Position x="248" y="475.5591" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <DetourRight value="True" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Detour (11)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Left">
+          <RecordInfo>
+            <Field name="RandomRecords_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Name" size="64" source="Allocate: Software\SRC\Portfolio\6.20\SRC_US_Census_07A" type="V_String" />
+            <Field name="Key" size="32" source="Allocate: Software\SRC\Portfolio\6.20\SRC_US_Census_07A" type="V_String" />
+            <Field name="SpatialObj" size="536870911" source="Allocate: Software\SRC\Portfolio\6.20\SRC_US_Census_07A" type="SpatialObj" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RandomRecords_RecordID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+        <MetaInfo connection="Right">
+          <RecordInfo>
+            <Field name="RandomRecords_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Name" size="64" source="Allocate: Software\SRC\Portfolio\6.20\SRC_US_Census_07A" type="V_String" />
+            <Field name="Key" size="32" source="Allocate: Software\SRC\Portfolio\6.20\SRC_US_Census_07A" type="V_String" />
+            <Field name="SpatialObj" size="536870911" source="Allocate: Software\SRC\Portfolio\6.20\SRC_US_Census_07A" type="SpatialObj" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RandomRecords_RecordID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetour" />
+    </Node>
+    <Node ToolID="12">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.DetourEnd.DetourEnd">
+        <Position x="485.6354" y="482.4542" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name>DetourEnd (12)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RandomRecords_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Name" size="64" source="Allocate: Software\SRC\Portfolio\6.20\SRC_US_Census_07A" type="V_String" />
+            <Field name="Key" size="32" source="Allocate: Software\SRC\Portfolio\6.20\SRC_US_Census_07A" type="V_String" />
+            <Field name="SpatialObj" size="536870911" source="Allocate: Software\SRC\Portfolio\6.20\SRC_US_Census_07A" type="SpatialObj" />
+            <Field name="RandomRecords_rand" size="32" source="Formula: MD5_ASCII(ToString([RandomRecords_RecordID]) + &quot;MySeed&quot;)" type="String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RandomRecords_RecordID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDetourEnd" />
+    </Node>
+    <Node ToolID="14">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="321.6354" y="648.2" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField field="RandomRecords_rand" type="String" size="32" expression="MD5_ASCII(ToString([RandomRecords_RecordID]) + &quot;MySeed&quot;)" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Formula (14)</Name>
+          <DefaultAnnotationText>RandomRecords_rand=MD5_ASCII(ToString([RandomRecords_RecordID...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="RandomRecords_RecordID" source="RecordID: Starting Value=1" type="Int32" />
+            <Field name="Name" size="64" source="Allocate: Software\SRC\Portfolio\6.20\SRC_US_Census_07A" type="V_String" />
+            <Field name="Key" size="32" source="Allocate: Software\SRC\Portfolio\6.20\SRC_US_Census_07A" type="V_String" />
+            <Field name="SpatialObj" size="536870911" source="Allocate: Software\SRC\Portfolio\6.20\SRC_US_Census_07A" type="SpatialObj" />
+            <Field name="RandomRecords_rand" size="32" source="Formula: MD5_ASCII(ToString([RandomRecords_RecordID]) + &quot;MySeed&quot;)" type="String" />
+          </RecordInfo>
+          <SortInfo>
+            <Field field="RandomRecords_RecordID" order="Asc" />
+          </SortInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="30">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="78" y="386.2" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="31">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="78" y="386.2" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="32">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="84" y="471.2497" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Input</Name>
+          <Abbrev />
+          <ShowFieldMap value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="1" />
+              <Fields>
+                <Field name="Name" />
+                <Field name="Key" />
+                <Field name="SpatialObj" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>Office</c>
+                  <c>1a</c>
+                  <c>{ "type": "Point", "coordinates": [ -105.245944, 40.037004 ] }</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Input</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="33">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="895.6354" y="491.9348" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Output</Name>
+          <Abbrev>
+          </Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Output</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="34">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="54" y="54" width="516.1" height="352.2" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Interface Tools</Caption>
+          <Style TextColor="#2f4f4f" FillColor="#ecf2f2" BorderColor="#2f4f4f" Transparency="1" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="24">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
+            <Position x="79" y="98" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>NNumber</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="25">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.RadioButtonGroup.RadioButtonGroup">
+            <Position x="282.55" y="98.00005" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>Number</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="26">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
+            <Position x="146.85" y="98" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>NPercent</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="27">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.RadioButtonGroup.RadioButtonGroup">
+            <Position x="350.4" y="98.00005" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>Percent</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="28">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
+            <Position x="214.7" y="98.00005" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>Seed</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="29">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
+            <Position x="418.25" y="98.00005" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>Deterministic</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="22">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Condition.Condition">
+            <Position x="79" y="210.1" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="23">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Condition.Condition">
+            <Position x="214.7" y="210.1" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="15">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="282.55" y="322.2" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>Change Sample Mode</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="16">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="146.85" y="322.2" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>N</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="17">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="350.4" y="322.2" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>Change Sample Mode</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="18">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="79" y="322.2" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>N</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="19">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="418.25" y="322.2" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>Update Detour</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="20">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="214.7" y="322.2" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="21">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="486.1" y="322.2" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>Update Detour</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="2" Connection="Output" />
+      <Destination ToolID="12" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="14" Connection="Output" />
+      <Destination ToolID="12" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="3" Connection="Output" />
+      <Destination ToolID="4" Connection="Input" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="15" Connection="Action" />
+      <Destination ToolID="4" Connection="Action" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="16" Connection="Action" />
+      <Destination ToolID="4" Connection="Action" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="17" Connection="Action" />
+      <Destination ToolID="4" Connection="Action" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="18" Connection="Action" />
+      <Destination ToolID="4" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="4" Connection="Output" />
+      <Destination ToolID="8" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="7" Connection="Output" />
+      <Destination ToolID="11" Connection="Input" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="19" Connection="Action" />
+      <Destination ToolID="11" Connection="Action" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="21" Connection="Action" />
+      <Destination ToolID="11" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="8" Connection="Output" />
+      <Destination ToolID="9" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="9" Connection="Output" />
+      <Destination ToolID="33" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="9" Connection="Output" />
+      <Destination ToolID="10" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="11" Connection="Left" />
+      <Destination ToolID="2" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="11" Connection="Right" />
+      <Destination ToolID="14" Connection="Input" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="20" Connection="Action" />
+      <Destination ToolID="14" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="12" Connection="Output" />
+      <Destination ToolID="3" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="32" Connection="Output" />
+      <Destination ToolID="7" Connection="Input" />
+    </Connection>
+    <Connection name="NNumber" Wireless="True">
+      <Origin ToolID="24" Connection="Question" />
+      <Destination ToolID="18" Connection="Question" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="22" Connection="False Condition" />
+      <Destination ToolID="18" Connection="Condition" />
+    </Connection>
+    <Connection name="NPercent" Wireless="True">
+      <Origin ToolID="26" Connection="Question" />
+      <Destination ToolID="16" Connection="Question" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="22" Connection="True Condition" />
+      <Destination ToolID="16" Connection="Condition" />
+    </Connection>
+    <Connection name="Percent" Wireless="True">
+      <Origin ToolID="27" Connection="Question" />
+      <Destination ToolID="22" Connection="Question" />
+    </Connection>
+    <Connection name="Seed" Wireless="True">
+      <Origin ToolID="28" Connection="Question" />
+      <Destination ToolID="20" Connection="Question" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="23" Connection="True Condition" />
+      <Destination ToolID="20" Connection="Condition" />
+    </Connection>
+    <Connection name="Deterministic" Wireless="True">
+      <Origin ToolID="29" Connection="Question" />
+      <Destination ToolID="23" Connection="Question" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="22" Connection="True Condition" />
+      <Destination ToolID="15" Connection="Condition" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="22" Connection="False Condition" />
+      <Destination ToolID="17" Connection="Condition" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="23" Connection="True Condition" />
+      <Destination ToolID="19" Connection="Condition" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="23" Connection="False Condition" />
+      <Destination ToolID="21" Connection="Condition" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="False" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>NNumber</Name>
+        <Value />
+        <IsNumeric value="True" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Number</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>NPercent</Name>
+        <Value />
+        <IsNumeric value="True" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Percent</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Seed</Name>
+        <Value />
+        <IsNumeric value="True" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Deterministic</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="False" />
+      <Name>Random % Sample</Name>
+      <Description>Generate a random number or percentage of records passing through the data stream.</Description>
+      <CategoryName>Preparation</CategoryName>
+      <SearchTags>percent, records, random, seed, number, %, preparation category, n%, macro, sample</SearchTags>
+      <Author>Alteryx</Author>
+      <Company>Alteryx, Inc.</Company>
+      <Copyright>Alteryx, Inc.</Copyright>
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description>Open Example</Description>
+        <File>02 Preparation\Random % Sample.yxmd</File>
+      </Example>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+    <RuntimeProperties>
+      <Actions>
+        <Condition>
+          <Type>Condition</Type>
+          <Description />
+          <ToolId value="22" />
+          <Expression>[Percent]</Expression>
+          <True>
+            <Action>
+              <Type>UpdateValue</Type>
+              <Description>NPercent</Description>
+              <ToolId value="16" />
+              <Mode>Simple</Mode>
+              <Variable>NPercent</Variable>
+              <Replace value="False" />
+              <Destination>4/N</Destination>
+            </Action>
+            <Action>
+              <Type>UpdateValueFormula</Type>
+              <Description />
+              <ToolId value="15" />
+              <Expression>"NPercent"</Expression>
+              <Destination>4/Mode</Destination>
+              <Mode>Expression</Mode>
+            </Action>
+          </True>
+          <False>
+            <Action>
+              <Type>UpdateValueFormula</Type>
+              <Description />
+              <ToolId value="17" />
+              <Expression>"First"</Expression>
+              <Destination>4/Mode</Destination>
+              <Mode>Expression</Mode>
+            </Action>
+            <Action>
+              <Type>UpdateValue</Type>
+              <Description>NNumber</Description>
+              <ToolId value="18" />
+              <Mode>Simple</Mode>
+              <Variable>NNumber</Variable>
+              <Replace value="False" />
+              <Destination>4/N</Destination>
+            </Action>
+          </False>
+        </Condition>
+        <Condition>
+          <Type>Condition</Type>
+          <Description />
+          <ToolId value="23" />
+          <Expression>[Deterministic]</Expression>
+          <True>
+            <Action>
+              <Type>UpdateValue</Type>
+              <Description>Seed</Description>
+              <ToolId value="20" />
+              <Mode>Simple</Mode>
+              <Variable>Seed</Variable>
+              <Replace value="True" />
+              <ReplaceText>MySeed</ReplaceText>
+              <Destination>14/FormulaFields/FormulaField/@expression</Destination>
+            </Action>
+            <Action>
+              <Type>UpdateValueFormula</Type>
+              <Description />
+              <ToolId value="19" />
+              <Expression>"True"</Expression>
+              <Destination>11/DetourRight/@value</Destination>
+              <Mode>Expression</Mode>
+            </Action>
+          </True>
+          <False>
+            <Action>
+              <Type>UpdateValueFormula</Type>
+              <Description />
+              <ToolId value="21" />
+              <Expression>"False"</Expression>
+              <Destination>11/DetourRight/@value</Destination>
+              <Mode>Expression</Mode>
+            </Action>
+          </False>
+        </Condition>
+      </Actions>
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (30)</Name>
+          <ToolId value="30" />
+          <Questions>
+            <Question>
+              <Type>RadioGroup</Type>
+              <Description>Random N Records</Description>
+              <Name>Number</Name>
+              <ToolId value="25" />
+              <Questions>
+                <Question>
+                  <Type>NumericUpDown</Type>
+                  <Description>Number of Records</Description>
+                  <Name>NNumber</Name>
+                  <ToolId value="24" />
+                  <Minimum value="1" />
+                  <Maximum value="1000000000" />
+                  <Increment value="1000" />
+                  <Default value="1000" />
+                  <Decimals value="0" />
+                </Question>
+              </Questions>
+              <Default value="False" />
+              <Collapsable value="False" />
+            </Question>
+            <Question>
+              <Type>RadioGroup</Type>
+              <Description>Random N% of Records</Description>
+              <Name>Percent</Name>
+              <ToolId value="27" />
+              <Questions>
+                <Question>
+                  <Type>NumericUpDown</Type>
+                  <Description>Percent of Records</Description>
+                  <Name>NPercent</Name>
+                  <ToolId value="26" />
+                  <Minimum value="1" />
+                  <Maximum value="99" />
+                  <Increment value="1" />
+                  <Default value="10" />
+                  <Decimals value="0" />
+                </Question>
+              </Questions>
+              <Default value="True" />
+              <Collapsable value="False" />
+            </Question>
+            <Question>
+              <Type>BooleanGroup</Type>
+              <Description>Deterministic Output</Description>
+              <Name>Deterministic</Name>
+              <ToolId value="29" />
+              <Questions>
+                <Question>
+                  <Type>NumericUpDown</Type>
+                  <Description>Random Seed</Description>
+                  <Name>Seed</Name>
+                  <ToolId value="28" />
+                  <Minimum value="1" />
+                  <Maximum value="1000000000" />
+                  <Increment value="1097" />
+                  <Default value="458676342" />
+                  <Decimals value="0" />
+                </Question>
+              </Questions>
+              <Default value="False" />
+              <Collapsable value="False" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Output</Description>
+              <Name>Output</Name>
+              <ToolId value="33" />
+            </Question>
+          </Questions>
+        </Question>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Input</Description>
+          <Name>Tab (31)</Name>
+          <ToolId value="31" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description>Input</Description>
+              <Name>Input</Name>
+              <ToolId value="32" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="True" />
+      <MacroCustomHelpLink>AlteryxHelp:Macro-RandomRecords</MacroCustomHelpLink>
+      <MacroDynamicOutputFields value="False" />
+      <MacroImage>iVBORw0KGgoAAAANSUhEUgAAAKsAAACrCAYAAAAZ6GwZAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ
+bWFnZVJlYWR5ccllPAAAA25pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdp
+bj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6
+eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDE0IDc5LjE1
+Njc5NywgMjAxNC8wOC8yMC0wOTo1MzowMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJo
+dHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlw
+dGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEu
+MC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVz
+b3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1N
+Ok9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDowMjMxQkRBQzRFMkZFMjExQTU5MjkwNzQxRkEx
+RkIyMCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpFMkJFM0JDM0YwMUMxMUU0OTI0M0NDMEM1
+ODMwMUE0MCIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpFMkJFM0JDMkYwMUMxMUU0OTI0M0ND
+MEM1ODMwMUE0MCIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxNCAoV2lu
+ZG93cykiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDozODg0
+MmY4Ni0xNjdmLWM5NDYtODY3OC0yNDIwYTBhZDU5MjUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5k
+aWQ6MDIzMUJEQUM0RTJGRTIxMUE1OTI5MDc0MUZBMUZCMjAiLz4gPC9yZGY6RGVzY3JpcHRpb24+
+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
+</MacroImage>
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="10" Selected="False" />
+        <Tool ToolId="32" Selected="True" />
+        <Tool ToolId="33" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

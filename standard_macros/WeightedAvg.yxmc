@@ -1,0 +1,746 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="9.0" autoTranslate="true">
+  <Nodes>
+    <Node ToolID="2">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="305.1" y="269" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Weight" action="Sum" rename="__Sum_Weight" />
+            <SummarizeField field="__WeightedValue" action="Sum" rename="__Sum___WeightedValue" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Summarize (11)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="__Sum_Weight" source="Summarize: Sum - Weight" type="Double" />
+            <Field name="__Sum___WeightedValue" source="Summarize: Sum - __WeightedValue" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="3">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="306.1" y="187" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField field="__WeightedValue" type="Double" size="8" expression="[Value]*[Weight]" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Formula (12)</Name>
+          <DefaultAnnotationText>__WeightedValue=[Value]*[Weight]</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Value" source="TextInput:" type="Double" />
+            <Field name="Weight" source="TextInput:" type="Double" />
+            <Field name="__WeightedValue" source="Formula: [Value]*[Weight]" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="4">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="307.1" y="351" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField field="WeightedAverage" type="Double" size="8" expression="[__Sum___WeightedValue]/[__Sum_Weight]" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Formula (13)</Name>
+          <DefaultAnnotationText>WeightedAverage=[__Sum___WeightedValue]/[__Sum_Weight]</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="__Sum_Weight" source="Summarize: Sum - Weight" type="Double" />
+            <Field name="__Sum___WeightedValue" source="Summarize: Sum - __WeightedValue" type="Double" />
+            <Field name="WeightedAverage" source="Formula: [__Sum___WeightedValue]/[__Sum_Weight]" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="8">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+        <Position x="304.1" y="433" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <OrderChanged value="False" />
+          <SelectFields>
+            <SelectField field="__Sum_Weight" selected="False" />
+            <SelectField field="__Sum___WeightedValue" selected="False" />
+            <SelectField field="*Unknown" selected="True" />
+          </SelectFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Select (8)</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="WeightedAverage" source="Formula: [__Sum___WeightedValue]/[__Sum_Weight]" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+    </Node>
+    <Node ToolID="23">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="250.1" y="54" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="24">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="250.1" y="54" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="25">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+        <Position x="304.1" y="108" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <UseFileInput value="False" />
+          <Name>Input</Name>
+          <Abbrev />
+          <ShowFieldMap value="False" />
+          <TextInput>
+            <Configuration>
+              <NumRows value="2" />
+              <Fields>
+                <Field name="Value" />
+                <Field name="Weight" />
+              </Fields>
+              <Data>
+                <r>
+                  <c>123.45678901</c>
+                  <c>123.45678901</c>
+                </r>
+              </Data>
+            </Configuration>
+          </TextInput>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Input</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Value" source="TextInput:" type="Double" />
+            <Field name="Weight" source="TextInput:" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+    </Node>
+    <Node ToolID="26">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+        <Position x="306.1" y="515" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Name>Output</Name>
+          <Abbrev>
+          </Abbrev>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name>Output</Name>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+    </Node>
+    <Node ToolID="27">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="54" y="113" width="221.1" height="535.1" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Interface Tools</Caption>
+          <Folded value="False">False</Folded>
+          <Style Transparency="1" Margin="25" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="19">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
+            <Position x="79" y="157" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>Value</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="20">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
+            <Position x="79.00002" y="292.7" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>Weight</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="21">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.TextBox.QuestionTextBox">
+            <Position x="79.00003" y="496.25" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>OutputFieldName</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="22">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.ListBox">
+            <Position x="79.00002" y="360.55" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>GroupFields</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="9">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="191.1" y="292.7" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="10">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="191.1" y="157" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>1st Formula</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="11">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Error.Error">
+            <Position x="191.1" y="224.85" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>A Value Field Must be Specified</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="12">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="191.1" y="360.55" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>1st Formula</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="13">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Error.Error">
+            <Position x="191.1" y="428.4" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>A Weight Field Must be Specified</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="14">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="191.1" y="496.25" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="15">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Error.Error">
+            <Position x="191.1" y="564.1" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>An Output Field Name Must be Specified</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="2" Connection="Output" />
+      <Destination ToolID="4" Connection="Input" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="14" Connection="Action" />
+      <Destination ToolID="4" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="3" Connection="Output" />
+      <Destination ToolID="2" Connection="Input" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="9" Connection="Action" />
+      <Destination ToolID="2" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="4" Connection="Output" />
+      <Destination ToolID="8" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="8" Connection="Output" />
+      <Destination ToolID="26" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="25" Connection="Output" />
+      <Destination ToolID="3" Connection="Input" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="10" Connection="Action" />
+      <Destination ToolID="3" Connection="Action" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="12" Connection="Action" />
+      <Destination ToolID="3" Connection="Action" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="25" Connection="Question" />
+      <Destination ToolID="19" Connection="Question Input" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="25" Connection="Question" />
+      <Destination ToolID="20" Connection="Question Input" />
+    </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="25" Connection="Question" />
+      <Destination ToolID="22" Connection="Question Input" />
+    </Connection>
+    <Connection name="Value" Wireless="True">
+      <Origin ToolID="19" Connection="Question" />
+      <Destination ToolID="10" Connection="Question" />
+    </Connection>
+    <Connection name="Value" Wireless="True">
+      <Origin ToolID="19" Connection="Question" />
+      <Destination ToolID="11" Connection="Question" />
+    </Connection>
+    <Connection name="Weight" Wireless="True">
+      <Origin ToolID="20" Connection="Question" />
+      <Destination ToolID="9" Connection="Question" />
+    </Connection>
+    <Connection name="GroupFields" Wireless="True">
+      <Origin ToolID="22" Connection="Question" />
+      <Destination ToolID="9" Connection="Question" />
+    </Connection>
+    <Connection name="Weight" Wireless="True">
+      <Origin ToolID="20" Connection="Question" />
+      <Destination ToolID="12" Connection="Question" />
+    </Connection>
+    <Connection name="Weight" Wireless="True">
+      <Origin ToolID="20" Connection="Question" />
+      <Destination ToolID="13" Connection="Question" />
+    </Connection>
+    <Connection name="OutputFieldName" Wireless="True">
+      <Origin ToolID="21" Connection="Question" />
+      <Destination ToolID="14" Connection="Question" />
+    </Connection>
+    <Connection name="OutputFieldName" Wireless="True">
+      <Origin ToolID="21" Connection="Question" />
+      <Destination ToolID="15" Connection="Question" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="False" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Vertical</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Value</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Weight</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>OutputFieldName</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>GroupFields</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="False" />
+      <Name>Weighted Average</Name>
+      <Description>Calculate the weighted average of a set of values where some records are configured to contribute more than others.</Description>
+      <CategoryName>Transform</CategoryName>
+      <SearchTags>summary, summarize, transpose, transpose category, macro, average, data, weight, group</SearchTags>
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description>Open Example</Description>
+        <File>05 Transform\WeightedAverage.yxmd</File>
+      </Example>
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+    <RuntimeProperties>
+      <Actions>
+        <NoCondition>
+          <Type>NoCondition</Type>
+          <Description>(Always Run)</Description>
+          <True>
+            <Action>
+              <Type>UpdateRawXml</Type>
+              <Description />
+              <ToolId value="9" />
+              <Expression>if !IsEmpty([GroupFields]) then
+'&lt;SummarizeField field="' + [GroupFields] + '" action="GroupBy"/&gt;'
+else
+''
+endif 
++
+'      &lt;SummarizeField field="' + [Weight] + '" action="Sum" rename="__Sum_Weight" /&gt;
+      &lt;SummarizeField field="__WeightedValue" action="Sum" rename="__Sum___WeightedValue" /&gt;'</Expression>
+              <Destination>2/SummarizeFields</Destination>
+              <OuterXml value="False" />
+            </Action>
+            <Action>
+              <Type>UpdateValue</Type>
+              <Description>Value</Description>
+              <ToolId value="10" />
+              <Mode>Simple</Mode>
+              <Variable>Value</Variable>
+              <Replace value="True" />
+              <ReplaceText>Value</ReplaceText>
+              <Destination>3/FormulaFields/FormulaField/@expression</Destination>
+            </Action>
+            <Action>
+              <Type>Error</Type>
+              <Description />
+              <ToolId value="11" />
+              <Expression>!(!IsEmpty([Value]))</Expression>
+            </Action>
+            <Action>
+              <Type>UpdateValue</Type>
+              <Description>Weight</Description>
+              <ToolId value="12" />
+              <Mode>Simple</Mode>
+              <Variable>Weight</Variable>
+              <Replace value="True" />
+              <ReplaceText>Weight</ReplaceText>
+              <Destination>3/FormulaFields/FormulaField/@expression</Destination>
+            </Action>
+            <Action>
+              <Type>Error</Type>
+              <Description />
+              <ToolId value="13" />
+              <Expression>!(!IsEmpty([Weight]))</Expression>
+            </Action>
+            <Action>
+              <Type>UpdateValue</Type>
+              <Description>OutputFieldName</Description>
+              <ToolId value="14" />
+              <Mode>Simple</Mode>
+              <Variable>OutputFieldName</Variable>
+              <Replace value="False" />
+              <Destination>4/FormulaFields/FormulaField/@field</Destination>
+            </Action>
+            <Action>
+              <Type>Error</Type>
+              <Description />
+              <ToolId value="15" />
+              <Expression>!(!IsEmpty([OutputFieldName]))</Expression>
+            </Action>
+          </True>
+        </NoCondition>
+      </Actions>
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (23)</Name>
+          <ToolId value="23" />
+          <Questions>
+            <Question>
+              <Type>ListBox</Type>
+              <Description>Value Field (Numeric)</Description>
+              <Name>Value</Name>
+              <ToolId value="19" />
+              <Multiple value="False" />
+              <Default />
+              <Mode>MacroField</Mode>
+              <MacroField_InputTool value="6" />
+              <Field_IncludeNone value="False" />
+              <MacroField_FilterTypes>Byte,Int16,Int32,Int64,FixedDecimal,Float,Double</MacroField_FilterTypes>
+            </Question>
+            <Question>
+              <Type>ListBox</Type>
+              <Description>Weight Field (Numeric)</Description>
+              <Name>Weight</Name>
+              <ToolId value="20" />
+              <Multiple value="False" />
+              <Default />
+              <Mode>MacroField</Mode>
+              <MacroField_InputTool value="6" />
+              <Field_IncludeNone value="False" />
+              <MacroField_FilterTypes>Byte,Int16,Int32,Int64,FixedDecimal,Float,Double</MacroField_FilterTypes>
+            </Question>
+            <Question>
+              <Type>TextBox</Type>
+              <Description>Output Field Name</Description>
+              <Name>OutputFieldName</Name>
+              <ToolId value="21" />
+              <Default>WeightedAverage</Default>
+              <Password value="False" />
+              <Multiline value="False" />
+              <Hidden value="False" />
+            </Question>
+            <Question>
+              <Type>ListBox</Type>
+              <Description>Grouping Fields (Optional)</Description>
+              <Name>GroupFields</Name>
+              <ToolId value="22" />
+              <Multiple value="True" />
+              <Multiple_Custom value="True" />
+              <Multiple_Start />
+              <Multiple_Separator>" action="GroupBy"/&gt;&lt;SummarizeField field="</Multiple_Separator>
+              <Multiple_End />
+              <Multiple_Default value="False" />
+              <Mode>MacroField</Mode>
+              <MacroField_InputTool value="6" />
+              <Field_IncludeNone value="False" />
+              <MacroField_FilterTypes>Bool,Byte,Int16,Int32,Int64,FixedDecimal,Float,Double,String,WString,V_String,V_WString,Date,Time,DateTime</MacroField_FilterTypes>
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Output</Description>
+              <Name>Output</Name>
+              <ToolId value="26" />
+            </Question>
+          </Questions>
+        </Question>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Input</Description>
+          <Name>Tab (24)</Name>
+          <ToolId value="24" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description>Input</Description>
+              <Name>Input</Name>
+              <ToolId value="25" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="True" />
+      <MacroCustomHelpLink>AlteryxHelp:MacroWeightedAvg</MacroCustomHelpLink>
+      <MacroDynamicOutputFields value="False" />
+      <MacroImage>iVBORw0KGgoAAAANSUhEUgAAAKsAAACrCAYAAAAZ6GwZAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ
+bWFnZVJlYWR5ccllPAAAA25pVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdp
+bj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6
+eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDE0IDc5LjE1
+Njc5NywgMjAxNC8wOC8yMC0wOTo1MzowMiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJo
+dHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlw
+dGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEu
+MC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVz
+b3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1N
+Ok9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDpGMTAzRkVFRTEzNDZFMjExOEVFM0NBQzZBRjFF
+RDgzMSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo4MTEzMzZBOUU3N0IxMUU0ODk5QjhERDQ4
+OUY1OEY5MyIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo4MTEzMzZBOEU3N0IxMUU0ODk5QjhE
+RDQ4OUY1OEY5MyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxNCAoV2lu
+ZG93cykiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo5OTg3
+OWEyNS0zNTBjLTczNDUtYThjNi04ZDE3ZGJhZWU3MjkiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5k
+aWQ6RjEwM0ZFRUUxMzQ2RTIxMThFRTNDQUM2QUYxRUQ4MzEiLz4gPC9yZGY6RGVzY3JpcHRpb24+
+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
+</MacroImage>
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="25" Selected="True" />
+        <Tool ToolId="26" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

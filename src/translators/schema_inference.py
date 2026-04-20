@@ -81,8 +81,13 @@ def infer_output_schema(
 
     # Sink / visual tools — no output schema to propagate.
     _SINKS = {
-        "db_file_output", "odbc_output", "db_file_input", "odbc_input",
-        "browse", "tool_container", "comment",
+        "db_file_output",
+        "odbc_output",
+        "db_file_input",
+        "odbc_input",
+        "browse",
+        "tool_container",
+        "comment",
     }
     if t in _SINKS:
         return []
@@ -198,6 +203,8 @@ def _infer_multirow_formula(cfg: dict, input_schema: list[FieldSchema]) -> list[
 
 
 def _infer_join(cfg: dict, schemas: list[list[FieldSchema]]) -> list[FieldSchema]:
+    from translators.join import parse_join_select
+
     left = schemas[0] if len(schemas) > 0 else []
     right = schemas[1] if len(schemas) > 1 else []
 
@@ -205,14 +212,22 @@ def _infer_join(cfg: dict, schemas: list[list[FieldSchema]]) -> list[FieldSchema
         return []
 
     right_prefix: str = cfg.get("RenameRightInput", "Right_")
+    excluded, renames = parse_join_select(cfg, "Join")
     left_names = {f.name for f in left}
 
-    result = list(left)
+    result: list[FieldSchema] = []
+    for f in left:
+        out_name = renames.get(f.name, f.name)
+        if f.name in excluded or out_name in excluded:
+            continue
+        result.append(_fs(out_name, f.alteryx_type, f.size) if out_name != f.name else f)
+
     for f in right:
-        if f.name in left_names:
-            result.append(_fs(f"{right_prefix}{f.name}", f.alteryx_type, f.size))
-        else:
-            result.append(f)
+        prefixed = f"{right_prefix}{f.name}" if f.name in left_names else f.name
+        out_name = renames.get(prefixed, prefixed)
+        if prefixed in excluded or out_name in excluded:
+            continue
+        result.append(_fs(out_name, f.alteryx_type, f.size))
 
     return result
 

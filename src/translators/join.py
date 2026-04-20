@@ -88,12 +88,7 @@ def translate_join(
 
     # --- J anchor: INNER JOIN (matched rows) ---
     j_select = _build_select_join(left_schema, right_schema, cfg)
-    j_sql = (
-        f"{j_select}\n"
-        f"FROM [{left_cte}] AS L\n"
-        f"INNER JOIN [{right_cte}] AS R\n"
-        f"    ON {on_clause}"
-    )
+    j_sql = f"{j_select}\nFROM [{left_cte}] AS L\nINNER JOIN [{right_cte}] AS R\n    ON {on_clause}"
     fragments.append(CTEFragment(name=cte_name, sql=j_sql, source_tool_ids=[node.tool_id]))
 
     # --- L anchor: unmatched left rows ---
@@ -107,9 +102,7 @@ def translate_join(
             f"    ON {on_clause}\n"
             f"WHERE R.[{right_keys[0]}] IS NULL"
         )
-        fragments.append(
-            CTEFragment(name=l_cte_name, sql=l_sql, source_tool_ids=[node.tool_id])
-        )
+        fragments.append(CTEFragment(name=l_cte_name, sql=l_sql, source_tool_ids=[node.tool_id]))
         ctx.cte_schema[l_cte_name] = list(left_schema)
 
     # --- R anchor: unmatched right rows ---
@@ -123,12 +116,49 @@ def translate_join(
             f"    ON {on_clause}\n"
             f"WHERE L.[{left_keys[0]}] IS NULL"
         )
-        fragments.append(
-            CTEFragment(name=r_cte_name, sql=r_sql, source_tool_ids=[node.tool_id])
-        )
+        fragments.append(CTEFragment(name=r_cte_name, sql=r_sql, source_tool_ids=[node.tool_id]))
         ctx.cte_schema[r_cte_name] = list(right_schema)
 
     return fragments
+
+
+def parse_join_select(cfg: dict, anchor: str) -> tuple[set[str], dict[str, str]]:
+    """Parse <SelectConfiguration> for a given output anchor (Join/Left/Right).
+
+    Returns (excluded, renames) where:
+      excluded — set of final column names to drop from the output
+      renames  — dict mapping final_name → new_name
+    Field names in SelectConfiguration are already post-prefix (e.g. "Right_EMPLOYEE").
+    """
+    excluded: set[str] = set()
+    renames: dict[str, str] = {}
+
+    configurations = cfg.get("SelectConfiguration", {}).get("Configuration", [])
+    if isinstance(configurations, dict):
+        configurations = [configurations]
+
+    target: dict = {}
+    for c in configurations:
+        if c.get("outputConnection") == anchor:
+            target = c
+            break
+
+    fields = target.get("SelectFields", {}).get("SelectField", [])
+    if isinstance(fields, dict):
+        fields = [fields]
+
+    for f in fields:
+        name = f.get("field", "")
+        if not name or name == "*Unknown":
+            continue
+        if f.get("selected", "True") == "False":
+            excluded.add(name)
+        else:
+            rename = f.get("rename", "")
+            if rename and rename != name:
+                renames[name] = rename
+
+    return excluded, renames
 
 
 def _build_select_join(
@@ -136,18 +166,38 @@ def _build_select_join(
     right_schema: list[FieldSchema],
     cfg: dict,
 ) -> str:
-    """SELECT clause for the J (inner join) anchor — all columns from both sides."""
+    """SELECT clause for the J (inner join) anchor — columns from both sides,
+    filtered and renamed according to <SelectConfiguration outputConnection="Join">."""
     if not left_schema or not right_schema:
         return "SELECT\n    L.*,\n    R.*"
 
     right_prefix: str = cfg.get("RenameRightInput", "Right_")
+    excluded, renames = parse_join_select(cfg, "Join")
     left_names = {f.name for f in left_schema}
-    cols: list[str] = [f"    L.[{f.name}]" for f in left_schema]
+    cols: list[str] = []
+
+    for f in left_schema:
+        out_name = renames.get(f.name, f.name)
+        if f.name in excluded or out_name in excluded:
+            continue
+        entry = f"    L.[{f.name}]" if out_name == f.name else f"    L.[{f.name}] AS [{out_name}]"
+        cols.append(entry)
+
     for f in right_schema:
+        prefixed = f"{right_prefix}{f.name}" if f.name in left_names else f.name
+        out_name = renames.get(prefixed, prefixed)
+        if prefixed in excluded or out_name in excluded:
+            continue
         if f.name in left_names:
-            cols.append(f"    R.[{f.name}] AS [{right_prefix}{f.name}]")
+            cols.append(f"    R.[{f.name}] AS [{out_name}]")
         else:
-            cols.append(f"    R.[{f.name}]")
+            if out_name == f.name:
+                cols.append(f"    R.[{f.name}]")
+            else:
+                cols.append(f"    R.[{f.name}] AS [{out_name}]")
+
+    if not cols:
+        return "SELECT\n    L.*,\n    R.*"
     return "SELECT\n" + ",\n".join(cols)
 
 

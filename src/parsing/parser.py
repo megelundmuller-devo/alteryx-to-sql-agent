@@ -280,14 +280,56 @@ def _parse_node(node_elem: ET.Element) -> ToolNode:
 # ---------------------------------------------------------------------------
 
 
+def _is_disabled(node_elem: ET.Element) -> bool:
+    """Return True if the node carries <Disabled value="True" /> in its configuration."""
+    disabled = node_elem.find(".//Configuration/Disabled")
+    if disabled is None:
+        return False
+    return disabled.get("value", "False").lower() == "true"
+
+
+def _collect_subtree_ids(parent_elem: ET.Element) -> set[int]:
+    """Return all tool IDs reachable under parent_elem (used for disabled container subtrees)."""
+    ids: set[int] = set()
+    for node_elem in parent_elem.findall("Node"):
+        ids.add(int(node_elem.get("ToolID", 0)))
+        child_nodes_elem = node_elem.find("ChildNodes")
+        if child_nodes_elem is not None:
+            ids |= _collect_subtree_ids(child_nodes_elem)
+    return ids
+
+
+def _collect_disabled_ids(parent_elem: ET.Element) -> set[int]:
+    """Return tool IDs of disabled nodes and all their descendants.
+
+    A disabled ToolContainer disables every tool inside it even if the
+    children don't carry their own <Disabled> element.
+    """
+    disabled: set[int] = set()
+    for node_elem in parent_elem.findall("Node"):
+        if _is_disabled(node_elem):
+            disabled.add(int(node_elem.get("ToolID", 0)))
+            child_nodes_elem = node_elem.find("ChildNodes")
+            if child_nodes_elem is not None:
+                disabled |= _collect_subtree_ids(child_nodes_elem)
+        else:
+            child_nodes_elem = node_elem.find("ChildNodes")
+            if child_nodes_elem is not None:
+                disabled |= _collect_disabled_ids(child_nodes_elem)
+    return disabled
+
+
 def _collect_nodes(parent_elem: ET.Element) -> list[ToolNode]:
     """Recursively collect ToolNodes, flattening any nested ChildNodes.
 
     ToolContainer nodes are included in the output (tool_type='tool_container')
     but their children are also extracted. The DAG builder skips containers.
+    Nodes (and their children) with <Disabled value="True" /> are excluded.
     """
     result: list[ToolNode] = []
     for node_elem in parent_elem.findall("Node"):
+        if _is_disabled(node_elem):
+            continue
         result.append(_parse_node(node_elem))
         child_nodes_elem = node_elem.find("ChildNodes")
         if child_nodes_elem is not None:
@@ -362,14 +404,17 @@ def parse_workflow(path: Path | str) -> ParsedWorkflow:
     if nodes_elem is not None:
         nodes = _collect_nodes(nodes_elem)
 
-    # Connections
+    # Connections — drop any that touch a disabled tool; truly unknown IDs
+    # are left for build_dag to catch and raise.
+    disabled_ids = _collect_disabled_ids(nodes_elem) if nodes_elem is not None else set()
     connections_elem = root.find("Connections")
     connections: list[Connection] = []
     if connections_elem is not None:
         for conn_elem in connections_elem.findall("Connection"):
             conn = _parse_connection(conn_elem)
             if conn is not None:
-                connections.append(conn)
+                if conn.origin_id not in disabled_ids and conn.dest_id not in disabled_ids:
+                    connections.append(conn)
 
     return ParsedWorkflow(
         nodes=nodes,

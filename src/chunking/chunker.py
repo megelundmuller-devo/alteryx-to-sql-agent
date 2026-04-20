@@ -19,9 +19,9 @@ translatable. The rules are:
    successors ends its chunk so each downstream branch starts fresh (e.g. a
    Filter with both True and False outputs connected).
 
-4. **CTE naming** — stable, deterministic names:
-   ``cte_{tool_type}_{tool_id}`` for single-tool chunks and
-   ``cte_{first_type}_{first_id}_to_{last_type}_{last_id}`` for merged chains.
+4. **Temp table naming** — stable, deterministic names:
+   ``temp_{tool_type}_{tool_id}`` for single-tool chunks and
+   ``temp_{first_type}_{first_id}_to_{last_type}_{last_id}`` for merged chains.
 
 Each Chunk carries:
 - ``nodes`` — the ToolNodes in topological order
@@ -53,12 +53,12 @@ _ANCHOR_SUFFIX: dict[str, str] = {
 
 
 def _cte_name(nodes: list[ToolNode]) -> str:
-    """Generate a stable CTE name for a list of nodes."""
+    """Generate a stable temp table name for a list of nodes."""
     if len(nodes) == 1:
         n = nodes[0]
-        return f"cte_{n.tool_type}_{n.tool_id}"
+        return f"temp_{n.tool_type}_{n.tool_id}"
     first, last = nodes[0], nodes[-1]
-    return f"cte_{first.tool_type}_{first.tool_id}_to_{last.tool_type}_{last.tool_id}"
+    return f"temp_{first.tool_type}_{first.tool_id}_to_{last.tool_type}_{last.tool_id}"
 
 
 def _is_chunk_boundary_before(node: ToolNode, dag: AlteryxDAG) -> bool:

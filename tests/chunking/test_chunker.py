@@ -50,12 +50,12 @@ class TestCteName:
 
     def test_single_node(self):
         n = self._node(5, "filter")
-        assert _cte_name([n]) == "cte_filter_5"
+        assert _cte_name([n]) == "temp_filter_5"
 
     def test_multi_node(self):
         n1 = self._node(1, "db_file_input")
         n2 = self._node(3, "formula")
-        assert _cte_name([n1, n2]) == "cte_db_file_input_1_to_formula_3"
+        assert _cte_name([n1, n2]) == "temp_db_file_input_1_to_formula_3"
 
 
 # ---------------------------------------------------------------------------
@@ -89,7 +89,7 @@ class TestChunkDagMinimal:
 
     def test_cte_names_start_with_cte(self):
         for c in self.chunks:
-            assert c.output_cte_name.startswith("cte_")
+            assert c.output_cte_name.startswith("temp_")
 
     def test_filter_is_its_own_chunk(self):
         # Filter (tool 2) is a branching node — must be its own chunk

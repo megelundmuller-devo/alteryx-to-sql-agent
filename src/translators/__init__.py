@@ -22,7 +22,7 @@ back to `translate_unknown`.
 Multi-node chunks
 -----------------
 When a chunk contains several merged tools (e.g. DbFileInput → Formula → Select),
-each intermediate tool gets a temporary CTE name (`cte_{type}_{id}`) so the
+each intermediate tool gets a temporary name (`temp_{type}_{id}`) so the
 chain can reference it.  The final tool uses the chunk's `output_cte_name`.
 Only the final CTE name is visible outside the chunk.
 
@@ -136,18 +136,18 @@ def translate_chunk(chunk: Chunk, ctx: TranslationContext) -> list[CTEFragment]:
         if is_last:
             cte_name = chunk.output_cte_name
         else:
-            cte_name = f"cte_{node.tool_type}_{node.tool_id}"
+            cte_name = f"temp_{node.tool_type}_{node.tool_id}"
 
         # The input CTEs for this node:
         # - First node  → reads from chunk.input_cte_names
-        # - Subsequent  → reads from the previous node's CTE name
+        # - Subsequent  → reads from the previous node's temp table name
         if i == 0:
             input_ctes = list(chunk.input_cte_names)
         else:
             prev = chunk.nodes[i - 1]
-            # Previous node's CTE name is always its per-node temp name,
+            # Previous node's name is always its per-node temp name,
             # because only the *last* node in the chunk uses output_cte_name.
-            input_ctes = [f"cte_{prev.tool_type}_{prev.tool_id}"]
+            input_ctes = [f"temp_{prev.tool_type}_{prev.tool_id}"]
 
         translator = _get_translator(node.tool_type)
         result = translator(node, cte_name, input_ctes, ctx)

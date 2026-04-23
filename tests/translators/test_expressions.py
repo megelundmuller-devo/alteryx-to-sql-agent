@@ -142,3 +142,32 @@ class TestConvertExpression:
         # When engine_vars=None, replacement still happens but nothing is collected
         result = convert_expression("[Engine.WorkflowFileName]", None)
         assert result == "@WorkflowFileName"
+
+    def test_round_hundredths(self):
+        result = convert_expression("ROUND([Amount], 0.01)")
+        assert result == "ROUND([Amount], 2)"
+
+    def test_round_thousandths(self):
+        result = convert_expression("ROUND([Amount], 0.001)")
+        assert result == "ROUND([Amount], 3)"
+
+    def test_round_tenths(self):
+        result = convert_expression("ROUND([Amount], 0.1)")
+        assert result == "ROUND([Amount], 1)"
+
+    def test_round_ones(self):
+        result = convert_expression("ROUND([Amount], 1)")
+        assert result == "ROUND([Amount], 0)"
+
+    def test_round_tens(self):
+        result = convert_expression("ROUND([Amount], 10)")
+        assert result == "ROUND([Amount], -1)"
+
+    def test_round_nested_expression(self):
+        result = convert_expression("ROUND([Price] * [Qty], 0.01)")
+        assert result == "ROUND([Price] * [Qty], 2)"
+
+    def test_round_non_literal_second_arg_passthrough(self):
+        # If the second arg is a column ref, we can't convert — leave unchanged.
+        result = convert_expression("ROUND([Amount], [Precision])")
+        assert result == "ROUND([Amount], [Precision])"

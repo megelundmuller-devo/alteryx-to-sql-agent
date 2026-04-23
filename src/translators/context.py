@@ -46,3 +46,9 @@ class TranslationContext:
     # Populated by translate_chunk() alongside cte_schema.
     # Used by the liveness pass to walk backwards through the CTE chain.
     cte_inputs: dict[str, list[str]] = field(default_factory=dict)
+
+    # Passthrough aliases: when a Join's L/R anchor is absorbed into J as a
+    # LEFT/RIGHT/FULL OUTER JOIN, the L or R CTE name maps to J's CTE name here.
+    # Union translators resolve these before building their SQL so the extra
+    # anchor fragment is never emitted and the UNION is collapsed to a single SELECT.
+    cte_passthrough: dict[str, str] = field(default_factory=dict)

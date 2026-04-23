@@ -5,6 +5,7 @@ Usage (single file):
     uv run python src/main.py examples/my_workflow.yxmd --output-dir output/
     uv run python src/main.py examples/my_workflow.yxmd --dry-run
     uv run python src/main.py examples/my_workflow.yxmd --no-docs
+    uv run python src/main.py examples/my_workflow.yxmd --ai-enhanced
 
 Usage (batch — all .yxmd files in a directory):
     uv run python src/main.py examples/
@@ -16,8 +17,9 @@ Other flags:
     uv run python src/main.py --clear-registry
 
 Output files written to the output directory (default: same dir as input):
-    <name>.sql      — generated T-SQL stored procedure
-    <name>_docs.md  — human-readable workflow documentation
+    <name>.sql           — generated T-SQL stored procedure
+    <name>_docs.md       — human-readable workflow documentation
+    <name>_enhanced.sql  — AI-simplified version (only with --ai-enhanced)
 """
 
 from __future__ import annotations
@@ -35,6 +37,7 @@ from rich.table import Table
 sys.path.insert(0, str(Path(__file__).parent))
 
 from analysis.liveness import run_liveness_pass
+from llm.sql_enhancer import enhance_sql
 from analysis.llm_validator import repair_fragments
 from assembly.cte_builder import build_sql
 from chunking.chunker import chunk_dag
@@ -90,6 +93,14 @@ def _parse_args() -> argparse.Namespace:
         "--show-registry",
         action="store_true",
         help="Print all learned registry entries and exit",
+    )
+    parser.add_argument(
+        "--ai-enhanced",
+        action="store_true",
+        help=(
+            "After writing the .sql file, send it to Gemini Flash in one shot "
+            "and write a simplified version to <name>_enhanced.sql"
+        ),
     )
     return parser.parse_args()
 
@@ -194,6 +205,19 @@ def _process_one(
         sql_path = output_dir / f"{stem}.sql"
         sql_path.write_text(sql, encoding="utf-8")
         console.print(f"    [bold]SQL written to[/bold]  {sql_path}")
+
+        # AI-enhanced simplification — one Gemini Flash call, full file in one shot
+        if args.ai_enhanced:
+            enhance_task = progress.add_task("Enhancing SQL with Gemini Flash...", total=None)
+            try:
+                enhanced_sql = enhance_sql(sql)
+                enhanced_path = output_dir / f"{stem}_enhanced.sql"
+                enhanced_path.write_text(enhanced_sql, encoding="utf-8")
+                console.print(f"    [bold]Enhanced SQL written to[/bold]  {enhanced_path}")
+            except Exception as exc:  # noqa: BLE001
+                console.print(f"    [yellow]⚠  AI enhancement failed:[/yellow] {exc}")
+            finally:
+                progress.remove_task(enhance_task)
 
         # Workflow documentation
         if not args.no_docs:

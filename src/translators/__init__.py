@@ -156,16 +156,20 @@ def translate_chunk(chunk: Chunk, ctx: TranslationContext) -> list[CTEFragment]:
         # did not populate node.output_schema (most non-source tools).
         inferred_schema = infer_output_schema(node, input_ctes, ctx)
 
+        update = {"chunk_id": chunk.chunk_id, "chunk_output_name": chunk.output_cte_name}
+
         if isinstance(result, list):
-            for frag in result:
+            stamped = [f.model_copy(update=update) for f in result]
+            for frag in stamped:
                 # Translators (e.g. join) may pre-set ctx.cte_schema for
                 # anchor-specific CTEs (L, R) with the correct per-anchor
                 # schema.  Don't overwrite those with the inferred J schema.
                 if frag.name not in ctx.cte_schema:
                     ctx.cte_schema[frag.name] = inferred_schema
                 ctx.cte_inputs[frag.name] = list(input_ctes)
-            fragments.extend(result)
+            fragments.extend(stamped)
         else:
+            result = result.model_copy(update=update)
             ctx.cte_schema[result.name] = inferred_schema
             ctx.cte_inputs[result.name] = list(input_ctes)
             fragments.append(result)

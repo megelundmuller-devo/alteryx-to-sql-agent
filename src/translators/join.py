@@ -12,12 +12,24 @@ Translation strategy
 * The DAG is queried for which of the three anchors actually have downstream
   consumers.  A CTE is emitted for each connected anchor:
     - J anchor → canonical chunk output CTE  (name = cte_name)
-    - L anchor → cte_name + "_L"
-    - R anchor → cte_name + "_R"
+    - L anchor → cte_name + "_L"  (or a passthrough alias — see below)
+    - R anchor → cte_name + "_R"  (or a passthrough alias — see below)
   The J CTE is always emitted (it is the chunk's primary output).
 * When schema is available, explicit column lists are emitted; otherwise L.*/R.*.
 * ctx.cte_schema is set for L and R CTEs inside this translator so that
   translate_chunk does not overwrite them with the full-join schema.
+
+Left/right join collapsing
+--------------------------
+Alteryx users often simulate a LEFT JOIN by taking both J and L outputs and
+feeding them into a Union tool.  When the translator detects this pattern
+(J and L both flow into the same single Union, and nothing else), it:
+  - Emits J as LEFT JOIN instead of INNER JOIN
+  - Registers L as a passthrough alias (ctx.cte_passthrough[L] = J)
+  - Does not emit an L fragment
+The Union translator then resolves [J, L→J] → [J] and emits a simple
+SELECT * FROM [J], giving a single LEFT JOIN in the final SQL.
+The same applies to J+R → RIGHT JOIN, and J+L+R → FULL OUTER JOIN.
 """
 
 from __future__ import annotations
@@ -81,43 +93,83 @@ def translate_join(
     has_l = "Left" in connected
     has_r = "Right" in connected
 
+    # Detect whether L/R anchors can be absorbed into J as a wider JOIN type.
+    # This collapses the Alteryx pattern "INNER JOIN + LEFT WHERE NULL + UNION"
+    # into a single LEFT/RIGHT/FULL OUTER JOIN on the J anchor.
+    # Safe only when J and the anchor both feed the exact same single Union tool
+    # (and nothing else), so changing J's join type can't affect other consumers.
+    j_ids = {c.dest_id for c in ctx.dag.out_edges(node.tool_id) if c.origin_anchor == "Join"}
+
+    def _single_shared_union(anchor_ids: set[int]) -> bool:
+        return (
+            len(j_ids) == 1
+            and j_ids == anchor_ids
+            and ctx.dag.get_node(next(iter(j_ids))).tool_type == "union"
+        )
+
+    l_ids = {c.dest_id for c in ctx.dag.out_edges(node.tool_id) if c.origin_anchor == "Left"}
+    r_ids = {c.dest_id for c in ctx.dag.out_edges(node.tool_id) if c.origin_anchor == "Right"}
+    l_passthrough = has_l and _single_shared_union(l_ids)
+    r_passthrough = has_r and _single_shared_union(r_ids)
+
+    if l_passthrough and r_passthrough:
+        join_type = "FULL OUTER JOIN"
+    elif l_passthrough:
+        join_type = "LEFT JOIN"
+    elif r_passthrough:
+        join_type = "RIGHT JOIN"
+    else:
+        join_type = "INNER JOIN"
+
     left_schema = ctx.cte_schema.get(left_cte, [])
     right_schema = ctx.cte_schema.get(right_cte, [])
 
     fragments: list[CTEFragment] = []
 
-    # --- J anchor: INNER JOIN (matched rows) ---
+    # --- J anchor ---
     j_select = _build_select_join(left_schema, right_schema, cfg)
-    j_sql = f"{j_select}\nFROM [{left_cte}] AS L\nINNER JOIN [{right_cte}] AS R\n    ON {on_clause}"
+    j_sql = f"{j_select}\nFROM [{left_cte}] AS L\n{join_type} [{right_cte}] AS R\n    ON {on_clause}"
     fragments.append(CTEFragment(name=cte_name, sql=j_sql, source_tool_ids=[node.tool_id]))
 
-    # --- L anchor: unmatched left rows ---
+    # --- L anchor: either a passthrough alias or an explicit anti-join fragment ---
     if has_l:
         l_cte_name = f"{cte_name}_L"
-        l_select = _build_select_left(left_schema)
-        l_sql = (
-            f"{l_select}\n"
-            f"FROM [{left_cte}] AS L\n"
-            f"LEFT JOIN [{right_cte}] AS R\n"
-            f"    ON {on_clause}\n"
-            f"WHERE R.[{right_keys[0]}] IS NULL"
-        )
-        fragments.append(CTEFragment(name=l_cte_name, sql=l_sql, source_tool_ids=[node.tool_id]))
-        ctx.cte_schema[l_cte_name] = list(left_schema)
+        if l_passthrough:
+            # L is absorbed into the LEFT/FULL JOIN on J; register the alias so
+            # the downstream Union can collapse [J, L] → [J].
+            ctx.cte_passthrough[l_cte_name] = cte_name
+        else:
+            l_select = _build_select_left(left_schema)
+            l_sql = (
+                f"{l_select}\n"
+                f"FROM [{left_cte}] AS L\n"
+                f"LEFT JOIN [{right_cte}] AS R\n"
+                f"    ON {on_clause}\n"
+                f"WHERE R.[{right_keys[0]}] IS NULL"
+            )
+            fragments.append(
+                CTEFragment(name=l_cte_name, sql=l_sql, source_tool_ids=[node.tool_id])
+            )
+            ctx.cte_schema[l_cte_name] = list(left_schema)
 
-    # --- R anchor: unmatched right rows ---
+    # --- R anchor: either a passthrough alias or an explicit anti-join fragment ---
     if has_r:
         r_cte_name = f"{cte_name}_R"
-        r_select = _build_select_right(right_schema)
-        r_sql = (
-            f"{r_select}\n"
-            f"FROM [{left_cte}] AS L\n"
-            f"RIGHT JOIN [{right_cte}] AS R\n"
-            f"    ON {on_clause}\n"
-            f"WHERE L.[{left_keys[0]}] IS NULL"
-        )
-        fragments.append(CTEFragment(name=r_cte_name, sql=r_sql, source_tool_ids=[node.tool_id]))
-        ctx.cte_schema[r_cte_name] = list(right_schema)
+        if r_passthrough:
+            ctx.cte_passthrough[r_cte_name] = cte_name
+        else:
+            r_select = _build_select_right(right_schema)
+            r_sql = (
+                f"{r_select}\n"
+                f"FROM [{left_cte}] AS L\n"
+                f"RIGHT JOIN [{right_cte}] AS R\n"
+                f"    ON {on_clause}\n"
+                f"WHERE L.[{left_keys[0]}] IS NULL"
+            )
+            fragments.append(
+                CTEFragment(name=r_cte_name, sql=r_sql, source_tool_ids=[node.tool_id])
+            )
+            ctx.cte_schema[r_cte_name] = list(right_schema)
 
     return fragments
 

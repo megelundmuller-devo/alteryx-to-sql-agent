@@ -611,6 +611,109 @@ class TestJoinTranslator:
         r_frag = next(f for f in frags if f.name == "cte_5_R")
         assert "RIGHT JOIN" in r_frag.sql
 
+    def test_join_jl_same_union_collapses_to_left_join(self):
+        """J+L both feeding the same Union → J becomes LEFT JOIN, L is a passthrough alias."""
+        from parsing.models import Connection
+        from translators.join import translate_join
+
+        cfg = {
+            "JoinInfo": [
+                {"side": "Left", "Field": [{"name": "id"}]},
+                {"side": "Right", "Field": [{"name": "id"}]},
+            ]
+        }
+        node = _node(1, "join", cfg)
+        union_node = _node(10, "union", {})
+        ctx = _make_ctx()
+        ctx.dag._nodes[1] = node
+        ctx.dag._nodes[10] = union_node
+
+        j_conn = Connection(origin_id=1, origin_anchor="Join", dest_id=10, dest_anchor="Input")
+        l_conn = Connection(origin_id=1, origin_anchor="Left", dest_id=10, dest_anchor="Input2")
+        ctx.dag._graph.add_node(1)
+        ctx.dag._graph.add_node(10)
+        ctx.dag._graph.add_edge(1, 10, connections=[j_conn, l_conn])
+
+        frags = translate_join(node, "cte_1", ["left_cte", "right_cte"], ctx)
+
+        names = [f.name for f in frags]
+        assert "cte_1" in names
+        assert "cte_1_L" not in names          # L fragment must NOT be emitted
+
+        j = next(f for f in frags if f.name == "cte_1")
+        assert "LEFT JOIN" in j.sql            # J upgraded to LEFT JOIN
+        assert "WHERE" not in j.sql            # no anti-join filter
+
+        assert ctx.cte_passthrough.get("cte_1_L") == "cte_1"  # passthrough registered
+
+    def test_join_jr_same_union_collapses_to_right_join(self):
+        """J+R both feeding the same Union → J becomes RIGHT JOIN, R is a passthrough alias."""
+        from parsing.models import Connection
+        from translators.join import translate_join
+
+        cfg = {
+            "JoinInfo": [
+                {"side": "Left", "Field": [{"name": "id"}]},
+                {"side": "Right", "Field": [{"name": "id"}]},
+            ]
+        }
+        node = _node(2, "join", cfg)
+        union_node = _node(20, "union", {})
+        ctx = _make_ctx()
+        ctx.dag._nodes[2] = node
+        ctx.dag._nodes[20] = union_node
+
+        j_conn = Connection(origin_id=2, origin_anchor="Join", dest_id=20, dest_anchor="Input")
+        r_conn = Connection(origin_id=2, origin_anchor="Right", dest_id=20, dest_anchor="Input2")
+        ctx.dag._graph.add_node(2)
+        ctx.dag._graph.add_node(20)
+        ctx.dag._graph.add_edge(2, 20, connections=[j_conn, r_conn])
+
+        frags = translate_join(node, "cte_2", ["left_cte", "right_cte"], ctx)
+
+        names = [f.name for f in frags]
+        assert "cte_2_R" not in names
+        j = next(f for f in frags if f.name == "cte_2")
+        assert "RIGHT JOIN" in j.sql
+        assert ctx.cte_passthrough.get("cte_2_R") == "cte_2"
+
+    def test_join_jlr_same_union_collapses_to_full_outer_join(self):
+        """J+L+R all feeding the same Union → J becomes FULL OUTER JOIN."""
+        from parsing.models import Connection
+        from translators.join import translate_join
+
+        cfg = {
+            "JoinInfo": [
+                {"side": "Left", "Field": [{"name": "id"}]},
+                {"side": "Right", "Field": [{"name": "id"}]},
+            ]
+        }
+        node = _node(3, "join", cfg)
+        union_node = _node(30, "union", {})
+        ctx = _make_ctx()
+        ctx.dag._nodes[3] = node
+        ctx.dag._nodes[30] = union_node
+
+        conns = [
+            Connection(origin_id=3, origin_anchor="Join", dest_id=30, dest_anchor="Input"),
+            Connection(origin_id=3, origin_anchor="Left", dest_id=30, dest_anchor="Input2"),
+            Connection(origin_id=3, origin_anchor="Right", dest_id=30, dest_anchor="Input3"),
+        ]
+        ctx.dag._graph.add_node(3)
+        ctx.dag._graph.add_node(30)
+        ctx.dag._graph.add_edge(3, 30, connections=conns)
+
+        frags = translate_join(node, "cte_3", ["left_cte", "right_cte"], ctx)
+
+        names = [f.name for f in frags]
+        assert len(frags) == 1                 # only J fragment
+        assert "cte_3_L" not in names
+        assert "cte_3_R" not in names
+        j = next(f for f in frags if f.name == "cte_3")
+        assert "FULL OUTER JOIN" in j.sql
+        assert ctx.cte_passthrough.get("cte_3_L") == "cte_3"
+        assert ctx.cte_passthrough.get("cte_3_R") == "cte_3"
+
 
 class TestUnionTranslator:
     def test_union_all(self):
@@ -630,6 +733,36 @@ class TestUnionTranslator:
         frag = translate_union(node, "cte_1", ["single"], ctx)
         assert "UNION" not in frag.sql
         assert "[single]" in frag.sql
+
+    def test_union_resolves_join_passthrough(self):
+        """Union([J, L→J]) collapses to SELECT * FROM [J] — no UNION in output."""
+        from translators.union import translate_union
+
+        node = _node(10, "union", {})
+        ctx = _make_ctx()
+        ctx.cte_passthrough["cte_join_L"] = "cte_join"
+
+        frag = translate_union(node, "cte_union", ["cte_join", "cte_join_L"], ctx)
+
+        assert "UNION" not in frag.sql
+        assert "[cte_join]" in frag.sql        # resolves to single LEFT JOIN CTE
+
+    def test_union_partial_passthrough_not_deduplicated(self):
+        """When only some inputs are passthroughs the non-aliased ones are preserved."""
+        from translators.union import translate_union
+
+        node = _node(11, "union", {})
+        ctx = _make_ctx()
+        ctx.cte_passthrough["cte_a_L"] = "cte_a"
+
+        frag = translate_union(node, "cte_union", ["cte_a", "cte_a_L", "cte_b"], ctx)
+
+        # cte_a_L resolves to cte_a → deduplicated → effective inputs: [cte_a, cte_b]
+        assert "UNION ALL" in frag.sql
+        assert "[cte_a]" in frag.sql
+        assert "[cte_b]" in frag.sql
+        # cte_a_L should not appear — it was resolved away
+        assert "cte_a_L" not in frag.sql
 
 
 class TestUniqueTranslator:

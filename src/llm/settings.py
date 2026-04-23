@@ -21,7 +21,7 @@ class LLMSettings(BaseSettings):
 
     vertex_project: str = Field(..., alias="VERTEX_PROJECT")
     vertex_location: str = Field(..., alias="VERTEX_LOCATION")
-    model_id: str = Field("google-vertex:gemini-2.0-flash", alias="VERTEX_MODEL")
+    model_id: str = Field("google-vertex:gemini-2.5-pro", alias="VERTEX_MODEL")
 
     # How many times the agent retries a failed LLM call before giving up
     llm_max_retries: int = Field(3, alias="LLM_MAX_RETRIES")

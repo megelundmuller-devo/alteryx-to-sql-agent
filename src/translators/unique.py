@@ -6,9 +6,13 @@ Unique deduplicates rows.  It has two output anchors:
 
 Translation strategy
 --------------------
-We implement this using ROW_NUMBER() OVER (PARTITION BY <key_cols> ORDER BY (SELECT NULL)):
+We implement this using ROW_NUMBER() OVER (PARTITION BY <key_cols> ORDER BY ...):
     Unique    → WHERE _rn = 1
     Duplicate → WHERE _rn > 1
+
+If the upstream CTE was produced by a Sort tool (indicated by a _sort_order column
+in cte_schema), we use ORDER BY _sort_order so the sort intent is preserved.
+Otherwise we fall back to ORDER BY (SELECT NULL) — non-deterministic but valid T-SQL.
 
 Unique key config lives in:
     <UniqueFields>
@@ -45,6 +49,9 @@ def translate_unique(
 
     partition_cols = ", ".join(f"[{f.get('field', '')}]" for f in fields)
 
+    upstream_cols = {fs.name for fs in ctx.cte_schema.get(upstream, [])}
+    order_by = "_sort_order" if "_sort_order" in upstream_cols else "(SELECT NULL)"
+
     sql = (
         f"-- Unique anchor: first occurrence per key\n"
         f"-- For duplicates anchor: change WHERE _rn = 1 to WHERE _rn > 1\n"
@@ -54,7 +61,7 @@ def translate_unique(
         f"        *,\n"
         f"        ROW_NUMBER() OVER (\n"
         f"            PARTITION BY {partition_cols}\n"
-        f"            ORDER BY (SELECT NULL)\n"
+        f"            ORDER BY {order_by}\n"
         f"        ) AS _rn\n"
         f"    FROM [{upstream}]\n"
         f") AS _deduped\n"

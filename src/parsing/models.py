@@ -82,6 +82,8 @@ class CTEFragment(BaseModel):
     # Set by the LLM repair pass when column-reference errors were auto-fixed.
     llm_repaired: bool = False
     llm_repair_notes: str = ""
+    chunk_id: int | None = None
+    chunk_output_name: str | None = None
 
 
 class AlteryxStepDoc(BaseModel):

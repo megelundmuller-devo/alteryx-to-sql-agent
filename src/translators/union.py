@@ -36,6 +36,17 @@ def translate_union(
     input_ctes: list[str],
     ctx: TranslationContext,
 ) -> CTEFragment:
+    # Resolve passthrough aliases (e.g. J+L from the same Join collapsed into LEFT JOIN).
+    # Deduplicate while preserving order so [J, L→J] becomes [J].
+    resolved: list[str] = []
+    seen_resolved: set[str] = set()
+    for cte in input_ctes:
+        actual = ctx.cte_passthrough.get(cte, cte)
+        if actual not in seen_resolved:
+            resolved.append(actual)
+            seen_resolved.add(actual)
+    input_ctes = resolved
+
     if not input_ctes:
         ctx.warnings.append(f"Tool {node.tool_id} (union): no input CTEs found — generating stub.")
         return CTEFragment(

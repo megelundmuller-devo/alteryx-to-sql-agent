@@ -36,12 +36,14 @@ Alteryx expression syntax reference (subset handled here)
 * RIGHT([col], n)          → RIGHT([col], n)
 * SUBSTRING([col], s, l)   → SUBSTRING([col], s, l)  — same
 * REPLACE([c], [f], [t])   → REPLACE([c], [f], [t])  — same
-* ABS / CEILING / FLOOR / ROUND / SQRT — same in T-SQL; passed through
+* ABS / CEILING / FLOOR / SQRT — same in T-SQL; passed through
+* ROUND(x, 0.01)             → ROUND(x, 2)  (Alteryx 2nd arg is a multiple, T-SQL is dp count)
 * [Engine.XYZ]             → @XYZ  (Alteryx engine variable → SQL variable)
 """
 
 from __future__ import annotations
 
+import math
 import re
 
 # ---------------------------------------------------------------------------
@@ -244,6 +246,66 @@ _COMPOUND_PATTERNS: list[tuple[re.Pattern[str], str]] = [
 ]
 
 
+_ROUND_CALL_RE = re.compile(r"\bROUND\s*\(", re.IGNORECASE)
+_NUMERIC_LITERAL_RE = re.compile(r"^[+-]?(?:\d+\.?\d*|\.\d+)$")
+
+
+def _convert_round_calls(expr: str) -> str:
+    """Convert Alteryx ROUND(x, mult) → T-SQL ROUND(x, decimal_places).
+
+    Alteryx's second arg is a rounding multiple (0.01 = nearest 0.01, i.e. 2 dp).
+    T-SQL's second arg is the number of decimal places directly.
+    Conversion: decimal_places = int(round(-log10(mult))).
+
+    If the second arg is not a numeric literal the call is left unchanged.
+    """
+    result: list[str] = []
+    pos = 0
+    for m in _ROUND_CALL_RE.finditer(expr):
+        result.append(expr[pos : m.start()])
+        start = m.end() - 1  # index of the opening '('
+        depth = 0
+        last_comma = -1
+        end = start
+        for i in range(start, len(expr)):
+            c = expr[i]
+            if c == "(":
+                depth += 1
+            elif c == ")":
+                depth -= 1
+                if depth == 0:
+                    end = i
+                    break
+            elif c == "," and depth == 1:
+                last_comma = i
+
+        if last_comma == -1 or end <= last_comma:
+            # Malformed or single-arg call — pass through unchanged.
+            result.append(expr[m.start() : end + 1])
+            pos = end + 1
+            continue
+
+        val_part = expr[start + 1 : last_comma]
+        mult_str = expr[last_comma + 1 : end].strip()
+
+        if _NUMERIC_LITERAL_RE.match(mult_str):
+            try:
+                mult = float(mult_str)
+                if mult > 0:
+                    dp = int(round(-math.log10(mult)))
+                    result.append(f"ROUND({val_part}, {dp})")
+                else:
+                    result.append(f"ROUND({val_part}, {mult_str})")
+            except (ValueError, OverflowError):
+                result.append(f"ROUND({val_part}, {mult_str})")
+        else:
+            result.append(f"ROUND({val_part}, {mult_str})")
+        pos = end + 1
+
+    result.append(expr[pos:])
+    return "".join(result)
+
+
 def convert_expression(expression: str, engine_vars: set[str] | None = None) -> str:
     """Convert an Alteryx expression string to its T-SQL equivalent.
 
@@ -281,7 +343,10 @@ def convert_expression(expression: str, engine_vars: set[str] | None = None) -> 
     for pattern, replacement in _FUNCTION_RENAMES:
         expr = pattern.sub(replacement, expr)
 
-    # 6. Wrap date casts in CONVERT(NVARCHAR) when used in string concatenation.
+    # 6. Convert Alteryx ROUND(x, mult) → T-SQL ROUND(x, decimal_places).
+    expr = _convert_round_calls(expr)
+
+    # 7. Wrap date casts in CONVERT(NVARCHAR) when used in string concatenation.
     #    Must run after function renames so DATETIMETODAY() → CAST(GETDATE() AS DATE)
     #    is already in place before this step inspects the expression.
     expr = _fix_date_string_concat(expr)

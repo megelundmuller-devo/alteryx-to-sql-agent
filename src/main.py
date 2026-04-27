@@ -37,6 +37,7 @@ from rich.table import Table
 sys.path.insert(0, str(Path(__file__).parent))
 
 from analysis.liveness import run_liveness_pass
+from assembly.source_simplifier import simplify_stub_sources
 from llm.sql_enhancer import enhance_sql
 from analysis.llm_validator import repair_fragments
 from assembly.cte_builder import build_sql
@@ -203,6 +204,7 @@ def _process_one(
 
         stem = workflow_path.stem
         sql_path = output_dir / f"{stem}.sql"
+        sql = simplify_stub_sources(sql)
         sql_path.write_text(sql, encoding="utf-8")
         console.print(f"    [bold]SQL written to[/bold]  {sql_path}")
 

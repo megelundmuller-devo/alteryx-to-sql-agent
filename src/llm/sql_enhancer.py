@@ -48,9 +48,19 @@ Simplification rules — apply all that are safe:
    the SELECT column list to only the columns referenced anywhere downstream;
    do not load columns that are never used.
 
-6. COMPANY/CUSTOMER CLEANUP: When a source table is filtered and only a small
-   subset of columns are used, reflect that in the stub SELECT list and
-   eliminate the intermediate cleaning CTEs for unused columns.
+6. STUB SOURCE UNWRAPPING: When a SELECT INTO temp table wraps a simple STUB
+   SELECT … FROM <table> in a subquery, remove the wrapper entirely.
+   Both forms should be collapsed:
+     - "SELECT * INTO #t FROM (-- STUB SELECT cols FROM T) AS [_src];"
+       → "-- STUB\nSELECT cols INTO #t FROM T;"
+     - "SELECT [a],[b] INTO #t FROM (-- STUB SELECT [a],[b],[c] FROM T) AS [_src];"
+       → "-- STUB\nSELECT [a],[b] INTO #t FROM T;"
+   Only unwrap when the inner query is a plain SELECT … FROM <table> with no
+   WHERE, JOIN, GROUP BY, or subquery. Keep the STUB comment on its own line
+   before the SELECT.
+
+7. SOURCE COLUMN PRUNING: In stub SELECT lists, include only columns that are
+   referenced downstream; drop the rest.
 
 Constraints you must respect:
 - Keep ALL -- !!! STUB — requires manual review !!! comments exactly as-is.

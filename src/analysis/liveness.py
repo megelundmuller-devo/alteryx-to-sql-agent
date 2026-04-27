@@ -73,6 +73,17 @@ def _has_select_star(sql: str) -> bool:
     return bool(re.search(r"\bSELECT\s+\*", sql, re.IGNORECASE))
 
 
+def _has_group_by(sql: str) -> bool:
+    """Return True when the CTE aggregates via GROUP BY.
+
+    GROUP BY CTEs have a schema determined entirely by their configured aggregate
+    expressions.  Injecting additional columns would produce invalid T-SQL (the
+    column would be neither grouped nor aggregated), so the liveness pass treats
+    them as opaque boundaries.
+    """
+    return bool(re.search(r"\bGROUP\s+BY\b", sql, re.IGNORECASE))
+
+
 def _widen_select_sql(sql: str, cols_to_add: list[str]) -> str:
     """Inject *cols_to_add* into a deterministic SELECT CTE body.
 
@@ -145,6 +156,11 @@ def _find_and_widen(
                 return True
         return False
 
+    # GROUP BY CTEs are opaque: their output schema is fixed by their aggregation
+    # expressions.  Injecting a column would produce invalid T-SQL.
+    if _has_group_by(frag.sql):
+        return False
+
     # Explicit SELECT CTE.
     # Already emitting this column?  Then it already flows through — no widening needed.
     if any(f.name == col for f in ctx.cte_schema.get(cte_name, [])):
@@ -206,7 +222,7 @@ def run_liveness_pass(
         any_change = False
 
         for frag in list(frag_map.values()):
-            if frag.is_stub or _has_select_star(frag.sql):
+            if frag.is_stub or _has_select_star(frag.sql) or _has_group_by(frag.sql):
                 continue
 
             input_names = ctx.cte_inputs.get(frag.name, [])

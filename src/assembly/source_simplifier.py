@@ -20,127 +20,126 @@ it to:
     INTO #name
     FROM SomeTable;
 
-A second pattern handled here is an outer SELECT with an explicit column list
-wrapping the same kind of simple stub — produced either by the AI enhancer or
-by future pipeline changes:
+Table references can be simple names, bracketed names, or qualified names
+(e.g. SomeTable, [SomeTable], [dbo].[SomeTable]).
 
-    SELECT
-        [col1], [col2]
-    INTO #name
-    FROM (
-        -- !!! STUB...
-        SELECT [col1], [col2], [col3], [col4]
-        FROM SomeTable
-    ) AS [_src];
-
-Both collapse to the same unwrapped form.  If the inner query is complex
-(contains WHERE / JOIN / GROUP BY / subquery keywords) the pattern does not
-match and the block is left unchanged.
+This module uses a line-by-line state-machine parser instead of a single
+large regex, which avoids catastrophic backtracking on large SQL files.
 """
 
 from __future__ import annotations
 
 import re
 
-# ---------------------------------------------------------------------------
-# Pattern A — outer is "SELECT *" (current cte_builder default output)
-# ---------------------------------------------------------------------------
-# Matches:
-#     <indent>SELECT * INTO #name FROM (
-#     <inner_indent>-- !!! STUB...
-#     <inner_indent>SELECT
-#     <col_indent>[col1],
-#     ...
-#     <inner_indent>FROM TableName
-#     <indent>) AS [_src];
-_PATTERN_A = re.compile(
-    r"(?P<indent>[ \t]+)SELECT \* INTO (?P<temp>#\w+) FROM \(\n"
-    r"(?P<stub>[ \t]+-- !!! STUB[^\n]*)\n"
-    r"[ \t]+SELECT\n"
-    r"(?P<inner_cols>(?:[ \t]+[^\n]+\n)*?)"
-    r"[ \t]+FROM (?P<table>[A-Za-z_]\w*)[ \t]*\n"
-    r"[ \t]+\) AS \[_src\];",
+# Matches: <indent>SELECT * INTO #name FROM (
+_SELECT_STAR_INTO_RE = re.compile(
+    r"^(?P<indent>[ \t]+)SELECT \* INTO (?P<temp>#\w+) FROM \($"
 )
 
-# ---------------------------------------------------------------------------
-# Pattern B — outer has an explicit column list (AI-enhanced or future output)
-# ---------------------------------------------------------------------------
-# Matches:
-#     <indent>SELECT
-#     <col_indent>[col1],
-#     <col_indent>[col2]
-#     <indent>INTO #name
-#     <indent>FROM (
-#     <inner_indent>-- !!! STUB...
-#     <inner_indent>SELECT
-#     <inner_col_indent>[more], [cols]
-#     <inner_indent>FROM TableName
-#     <indent>) AS [_src];
-_PATTERN_B = re.compile(
-    r"(?P<indent>[ \t]+)SELECT\n"
-    r"(?P<outer_cols>(?:[ \t]+[^\n]+,\n)*[ \t]+[^\n]+)\n"
-    r"[ \t]+INTO (?P<temp>#\w+)\n"
-    r"[ \t]+FROM \(\n"
-    r"(?P<stub>[ \t]+-- !!! STUB[^\n]*)\n"
-    r"[ \t]+SELECT\n"
-    r"(?:[ \t]+[^\n]+\n)*?"
-    r"[ \t]+FROM (?P<table>[A-Za-z_]\w*)[ \t]*\n"
-    r"[ \t]+\) AS \[_src\];",
+# Matches: <indent>-- !!! STUB...
+_STUB_RE = re.compile(r"^[ \t]+-- !!! STUB")
+
+# Matches: <indent>SELECT  (bare SELECT, no columns on same line)
+_SELECT_KW_RE = re.compile(r"^[ \t]+SELECT$", re.IGNORECASE)
+
+# Matches a FROM line with a T-SQL table reference.
+# Accepts: simple, [bracketed], schema.table, [schema].[table], etc.
+_FROM_TABLE_RE = re.compile(
+    r"^[ \t]+FROM (?P<table>(?:\[[^\]]*\]|\w+)(?:\.(?:\[[^\]]*\]|\w+))*)[ \t]*$",
+    re.IGNORECASE,
 )
 
-# Inner query is only safe to unwrap when it has no these keywords after SELECT
-_COMPLEX_INNER = re.compile(r"\b(WHERE|JOIN|GROUP\s+BY|HAVING|ORDER\s+BY|UNION)\b", re.IGNORECASE)
+# Matches: <indent>FROM  (any FROM, including complex ones like JOIN subqueries)
+_FROM_ANY_RE = re.compile(r"^[ \t]+FROM\b", re.IGNORECASE)
+
+# Matches: <indent>) AS [_src];
+_CLOSING_RE = re.compile(r"^[ \t]+\) AS \[_src\];")
+
+# Inner query is only safe to unwrap when it contains none of these keywords.
+_COMPLEX_INNER = re.compile(
+    r"\b(WHERE|JOIN|GROUP\s+BY|HAVING|ORDER\s+BY|UNION)\b", re.IGNORECASE
+)
 
 
-def _build_unwrapped(indent: str, stub_line: str, col_lines_raw: str, temp: str, table: str) -> str:
-    """Build the simplified SELECT ... INTO #temp FROM table; block."""
-    col_lines = [
-        f"{indent}    {line.strip()}"
-        for line in col_lines_raw.splitlines()
-        if line.strip()
-    ]
-    return "\n".join([
-        f"{indent}{stub_line}",
-        f"{indent}SELECT",
-        *col_lines,
-        f"{indent}INTO {temp}",
-        f"{indent}FROM {table};",
-    ])
-
-
-def _replace_a(m: re.Match) -> str:
-    inner_block = m.group("inner_cols")
-    if _COMPLEX_INNER.search(inner_block):
-        return m.group(0)  # leave complex inner queries unchanged
-    return _build_unwrapped(
-        indent=m.group("indent"),
-        stub_line=m.group("stub").strip(),
-        col_lines_raw=inner_block,
-        temp=m.group("temp"),
-        table=m.group("table"),
+def _build_simplified(
+    indent: str, stub_line: str, col_lines: list[str], temp: str, table: str
+) -> str:
+    col_parts = [f"{indent}    {ln.strip()}" for ln in col_lines if ln.strip()]
+    return "\n".join(
+        [
+            f"{indent}{stub_line}",
+            f"{indent}SELECT",
+            *col_parts,
+            f"{indent}INTO {temp}",
+            f"{indent}FROM {table};",
+        ]
     )
 
 
-def _replace_b(m: re.Match) -> str:
-    # Use outer column list — it's already the filtered/correct set
-    outer_cols = m.group("outer_cols")
-    if _COMPLEX_INNER.search(m.group(0)):
-        return m.group(0)
-    return _build_unwrapped(
-        indent=m.group("indent"),
-        stub_line=m.group("stub").strip(),
-        col_lines_raw=outer_cols,
-        temp=m.group("temp"),
-        table=m.group("table"),
-    )
+def _try_simplify(
+    lines: list[str], start: int, m: re.Match
+) -> tuple[str | None, int]:
+    """Try to parse and simplify a SELECT * INTO #name FROM ( block.
+
+    Returns (simplified_text, next_line_index) on success, or (None, start)
+    when the block does not match the expected shape.
+    """
+    indent = m.group("indent")
+    temp = m.group("temp")
+    i = start + 1
+    n = len(lines)
+
+    if i >= n or not _STUB_RE.match(lines[i]):
+        return None, start
+    stub_line = lines[i].strip()
+    i += 1
+
+    if i >= n or not _SELECT_KW_RE.match(lines[i]):
+        return None, start
+    i += 1
+
+    col_lines: list[str] = []
+    while i < n:
+        line = lines[i]
+
+        from_m = _FROM_TABLE_RE.match(line)
+        if from_m:
+            table = from_m.group("table")
+            i += 1
+            if i >= n or not _CLOSING_RE.match(lines[i]):
+                return None, start
+            if _COMPLEX_INNER.search("\n".join(col_lines)):
+                return None, start
+            return _build_simplified(indent, stub_line, col_lines, temp, table), i + 1
+
+        if _FROM_ANY_RE.match(line):
+            # FROM with a complex reference (brackets, subquery, etc.) — don't simplify.
+            return None, start
+
+        col_lines.append(line)
+        i += 1
+
+    return None, start
 
 
 def simplify_stub_sources(sql: str) -> str:
     """Remove subquery wrappers from simple stub source temp tables.
 
-    Safe to call on any generated SQL — only matches the specific patterns
+    Safe to call on any generated SQL — only matches the specific pattern
     described in the module docstring; leaves everything else unchanged.
     """
-    sql = _PATTERN_A.sub(_replace_a, sql)
-    sql = _PATTERN_B.sub(_replace_b, sql)
-    return sql
+    lines = sql.split("\n")
+    out: list[str] = []
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        m = _SELECT_STAR_INTO_RE.match(line)
+        if m:
+            simplified, end_i = _try_simplify(lines, i, m)
+            if simplified is not None:
+                out.append(simplified)
+                i = end_i
+                continue
+        out.append(line)
+        i += 1
+    return "\n".join(out)

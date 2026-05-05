@@ -6,6 +6,7 @@ Usage (single file):
     uv run python src/main.py examples/my_workflow.yxmd --dry-run
     uv run python src/main.py examples/my_workflow.yxmd --no-docs
     uv run python src/main.py examples/my_workflow.yxmd --ai-enhanced
+    uv run python src/main.py examples/my_workflow.yxmd --ai-enhance-only
 
 Usage (batch — all .yxmd files in a directory):
     uv run python src/main.py examples/
@@ -101,6 +102,15 @@ def _parse_args() -> argparse.Namespace:
         help=(
             "After writing the .sql file, send it to Gemini Flash in one shot "
             "and write a simplified version to <name>_enhanced.sql"
+        ),
+    )
+    parser.add_argument(
+        "--ai-enhance-only",
+        action="store_true",
+        help=(
+            "Skip the full pipeline — read the existing <name>.sql from the output "
+            "directory and write only <name>_enhanced.sql. Useful for re-running "
+            "enhancement without regenerating the SQL."
         ),
     )
     return parser.parse_args()
@@ -234,6 +244,39 @@ def _process_one(
     return ctx.warnings
 
 
+def _enhance_existing(workflow_path: Path, output_dir: Path) -> None:
+    """Read <stem>.sql from output_dir and write <stem>_enhanced.sql."""
+    stem = workflow_path.stem
+    sql_path = output_dir / f"{stem}.sql"
+    if not sql_path.exists():
+        console.print(
+            f"[bold red]ERROR:[/bold red] {sql_path} not found — "
+            "run without --ai-enhance-only first to generate it."
+        )
+        sys.exit(1)
+
+    sql = sql_path.read_text(encoding="utf-8")
+    console.print(f"  [bold]Enhancing[/bold] {sql_path.name} ({len(sql):,} chars)")
+
+    with Progress(
+        SpinnerColumn(),
+        TextColumn("[progress.description]{task.description}"),
+        TimeElapsedColumn(),
+        console=console,
+        transient=True,
+    ) as progress:
+        task = progress.add_task("Enhancing SQL with Gemini...", total=None)
+        try:
+            enhanced_sql = enhance_sql(sql)
+            enhanced_path = output_dir / f"{stem}_enhanced.sql"
+            enhanced_path.write_text(enhanced_sql, encoding="utf-8")
+            console.print(f"    [bold]Enhanced SQL written to[/bold]  {enhanced_path}")
+        except Exception as exc:  # noqa: BLE001
+            console.print(f"    [yellow]⚠  AI enhancement failed:[/yellow] {exc}")
+        finally:
+            progress.remove_task(task)
+
+
 def main() -> None:
     args = _parse_args()
 
@@ -271,6 +314,13 @@ def main() -> None:
 
     output_dir: Path = (args.output_dir or default_output).resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
+
+    if args.ai_enhance_only:
+        for workflow_path in files:
+            if len(files) > 1:
+                console.print(f"\n[cyan]▶[/cyan] {workflow_path.name}")
+            _enhance_existing(workflow_path, output_dir)
+        return
 
     if len(files) > 1:
         console.print(

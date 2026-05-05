@@ -39,9 +39,14 @@ _INTERNAL_COLS = {"_rn", "_stub", "_macro_stub", "_sort_order", "_deduped"}
 # mistakenly treated as upstream column references.  Applied before bracket scanning.
 _AS_ALIAS_RE = re.compile(r"\bAS\s+\[[^\]]+\]", re.IGNORECASE)
 
+# Strips -- single-line comments so bracketed table names in comment text (e.g.
+# "-- Output destination: [target_table]") are not treated as column references.
+_COMMENT_RE = re.compile(r"--[^\n]*")
+
 
 def _extract_col_refs(sql: str, known_ctes: set[str]) -> set[str]:
-    sql_no_aliases = _AS_ALIAS_RE.sub("", sql)
+    sql_no_comments = _COMMENT_RE.sub("", sql)
+    sql_no_aliases = _AS_ALIAS_RE.sub("", sql_no_comments)
     return {
         m.group(1)
         for m in _BRACKET_RE.finditer(sql_no_aliases)

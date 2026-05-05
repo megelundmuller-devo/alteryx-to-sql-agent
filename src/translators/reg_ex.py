@@ -15,6 +15,13 @@ pattern is simple enough:
   → ``REPLACE([Field], '\\uXXXX', N'replacement')``
   These appear when Alteryx workflows normalise URL/JSON-encoded Unicode chars.
 
+* Strip literal characters (Replace + empty expression): patterns that are a
+  simple alternation of single literal characters, where each alternative may be
+  optionally prefixed by ``/*`` (zero-or-more slashes — slashes are consumed but
+  not independently stripped), are translated to chained REPLACE([F], 'c', '').
+  Example: ``/*{|}`` = (``/*{``) OR (``}``) → strips ``{`` and ``}``
+                      → REPLACE(REPLACE([F], '{', ''), '}', '')
+
 All other patterns produce a documented stub.  The upstream schema is always
 propagated so the stub SELECT does not break downstream schema inference.
 """
@@ -29,6 +36,36 @@ from translators.context import TranslationContext
 # Matches the Alteryx regex pattern for a single Unicode escape group: (\uXXXX)
 # In the parsed config, two backslashes are stored as-is from XML.
 _UNICODE_ESCAPE_RE = re.compile(r"^\(\\\\u([0-9a-fA-F]{4})\)$")
+
+# Matches a single alternation part that is a literal char, optionally preceded
+# by /* (zero-or-more slashes quantifier).  The char itself must not be a regex
+# metacharacter.  { and } are intentionally allowed — they are only special
+# inside quantifiers like {3,5}, not when used standalone.
+_STRIP_PART_RE = re.compile(r"^(?:/\*)?([^.*+?^$()\[\]\\|])$")
+
+
+def _literal_chars_to_strip(pattern: str) -> list[str] | None:
+    """Return the literal chars to strip for a Replace+empty pattern, or None if too complex.
+
+    Splits the pattern on the ``|`` alternation operator.  Each alternative must
+    be either a bare literal char or ``/*<char>`` (zero-or-more slashes then
+    char).  The slashes are consumed by the match but are not independently
+    stripped — only the trailing literal char is added to the result.
+
+    Examples::
+
+        ``"``     → ['"']
+        ``{|}``   → ['{', '}']      (| is the alternation operator)
+        ``/*{|}`` → ['{', '}']      (/*{ OR } — slashes consumed, not stripped)
+        ``/*"``   → ['"']
+    """
+    chars: list[str] = []
+    for part in pattern.split("|"):
+        m = _STRIP_PART_RE.match(part)
+        if not m:
+            return None
+        chars.append(m.group(1))
+    return chars if chars else None
 
 
 def _get_regex_value(cfg: dict) -> str:
@@ -89,7 +126,7 @@ def translate_reg_ex(
     if method == "Replace" and field and pattern:
         replace_expr = _get_replace_expr(cfg)
 
-        # Deterministic path: Unicode escape replacement  (\\uXXXX) → char
+        # Deterministic path 1: Unicode escape replacement  (\\uXXXX) → char
         m = _UNICODE_ESCAPE_RE.match(pattern)
         if m:
             hex_code = m.group(1)
@@ -102,6 +139,19 @@ def translate_reg_ex(
                 replacement_sql = f"REPLACE([{field}], '{search_str}', N'')"
             sql = _select_with_replacement(schema, field, replacement_sql, upstream)
             return CTEFragment(name=cte_name, sql=sql, source_tool_ids=[node.tool_id])
+
+        # Deterministic path 2: strip literal characters (empty replacement expression)
+        # | is the alternation operator; /* prefix means "zero-or-more slashes before char"
+        # e.g. /*{|}  =  (/*{) OR (})  →  REPLACE(REPLACE([F], '{', ''), '}', '')
+        if not replace_expr:
+            chars = _literal_chars_to_strip(pattern)
+            if chars is not None:
+                expr = f"[{field}]"
+                for ch in chars:
+                    escaped = ch.replace("'", "''")
+                    expr = f"REPLACE({expr}, '{escaped}', '')"
+                sql = _select_with_replacement(schema, field, expr, upstream)
+                return CTEFragment(name=cte_name, sql=sql, source_tool_ids=[node.tool_id])
 
     # Fallback: emit a pass-through stub with the Alteryx expression documented.
     ctx.warnings.append(

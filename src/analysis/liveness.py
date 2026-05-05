@@ -46,15 +46,20 @@ _INTERNAL_COLS = {"_rn", "_stub", "_macro_stub", "_sort_order", "_deduped"}
 # mistakenly treated as upstream column references.  Applied before bracket scanning.
 _AS_ALIAS_RE = re.compile(r"\bAS\s+\[[^\]]+\]", re.IGNORECASE)
 
+# Strips -- single-line comments so bracketed table names in comment text (e.g.
+# "-- Output destination: [target_table]") are not treated as column references.
+_COMMENT_RE = re.compile(r"--[^\n]*")
+
 
 def _extract_col_refs(sql: str, known_ctes: set[str]) -> set[str]:
     """Return column names referenced in *sql*, excluding CTE names and internals.
 
-    ``AS [alias]`` pairs are stripped first so that the alias name on the right-hand
-    side of a SELECT rename (e.g. ``[ITEMNUMBER] AS [ItemNumber]``) is not counted
-    as a missing upstream column reference.
+    Comments are stripped first, then ``AS [alias]`` pairs, so that neither
+    comment text nor alias names on the right-hand side of a rename are counted
+    as missing upstream column references.
     """
-    sql_no_aliases = _AS_ALIAS_RE.sub("", sql)
+    sql_no_comments = _COMMENT_RE.sub("", sql)
+    sql_no_aliases = _AS_ALIAS_RE.sub("", sql_no_comments)
     refs: set[str] = set()
     for m in _BRACKET_RE.finditer(sql_no_aliases):
         name = m.group(1)
@@ -165,6 +170,13 @@ def _find_and_widen(
     # Already emitting this column?  Then it already flows through — no widening needed.
     if any(f.name == col for f in ctx.cte_schema.get(cte_name, [])):
         return True
+
+    # Rename boundary: the column appears in this CTE's SQL (e.g. as the source of a
+    # rename: [col] AS [alias]) but is not forwarded under its original name.  Injecting
+    # it as a plain passthrough would create a duplicate.  The downstream reference to
+    # the original name is wrong; let the repair agent fix it instead.
+    if f"[{col}]" in _COMMENT_RE.sub("", frag.sql):
+        return False
 
     # Try to find the column in a direct input's schema.
     for inp_name in input_names:

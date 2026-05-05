@@ -32,16 +32,6 @@ def _make_agent() -> Agent:
     )
 
 
-_agent: Agent | None = None
-
-
-def _get_agent() -> Agent:
-    global _agent
-    if _agent is None:
-        _agent = _make_agent()
-    return _agent
-
-
 def _strip_fences(text: str) -> str:
     text = text.strip()
     if text.startswith("```"):
@@ -87,7 +77,7 @@ def repair_cte_llm(
     )
 
     try:
-        result = _get_agent().run_sync(prompt)
+        result = _make_agent().run_sync(prompt)
         repaired = _strip_fences(result.output)
         return repaired if repaired else None
     except Exception:  # noqa: BLE001

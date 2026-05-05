@@ -237,19 +237,39 @@ def translate_text_input(
 # ---------------------------------------------------------------------------
 
 
-def _extract_output_table(cfg: dict) -> str | None:
-    """Extract the destination table name from a DbFileOutput config.
+_FILE_FORMAT_LABELS: dict[str, str] = {
+    "19": "Alteryx DB (.yxdb)",
+    "0": "CSV/text file",
+    "25": "Excel file",
+    "23": "SQL Server (OleDB)",
+}
 
-    Alteryx stores the destination as: alias|||TableName  in <File _text>.
-    Returns the table name string, or None if it cannot be determined.
+
+def _parse_output_destination(cfg: dict) -> tuple[str | None, str, str]:
+    """Return (sql_table, label, raw_path) for a DbFileOutput config.
+
+    sql_table is the bare table name when the output is a SQL Server table,
+    or None for file-based outputs.  label is a human-readable format name.
+    raw_path is the full connection string or file path from the config.
     """
     file_val = cfg.get("File", "")
-    file_text = file_val.get("_text", "") if isinstance(file_val, dict) else str(file_val or "")
-    if "|||" in file_text:
-        table = file_text.split("|||", 1)[1].strip()
-        if table:
-            return table
-    return None
+    raw = file_val.get("_text", "") if isinstance(file_val, dict) else str(file_val or "")
+    fmt = str(
+        (file_val.get("FileFormat", "") if isinstance(file_val, dict) else "")
+        or cfg.get("FileFormat", "")
+    )
+    label = _FILE_FORMAT_LABELS.get(fmt, f"format {fmt}" if fmt else "unknown format")
+
+    if "|||" in raw:
+        after = raw.split("|||", 1)[1].strip()
+        # SQL Server outputs (FileFormat 23) have alias|||TableName; others have path|||Sheet
+        if fmt == "23" and after:
+            connection_alias = raw.split("|||", 1)[0].removeprefix("aka:").strip()
+            return after, f"SQL Server via '{connection_alias}'", raw
+        # Excel / other: show the sheet name but treat as file output
+        return None, label, raw
+
+    return None, label, raw
 
 
 def translate_db_file_output(
@@ -260,41 +280,39 @@ def translate_db_file_output(
 ) -> CTEFragment:
     """Translate a DbFileOutput node.
 
-    Emits the INSERT INTO statement as a SQL comment above a pass-through SELECT,
-    so the CTE chain stays valid while making the intent clear.  If the target
-    table can be extracted from the config it is used directly; otherwise a stub
-    is emitted.
+    Emits the destination info as SQL comments above a pass-through SELECT so the
+    CTE chain stays valid while making the intent clear for every output format.
+    SQL Server outputs also get an INSERT INTO hint; file outputs show the path.
     """
     cfg = node.config
     upstream = input_ctes[0] if input_ctes else "-- NO_UPSTREAM"
-
-    target_table = _extract_output_table(cfg)
     output_option = cfg.get("FormatSpecificOptions", {}).get("OutputOption", "Overwrite")
 
-    if target_table:
+    sql_table, label, raw_path = _parse_output_destination(cfg)
+
+    if sql_table:
         ctx.warnings.append(
-            f"Tool {node.tool_id} (db_file_output): writes to [{target_table}] "
-            f"(mode: {output_option}). Replace the trailing SELECT in the final script "
-            f"with: INSERT INTO [{target_table}] SELECT * FROM [{upstream}]"
+            f"Tool {node.tool_id} (db_file_output): writes to [{sql_table}] "
+            f"(mode: {output_option}). Replace the trailing SELECT with: "
+            f"INSERT INTO [{sql_table}] SELECT * FROM [{upstream}]"
         )
         sql = (
-            f"-- Output destination: [{target_table}] (mode: {output_option})\n"
+            f"-- Output destination: [{sql_table}] ({label}, mode: {output_option})\n"
             f"-- Replace trailing SELECT with:\n"
-            f"--   INSERT INTO [{target_table}] SELECT * FROM [{upstream}]\n"
+            f"--   INSERT INTO [{sql_table}] SELECT * FROM [{upstream}]\n"
             f"SELECT * FROM [{upstream}]"
         )
         return CTEFragment(name=cte_name, sql=sql, source_tool_ids=[node.tool_id])
 
-    # Could not determine target — fall back to stub
-    file_val = cfg.get("File", "")
-    file_text = file_val.get("_text", "") if isinstance(file_val, dict) else str(file_val or "")
+    # File-based output — emit destination path as a comment stub
+    display_path = raw_path[:120] if raw_path else "<unknown>"
     ctx.warnings.append(
-        f"Tool {node.tool_id} (db_file_output): could not extract target table "
-        f"from connection '{file_text[:80]}'. Stub emitted."
+        f"Tool {node.tool_id} (db_file_output): file output to '{display_path}' ({label}). "
+        f"Manual implementation required."
     )
-
     sql = (
-        f"-- TODO: replace with INSERT INTO <destination> SELECT * FROM [{upstream}]\n"
+        f"-- Output destination: {display_path} ({label})\n"
+        f"-- TODO: implement file export manually\n"
         f"SELECT * FROM [{upstream}]"
     )
     return CTEFragment(name=cte_name, sql=sql, source_tool_ids=[node.tool_id], is_stub=True)

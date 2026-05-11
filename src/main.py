@@ -218,9 +218,9 @@ def _process_one(
         sql_path.write_text(sql, encoding="utf-8")
         console.print(f"    [bold]SQL written to[/bold]  {sql_path}")
 
-        # AI-enhanced simplification — one Gemini Flash call, full file in one shot
+        # AI-enhanced simplification
         if args.ai_enhanced:
-            enhance_task = progress.add_task("Enhancing SQL with Gemini Flash...", total=None)
+            enhance_task = progress.add_task("Enhancing SQL...", total=None)
             try:
                 enhanced_sql = enhance_sql(sql)
                 enhanced_path = output_dir / f"{stem}_enhanced.sql"

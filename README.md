@@ -69,6 +69,18 @@ Writes two files next to the input by default:
 uv run python src/main.py workflow.yxmd --output-dir output/
 ```
 
+### Shorten tool translation with AI
+
+```bash
+uv run python src/main.py workflow.yxmd --output-dir output/ --ai-enhanced
+```
+
+### Run only AI enhancement
+
+```bash
+uv run python src/main.py workflow.yxmd --output-dir output/ --ai-enhance-only
+```
+
 ### Inspect without translating
 
 ```bash

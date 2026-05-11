@@ -5,14 +5,17 @@ from translators.expressions import convert_expression, needs_llm_translation
 
 
 class TestNeedsLlm:
-    def test_if_then_needs_llm(self):
-        assert needs_llm_translation("IF [x] > 0 THEN 1 ELSE 0 ENDIF") is True
+    def test_if_then_no_llm(self):
+        assert needs_llm_translation("IF [x] > 0 THEN 1 ELSE 0 ENDIF") is False
 
     def test_regex_needs_llm(self):
         assert needs_llm_translation('REGEX_Match([Email], ".*@.*")') is True
 
-    def test_iif_needs_llm(self):
-        assert needs_llm_translation("IIF([x] > 0, 1, 0)") is True
+    def test_iif_no_llm(self):
+        assert needs_llm_translation("IIF([x] > 0, 1, 0)") is False
+
+    def test_switch_no_llm(self):
+        assert needs_llm_translation("SWITCH([Grade], 'F', 'A', 4, 'B', 3)") is False
 
     def test_simple_comparison_no_llm(self):
         assert needs_llm_translation("[Status] = 'Active'") is False
@@ -27,10 +30,56 @@ class TestNeedsLlm:
         assert needs_llm_translation("[Amount] * 1.2 + [Tax]") is False
 
     def test_datetimeadd_needs_llm(self):
-        assert needs_llm_translation("DATETIMEADD('days', 1, [Date])") is True
+        assert needs_llm_translation("DATETIMEADD('days', 1, [Date])") is False
+
+    def test_datetimediff_no_llm(self):
+        assert needs_llm_translation("DATETIMEDIFF('days', [StartDate], [EndDate])") is False
+
+    def test_findstring_no_llm(self):
+        assert needs_llm_translation('FINDSTRING([Name], "abc")') is False
 
 
 class TestConvertExpression:
+    def test_datetimediff_unit_first_to_datediff(self):
+        result = convert_expression("DATETIMEDIFF('days', [StartDate], [EndDate])")
+        assert result == "DATEDIFF(day, [StartDate], [EndDate])"
+
+    def test_datetimediff_unit_last_to_datediff(self):
+        result = convert_expression("DATETIMEDIFF([StartDate], [EndDate], 'days')")
+        assert result == "DATEDIFF(day, [StartDate], [EndDate])"
+
+    def test_findstring_to_charindex(self):
+        result = convert_expression('FINDSTRING([Name], "abc")')
+        assert result == "CHARINDEX('abc', [Name])"
+
+    def test_findstring_with_start_to_charindex(self):
+        result = convert_expression('FINDSTRING([Name], "abc", 3)')
+        assert result == "CHARINDEX('abc', [Name], 3)"
+
+    def test_datetimeadd_unit_first_to_dateadd(self):
+        result = convert_expression("DATETIMEADD('days', 2, [OrderDate])")
+        assert result == "DATEADD(day, 2, [OrderDate])"
+
+    def test_datetimeadd_unit_last_to_dateadd(self):
+        result = convert_expression("DATETIMEADD([OrderDate], 2, 'days')")
+        assert result == "DATEADD(day, 2, [OrderDate])"
+
+    def test_if_then_else_to_case(self):
+        result = convert_expression("IF [x] > 0 THEN 1 ELSE 0 ENDIF")
+        assert result == "(CASE WHEN [x] > 0 THEN 1 ELSE 0 END)"
+
+    def test_iif_to_case(self):
+        result = convert_expression("IIF([x] > 0, 1, 0)")
+        assert result == "(CASE WHEN [x] > 0 THEN 1 ELSE 0 END)"
+
+    def test_switch_to_case(self):
+        result = convert_expression("SWITCH([Grade], 'F', 'A', 4, 'B', 3)")
+        assert result == "(CASE [Grade] WHEN 'A' THEN 4 WHEN 'B' THEN 3 ELSE 'F' END)"
+
+    def test_nested_iif_in_if(self):
+        result = convert_expression("IF [x] > 0 THEN IIF([y] > 0, 1, 2) ELSE 0 ENDIF")
+        assert result == "(CASE WHEN [x] > 0 THEN (CASE WHEN [y] > 0 THEN 1 ELSE 2 END) ELSE 0 END)"
+
     def test_double_quotes_to_single(self):
         result = convert_expression('"hello"')
         assert result == "'hello'"

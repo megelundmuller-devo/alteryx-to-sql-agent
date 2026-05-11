@@ -117,14 +117,8 @@ def _fix_date_string_concat(expr: str) -> str:
 # ---------------------------------------------------------------------------
 
 _LLM_PATTERNS: list[re.Pattern[str]] = [
-    re.compile(r"\bIF\b", re.IGNORECASE),
     re.compile(r"\bREGEX_", re.IGNORECASE),
-    re.compile(r"\bSWITCH\s*\(", re.IGNORECASE),
-    re.compile(r"\bIIF\s*\(", re.IGNORECASE),
-    re.compile(r"\bFINDSTRING\s*\(", re.IGNORECASE),
     re.compile(r"\bGETSELECTEDFIELD\s*\(", re.IGNORECASE),
-    re.compile(r"\bDATETIMEADD\s*\(", re.IGNORECASE),
-    re.compile(r"\bDATETIMEDIFF\s*\(", re.IGNORECASE),
     re.compile(r"\bDATETIMEFORMAT\s*\(", re.IGNORECASE),
     re.compile(r"\bDATETIMEPARSE\s*\(", re.IGNORECASE),
     re.compile(r"\bDATETIMETRIM\s*\(", re.IGNORECASE),
@@ -306,7 +300,369 @@ def _convert_round_calls(expr: str) -> str:
     return "".join(result)
 
 
-def convert_expression(expression: str, engine_vars: set[str] | None = None) -> str:
+def _read_balanced_parens(expr: str, open_idx: int) -> tuple[str, int] | None:
+    """Return (inner_text, close_idx) for a balanced (...) group starting at open_idx."""
+    if open_idx >= len(expr) or expr[open_idx] != "(":
+        return None
+    depth = 0
+    in_single = False
+    in_double = False
+    i = open_idx
+    while i < len(expr):
+        ch = expr[i]
+        if ch == "'" and not in_double:
+            if in_single and i + 1 < len(expr) and expr[i + 1] == "'":
+                i += 2
+                continue
+            in_single = not in_single
+            i += 1
+            continue
+        if ch == '"' and not in_single:
+            in_double = not in_double
+            i += 1
+            continue
+        if in_single or in_double:
+            i += 1
+            continue
+        if ch == "(":
+            depth += 1
+        elif ch == ")":
+            depth -= 1
+            if depth == 0:
+                return expr[open_idx + 1 : i], i
+        i += 1
+    return None
+
+
+def _split_top_level_args(text: str) -> list[str]:
+    """Split a comma-separated argument list, respecting nested groups/quotes."""
+    parts: list[str] = []
+    start = 0
+    depth = 0
+    in_single = False
+    in_double = False
+    i = 0
+    while i < len(text):
+        ch = text[i]
+        if ch == "'" and not in_double:
+            if in_single and i + 1 < len(text) and text[i + 1] == "'":
+                i += 2
+                continue
+            in_single = not in_single
+            i += 1
+            continue
+        if ch == '"' and not in_single:
+            in_double = not in_double
+            i += 1
+            continue
+        if in_single or in_double:
+            i += 1
+            continue
+        if ch == "(":
+            depth += 1
+        elif ch == ")":
+            depth -= 1
+        elif ch == "," and depth == 0:
+            parts.append(text[start:i].strip())
+            start = i + 1
+        i += 1
+    parts.append(text[start:].strip())
+    return parts
+
+
+_IIF_START_RE = re.compile(r"\bIIF\s*\(", re.IGNORECASE)
+_SWITCH_START_RE = re.compile(r"\bSWITCH\s*\(", re.IGNORECASE)
+_FINDSTRING_START_RE = re.compile(r"\bFINDSTRING\s*\(", re.IGNORECASE)
+_DATETIMEADD_START_RE = re.compile(r"\bDATETIMEADD\s*\(", re.IGNORECASE)
+_DATETIMEDIFF_START_RE = re.compile(r"\bDATETIMEDIFF\s*\(", re.IGNORECASE)
+
+
+def _replace_iif_calls(expr: str, engine_vars: set[str] | None) -> str:
+    """Rewrite IIF(cond, a, b) calls into CASE expressions."""
+    out: list[str] = []
+    cursor = 0
+    for m in _IIF_START_RE.finditer(expr):
+        out.append(expr[cursor : m.start()])
+        open_idx = m.end() - 1
+        parsed = _read_balanced_parens(expr, open_idx)
+        if parsed is None:
+            out.append(expr[m.start() : m.end()])
+            cursor = m.end()
+            continue
+        inner, close_idx = parsed
+        args = _split_top_level_args(inner)
+        if len(args) != 3:
+            out.append(expr[m.start() : close_idx + 1])
+            cursor = close_idx + 1
+            continue
+        cond = _convert_expression_impl(args[0], engine_vars)
+        true_expr = _convert_expression_impl(args[1], engine_vars)
+        false_expr = _convert_expression_impl(args[2], engine_vars)
+        out.append(f"(CASE WHEN {cond} THEN {true_expr} ELSE {false_expr} END)")
+        cursor = close_idx + 1
+    out.append(expr[cursor:])
+    return "".join(out)
+
+
+def _replace_switch_calls(expr: str, engine_vars: set[str] | None) -> str:
+    """Rewrite SWITCH(value, default, case1, result1, ...) into CASE expressions."""
+    out: list[str] = []
+    cursor = 0
+    for m in _SWITCH_START_RE.finditer(expr):
+        out.append(expr[cursor : m.start()])
+        open_idx = m.end() - 1
+        parsed = _read_balanced_parens(expr, open_idx)
+        if parsed is None:
+            out.append(expr[m.start() : m.end()])
+            cursor = m.end()
+            continue
+        inner, close_idx = parsed
+        args = _split_top_level_args(inner)
+        if len(args) < 4 or len(args) % 2 != 0:
+            out.append(expr[m.start() : close_idx + 1])
+            cursor = close_idx + 1
+            continue
+        switch_value = _convert_expression_impl(args[0], engine_vars)
+        default_expr = _convert_expression_impl(args[1], engine_vars)
+        when_parts: list[str] = []
+        for i in range(2, len(args), 2):
+            case_expr = _convert_expression_impl(args[i], engine_vars)
+            result_expr = _convert_expression_impl(args[i + 1], engine_vars)
+            when_parts.append(f"WHEN {case_expr} THEN {result_expr}")
+        out.append(f"(CASE {switch_value} {' '.join(when_parts)} ELSE {default_expr} END)")
+        cursor = close_idx + 1
+    out.append(expr[cursor:])
+    return "".join(out)
+
+
+def _replace_findstring_calls(expr: str, engine_vars: set[str] | None) -> str:
+    """Rewrite FINDSTRING(text, target[, start]) to CHARINDEX(target, text[, start])."""
+    out: list[str] = []
+    cursor = 0
+    for m in _FINDSTRING_START_RE.finditer(expr):
+        out.append(expr[cursor : m.start()])
+        open_idx = m.end() - 1
+        parsed = _read_balanced_parens(expr, open_idx)
+        if parsed is None:
+            out.append(expr[m.start() : m.end()])
+            cursor = m.end()
+            continue
+        inner, close_idx = parsed
+        args = _split_top_level_args(inner)
+        if len(args) not in (2, 3):
+            out.append(expr[m.start() : close_idx + 1])
+            cursor = close_idx + 1
+            continue
+        text_expr = _convert_expression_impl(args[0], engine_vars)
+        target_expr = _convert_expression_impl(args[1], engine_vars)
+        if len(args) == 2:
+            out.append(f"CHARINDEX({target_expr}, {text_expr})")
+        else:
+            start_expr = _convert_expression_impl(args[2], engine_vars)
+            out.append(f"CHARINDEX({target_expr}, {text_expr}, {start_expr})")
+        cursor = close_idx + 1
+    out.append(expr[cursor:])
+    return "".join(out)
+
+
+def _unwrap_quoted_literal(text: str) -> str | None:
+    """Return unquoted string when text is a quoted literal, else None."""
+    s = text.strip()
+    if len(s) >= 2 and ((s[0] == "'" and s[-1] == "'") or (s[0] == '"' and s[-1] == '"')):
+        return s[1:-1]
+    return None
+
+
+_DATEPART_MAP: dict[str, str] = {
+    "year": "year",
+    "years": "year",
+    "month": "month",
+    "months": "month",
+    "day": "day",
+    "days": "day",
+    "week": "week",
+    "weeks": "week",
+    "hour": "hour",
+    "hours": "hour",
+    "minute": "minute",
+    "minutes": "minute",
+    "second": "second",
+    "seconds": "second",
+    "millisecond": "millisecond",
+    "milliseconds": "millisecond",
+    "quarter": "quarter",
+    "quarters": "quarter",
+}
+
+
+def _replace_datetimeadd_calls(expr: str, engine_vars: set[str] | None) -> str:
+    """Rewrite DATETIMEADD(unit, n, date) or DATETIMEADD(date, n, unit) to DATEADD."""
+    out: list[str] = []
+    cursor = 0
+    for m in _DATETIMEADD_START_RE.finditer(expr):
+        out.append(expr[cursor : m.start()])
+        open_idx = m.end() - 1
+        parsed = _read_balanced_parens(expr, open_idx)
+        if parsed is None:
+            out.append(expr[m.start() : m.end()])
+            cursor = m.end()
+            continue
+        inner, close_idx = parsed
+        args = _split_top_level_args(inner)
+        if len(args) != 3:
+            out.append(expr[m.start() : close_idx + 1])
+            cursor = close_idx + 1
+            continue
+
+        first_lit = _unwrap_quoted_literal(args[0])
+        third_lit = _unwrap_quoted_literal(args[2])
+
+        if first_lit is not None and first_lit.lower() in _DATEPART_MAP:
+            datepart = _DATEPART_MAP[first_lit.lower()]
+            interval_expr = _convert_expression_impl(args[1], engine_vars)
+            date_expr = _convert_expression_impl(args[2], engine_vars)
+            out.append(f"DATEADD({datepart}, {interval_expr}, {date_expr})")
+        elif third_lit is not None and third_lit.lower() in _DATEPART_MAP:
+            datepart = _DATEPART_MAP[third_lit.lower()]
+            date_expr = _convert_expression_impl(args[0], engine_vars)
+            interval_expr = _convert_expression_impl(args[1], engine_vars)
+            out.append(f"DATEADD({datepart}, {interval_expr}, {date_expr})")
+        else:
+            out.append(expr[m.start() : close_idx + 1])
+
+        cursor = close_idx + 1
+    out.append(expr[cursor:])
+    return "".join(out)
+
+
+def _replace_datetimediff_calls(expr: str, engine_vars: set[str] | None) -> str:
+    """Rewrite DATETIMEDIFF(unit, start, end) or DATETIMEDIFF(start, end, unit) to DATEDIFF."""
+    out: list[str] = []
+    cursor = 0
+    for m in _DATETIMEDIFF_START_RE.finditer(expr):
+        out.append(expr[cursor : m.start()])
+        open_idx = m.end() - 1
+        parsed = _read_balanced_parens(expr, open_idx)
+        if parsed is None:
+            out.append(expr[m.start() : m.end()])
+            cursor = m.end()
+            continue
+        inner, close_idx = parsed
+        args = _split_top_level_args(inner)
+        if len(args) != 3:
+            out.append(expr[m.start() : close_idx + 1])
+            cursor = close_idx + 1
+            continue
+
+        first_lit = _unwrap_quoted_literal(args[0])
+        third_lit = _unwrap_quoted_literal(args[2])
+
+        if first_lit is not None and first_lit.lower() in _DATEPART_MAP:
+            datepart = _DATEPART_MAP[first_lit.lower()]
+            start_expr = _convert_expression_impl(args[1], engine_vars)
+            end_expr = _convert_expression_impl(args[2], engine_vars)
+            out.append(f"DATEDIFF({datepart}, {start_expr}, {end_expr})")
+        elif third_lit is not None and third_lit.lower() in _DATEPART_MAP:
+            datepart = _DATEPART_MAP[third_lit.lower()]
+            start_expr = _convert_expression_impl(args[0], engine_vars)
+            end_expr = _convert_expression_impl(args[1], engine_vars)
+            out.append(f"DATEDIFF({datepart}, {start_expr}, {end_expr})")
+        else:
+            out.append(expr[m.start() : close_idx + 1])
+
+        cursor = close_idx + 1
+    out.append(expr[cursor:])
+    return "".join(out)
+
+
+def _parse_if_then_else(expr: str) -> tuple[str, str, str] | None:
+    """Parse IF ... THEN ... ELSE ... ENDIF block at expression root."""
+    stripped = expr.strip()
+    if not stripped[:2].upper() == "IF" or (len(stripped) > 2 and stripped[2].isalnum()):
+        return None
+
+    i = 0
+    depth = 0
+    in_single = False
+    in_double = False
+    then_pos = -1
+    else_pos = -1
+    endif_pos = -1
+
+    def _is_word_at(pos: int, word: str) -> bool:
+        end = pos + len(word)
+        if end > len(stripped):
+            return False
+        if stripped[pos:end].upper() != word:
+            return False
+        before_ok = pos == 0 or not (stripped[pos - 1].isalnum() or stripped[pos - 1] == "_")
+        after_ok = end == len(stripped) or not (stripped[end].isalnum() or stripped[end] == "_")
+        return before_ok and after_ok
+
+    while i < len(stripped):
+        ch = stripped[i]
+        if ch == "'" and not in_double:
+            if in_single and i + 1 < len(stripped) and stripped[i + 1] == "'":
+                i += 2
+                continue
+            in_single = not in_single
+            i += 1
+            continue
+        if ch == '"' and not in_single:
+            in_double = not in_double
+            i += 1
+            continue
+        if in_single or in_double:
+            i += 1
+            continue
+
+        if _is_word_at(i, "IF"):
+            depth += 1
+            i += 2
+            continue
+        if _is_word_at(i, "THEN") and depth == 1 and then_pos == -1:
+            then_pos = i
+            i += 4
+            continue
+        if _is_word_at(i, "ELSEIF") and depth == 1:
+            i += 6
+            continue
+        if _is_word_at(i, "ELSE") and depth == 1:
+            else_pos = i
+            i += 4
+            continue
+        if _is_word_at(i, "ENDIF"):
+            depth -= 1
+            if depth == 0:
+                endif_pos = i
+                break
+            i += 5
+            continue
+        i += 1
+
+    if then_pos == -1 or else_pos == -1 or endif_pos == -1:
+        return None
+    condition = stripped[2:then_pos].strip()
+    true_expr = stripped[then_pos + 4 : else_pos].strip()
+    false_expr = stripped[else_pos + 4 : endif_pos].strip()
+    if not condition or not true_expr or not false_expr:
+        return None
+    return condition, true_expr, false_expr
+
+
+def _convert_if_then_else(expr: str, engine_vars: set[str] | None) -> str:
+    """Convert IF/THEN/ELSE/ENDIF to CASE WHEN syntax."""
+    parsed = _parse_if_then_else(expr)
+    if parsed is None:
+        return expr
+    cond_raw, true_raw, false_raw = parsed
+    cond = _convert_expression_impl(cond_raw, engine_vars)
+    true_expr = _convert_expression_impl(true_raw, engine_vars)
+    false_expr = _convert_expression_impl(false_raw, engine_vars)
+    return f"(CASE WHEN {cond} THEN {true_expr} ELSE {false_expr} END)"
+
+
+def _convert_expression_impl(expression: str, engine_vars: set[str] | None = None) -> str:
     """Convert an Alteryx expression string to its T-SQL equivalent.
 
     Args:
@@ -322,6 +678,14 @@ def convert_expression(expression: str, engine_vars: set[str] | None = None) -> 
     # 0. Replace Alteryx engine variables ([Engine.XYZ] → @XYZ) before any
     #    other substitution so they don't get mangled by the bracket handling.
     expr = _replace_engine_vars(expr, engine_vars)
+
+    # 0b. Rewrite control-flow helpers that previously needed LLM.
+    expr = _replace_findstring_calls(expr, engine_vars)
+    expr = _replace_datetimeadd_calls(expr, engine_vars)
+    expr = _replace_datetimediff_calls(expr, engine_vars)
+    expr = _replace_iif_calls(expr, engine_vars)
+    expr = _replace_switch_calls(expr, engine_vars)
+    expr = _convert_if_then_else(expr, engine_vars)
 
     # 1. Compound patterns first — they match double-quoted string literals
     #    inside function calls (e.g. CONTAINS([col], "val")).  Must run before
@@ -352,3 +716,8 @@ def convert_expression(expression: str, engine_vars: set[str] | None = None) -> 
     expr = _fix_date_string_concat(expr)
 
     return expr
+
+
+def convert_expression(expression: str, engine_vars: set[str] | None = None) -> str:
+    """Public wrapper for deterministic Alteryx→T-SQL conversion."""
+    return _convert_expression_impl(expression, engine_vars)

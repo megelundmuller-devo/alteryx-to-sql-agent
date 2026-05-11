@@ -21,21 +21,24 @@ class TestBuildSql:
         assert "SELECT * FROM #temp_source" in result
 
     def test_multiple_fragments_linear_chain_uses_ctes(self):
-        """A → B → C linear chain: A and B become CTEs, C is the temp table."""
+        """A → B → C linear chain.
+
+        A is a plain SELECT FROM external table referenced once, so it is
+        inlined directly into B.  B (now containing the raw table ref) becomes
+        a CTE, and C is the materialised temp table.
+        """
         frags = [
             _frag("temp_a", "SELECT * FROM raw"),
             _frag("temp_b", "SELECT * FROM [temp_a]"),
             _frag("temp_c", "SELECT * FROM [temp_b]"),
         ]
         result = build_sql(frags, workflow_name="multi.yxmd")
-        # A and B are CTEs (ref-count == 1), C is the materialised temp table
-        assert "[temp_a] AS (" in result
+        # temp_a is inlined: no CTE definition for it
+        assert "[temp_a] AS (" not in result
+        # temp_b absorbs temp_a's table ref and becomes the CTE
         assert "[temp_b] AS (" in result
+        assert "FROM raw" in result
         assert "SELECT * INTO #temp_c" in result
-        # CTE references are NOT rewritten to #name inside the WITH block
-        assert "FROM [temp_a]" in result
-        assert "FROM [temp_b]" in result
-        # Final SELECT targets the materialised temp table
         assert "SELECT * FROM #temp_c" in result
 
     def test_fan_out_materialises_shared_node(self):
@@ -115,8 +118,9 @@ class TestBuildSql:
     def test_chunk_grouping_preserved_across_section_boundary(self):
         """Linear chain: input → select → output appear in order.
 
-        With CTE grouping the chain becomes two CTEs + one temp table, but
-        the topological order of their definitions must still be preserved.
+        The input source is a plain SELECT FROM external table referenced once,
+        so it is inlined into select.  select becomes the CTE and output is the
+        materialised temp table.
         """
         frags = [
             _frag("temp_input_1", "SELECT * FROM [dbo].[raw]", source_tool_ids=[1]),
@@ -129,13 +133,13 @@ class TestBuildSql:
             source_ids={1},
             sink_ids={3},
         )
-        # input and select are CTEs (ref-count == 1); output is the temp table
-        pos_input = result.index("[temp_input_1]")
+        # temp_input_1 is inlined — no CTE definition for it
+        assert "[temp_input_1] AS (" not in result
+        # temp_select_2 absorbs the raw table ref and becomes the CTE
         pos_select = result.index("[temp_select_2]")
         pos_output = result.index("#temp_output_3")
-        assert pos_input < pos_select < pos_output, (
-            "CTE definitions or temp table are out of order"
-        )
+        assert pos_select < pos_output, "CTE definition must appear before the temp table"
+        assert "[dbo].[raw]" in result
 
     def test_leaf_secondary_materialised(self):
         """A fragment referenced by nobody (a leaf side-output) is always a temp table."""
@@ -190,6 +194,30 @@ class TestBuildSql:
         assert "[filter_a]" not in between_b, (
             "filter_a leaked into mat_b's WITH block"
         )
+
+    def test_single_use_source_inlined_directly(self):
+        """A db_file_input style fragment used once is inlined into the consumer."""
+        frags = [
+            _frag("db_input_8", "SELECT\n    [ID]\nFROM [Data].[dbo].[Copyright_Users]"),
+            _frag("join_9", "SELECT L.[x], R.[ID]\nFROM [base] AS L\nINNER JOIN [db_input_8] AS R\n    ON L.[k] = R.[k]"),
+            _frag("base", "SELECT [x], [k] FROM some_table"),
+        ]
+        result = build_sql(frags, workflow_name="test.yxmd")
+        # db_input_8 is gone — table referenced directly in the join
+        assert "[db_input_8] AS (" not in result
+        assert "SELECT * INTO #db_input_8" not in result
+        assert "[Data].[dbo].[Copyright_Users]" in result
+
+    def test_multi_use_source_not_inlined(self):
+        """A source referenced by two consumers stays as a temp table."""
+        frags = [
+            _frag("src", "SELECT [a] FROM [dbo].[T]"),
+            _frag("consumer1", "SELECT [a] FROM [src] WHERE [a] > 1"),
+            _frag("consumer2", "SELECT [a] FROM [src] WHERE [a] < 0"),
+        ]
+        result = build_sql(frags, workflow_name="test.yxmd")
+        assert "SELECT * INTO #src" in result
+        assert "#src" in result
 
     def test_cte_refs_not_rewritten_to_hash(self):
         """Within a WITH block, CTE names must stay as [name], not be rewritten to #name."""

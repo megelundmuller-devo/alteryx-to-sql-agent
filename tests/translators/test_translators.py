@@ -85,6 +85,36 @@ class TestInputOutputTranslators:
         assert not frag.is_stub
         assert "SELECT * FROM dbo.MyTable" in frag.sql
 
+    def test_db_file_input_qualifies_table_with_database(self):
+        from translators.input_output import translate_db_file_input
+
+        conn = (
+            "odbc:DRIVER={ODBC Driver 13 for SQL Server};"
+            "DATABASE=Data;SERVER=COOPER\\SYSBDDB;Trusted_Connection=yes"
+            "|||select * \nfrom Copyright_Users"
+        )
+        cfg = {"File": conn}
+        node = _node(8, "db_file_input", cfg)
+        ctx = _make_ctx()
+        frag = translate_db_file_input(node, "cte_8", [], ctx)
+        assert not frag.is_stub
+        assert "[Data].[dbo].[Copyright_Users]" in frag.sql
+
+    def test_db_file_input_already_qualified_not_double_qualified(self):
+        from translators.input_output import translate_db_file_input
+
+        conn = (
+            "ODBC|DRIVER={SQL Server};DATABASE=MyDB;SERVER=srv|||"
+            "SELECT * FROM dbo.AlreadyQualified"
+        )
+        cfg = {"Connection": conn}
+        node = _node(9, "db_file_input", cfg)
+        ctx = _make_ctx()
+        frag = translate_db_file_input(node, "cte_9", [], ctx)
+        assert not frag.is_stub
+        # Already has dbo. prefix — should not be double-qualified
+        assert "[MyDB].[dbo].[dbo" not in frag.sql
+
     def test_text_input_with_data(self):
         from translators.input_output import translate_text_input
 

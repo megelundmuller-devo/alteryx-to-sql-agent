@@ -156,8 +156,8 @@ Rules:
 - If a missing column has an obvious equivalent in the input schema (e.g.
   [Sum_Pre] ≈ [Sum_reqs] from the left CTE), substitute it and note the
   change in your explanation.
-- If you cannot determine the correct substitute, replace the reference with
-  NULL AS [column_name]  -- TODO: verify correct column
+- If you cannot determine the correct substitute, keep the column reference as-is:
+  [column_name]  -- TODO: verify correct column
 - Do not change the structure of the CTE beyond fixing column references.
 - Do not add or remove CTEs, joins, or aggregations.
 - Keep all T-SQL syntax valid for SQL Server 2016 (compatibility level 130).

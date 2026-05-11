@@ -41,6 +41,13 @@ _SQL_CLAUSE_RE = re.compile(
 
 _ODBC_PATTERN = re.compile(r"[Ss][Qq][Ll]\s*=\s*(.+)", re.DOTALL)
 _SELECT_PATTERN = re.compile(r"(SELECT\s.+)", re.DOTALL | re.IGNORECASE)
+_DATABASE_RE = re.compile(r"\bDATABASE=([^;]+)", re.IGNORECASE)
+# Matches a bare (unqualified) table reference after FROM/JOIN — no dot in the name.
+# Groups: (1) keyword+whitespace, (2) bare table name
+_UNQUALIFIED_TABLE_RE = re.compile(
+    r"(\bFROM\s+|\bJOIN\s+)(?!\[?\w+\]?\.)(\[?[\w]+\]?)",
+    re.IGNORECASE,
+)
 
 
 def _extract_query(connection_string: str) -> str | None:
@@ -62,6 +69,23 @@ def _extract_query(connection_string: str) -> str | None:
         return m.group(1).strip()
 
     return None
+
+
+def _extract_database(connection_string: str) -> str | None:
+    """Extract the DATABASE= value from an ODBC connection string."""
+    m = _DATABASE_RE.search(connection_string)
+    return m.group(1).strip() if m else None
+
+
+def _qualify_tables(sql: str, database: str) -> str:
+    """Prefix unqualified table names in FROM/JOIN clauses with [database].[dbo]."""
+
+    def _replace(m: re.Match) -> str:
+        keyword = m.group(1)
+        table = m.group(2).strip("[]")
+        return f"{keyword}[{database}].[dbo].[{table}]"
+
+    return _UNQUALIFIED_TABLE_RE.sub(_replace, sql)
 
 
 def _connection_label(connection_string: str) -> str:
@@ -104,6 +128,7 @@ def translate_db_file_input(
         conn_str = cfg["DbConnection"]
 
     query = _extract_query(conn_str) if conn_str else None
+    database = _extract_database(conn_str) if conn_str else None
 
     if query:
         sql = query.rstrip(";")
@@ -117,6 +142,8 @@ def translate_db_file_input(
                 if not _SQL_CLAUSE_RE.search(from_target):
                     cols = ",\n".join(f"    [{f.name}]" for f in node.output_schema)
                     sql = f"SELECT\n{cols}\nFROM {from_target}"
+        if database:
+            sql = _qualify_tables(sql, database)
     else:
         label = _connection_label(conn_str) if conn_str else "UNKNOWN_SOURCE"
         ctx.warnings.append(

@@ -17,6 +17,11 @@ Other flags:
     uv run python src/main.py --show-registry
     uv run python src/main.py --clear-registry
 
+Medallion architecture commands (run after generating SPs):
+    uv run python src/main.py medallion catalog  output/   # build catalog.json
+    uv run python src/main.py medallion plan     output/   # AI proposes medallion_plan.md
+    uv run python src/main.py medallion generate output/   # generate silver/ and gold/ SPROCs
+
 Output files written to the output directory (default: same dir as input):
     <name>.sql           — generated T-SQL stored procedure
     <name>_docs.md       — human-readable workflow documentation
@@ -38,12 +43,15 @@ from rich.table import Table
 sys.path.insert(0, str(Path(__file__).parent))
 
 from analysis.liveness import run_liveness_pass
-from assembly.source_simplifier import simplify_stub_sources
-from llm.sql_enhancer import enhance_sql
 from analysis.llm_validator import repair_fragments
 from assembly.cte_builder import build_sql
+from assembly.source_simplifier import simplify_stub_sources
+from catalog.extractor import extract_catalog, load_catalog, save_catalog
+from catalog.medallion_generator import generate_medallion
+from catalog.medallion_planner import load_plan, plan_medallion
 from chunking.chunker import chunk_dag
 from doc_gen.doc_writer import generate_docs
+from llm.sql_enhancer import enhance_sql
 from parsing.dag import build_dag
 from parsing.parser import parse_workflow
 from registry.tool_registry import ToolRegistry, default_registry
@@ -54,6 +62,14 @@ console = Console()
 
 
 def _parse_args() -> argparse.Namespace:
+    # Dispatch to a separate medallion parser when the first arg is 'medallion'
+    # so that the workflow positional and the subcommand positional don't conflict.
+    if len(sys.argv) > 1 and sys.argv[1] == "medallion":
+        return _parse_medallion_args()
+    return _parse_workflow_args()
+
+
+def _parse_workflow_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Convert Alteryx .yxmd workflow(s) to T-SQL stored procedures.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -113,7 +129,36 @@ def _parse_args() -> argparse.Namespace:
             "enhancement without regenerating the SQL."
         ),
     )
-    return parser.parse_args()
+    ns = parser.parse_args()
+    ns.command = None
+    return ns
+
+
+def _parse_medallion_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        prog="main.py medallion",
+        description=(
+            "Build a medallion (silver/gold) architecture from generated SPs.\n\n"
+            "Three-phase workflow:\n"
+            "  catalog   Scan output dir for .sql files and build catalog.json\n"
+            "  plan      AI proposes medallion_plan.md — review before continuing\n"
+            "  generate  Read approved medallion_plan.json and write silver/gold SPROCs"
+        ),
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+    )
+    parser.add_argument(
+        "subcommand",
+        choices=["catalog", "plan", "generate"],
+        help="Phase to run",
+    )
+    parser.add_argument(
+        "output_dir",
+        type=Path,
+        help="Directory containing the generated .sql files",
+    )
+    ns = parser.parse_args(sys.argv[2:])  # skip 'medallion' token
+    ns.command = "medallion"
+    return ns
 
 
 def _process_one(
@@ -195,7 +240,7 @@ def _process_one(
         if flagged:
             console.print(
                 f"    [bold]Validation[/bold] → "
-                f"[yellow]{len(flagged)} CTE(s) flagged[/yellow] with unresolvable column references  "
+                f"[yellow]{len(flagged)} CTE(s) flagged[/yellow] with unresolvable column references  "  # noqa: E501
                 f"[dim](marked ⚠ in docs — review before production)[/dim]"
             )
 
@@ -277,8 +322,88 @@ def _enhance_existing(workflow_path: Path, output_dir: Path) -> None:
             progress.remove_task(task)
 
 
+def _medallion_command(args: argparse.Namespace) -> None:
+    """Dispatch a 'medallion catalog|plan|generate' subcommand."""
+    output_dir: Path = args.output_dir.resolve()
+    if not output_dir.exists():
+        console.print(f"[bold red]ERROR:[/bold red] directory not found: {output_dir}")
+        sys.exit(1)
+
+    if args.subcommand == "catalog":
+        console.print(f"[bold]Scanning[/bold] {output_dir} for generated SPs...")
+        catalog = extract_catalog(output_dir)
+        catalog_path = save_catalog(catalog, output_dir)
+        shared = {k: v for k, v in catalog.table_usage.items() if len(v) >= 2}
+        console.print(
+            f"  [bold]Found[/bold] {len(catalog.workflows)} SP(s)  •  "
+            f"{len(catalog.table_usage)} unique source table(s)  •  "
+            f"[cyan]{len(shared)} shared[/cyan] (used by ≥2 workflows)"
+        )
+        console.print(f"  [bold]Written:[/bold] {catalog_path}")
+        if shared:
+            console.print("\n  [bold]Shared source tables:[/bold]")
+            for key, wfs in sorted(shared.items(), key=lambda kv: -len(kv[1])):
+                console.print(f"    {key}  ({', '.join(wfs)})")
+        console.print("\n  Run [cyan]medallion plan[/cyan] to generate the architecture proposal.")
+
+    elif args.subcommand == "plan":
+        catalog = load_catalog(output_dir)
+        n = len(catalog.workflows)
+        console.print(f"[bold]Planning[/bold] medallion architecture for {n} SP(s)...")
+        with Progress(
+            SpinnerColumn(),
+            TextColumn("[progress.description]{task.description}"),
+            TimeElapsedColumn(),
+            console=console,
+            transient=True,
+        ) as progress:
+            task = progress.add_task("Calling LLM planner...", total=None)
+            try:
+                plan = plan_medallion(catalog, output_dir)
+            finally:
+                progress.remove_task(task)
+        console.print(
+            f"  [bold]Proposed:[/bold] {len(plan.silver_tables)} silver table(s)  •  "
+            f"{len(plan.gold_tables)} gold table(s)"
+        )
+        console.print(f"  [bold]Written:[/bold] {output_dir / 'medallion_plan.md'}")
+        console.print(f"           {output_dir / 'medallion_plan.json'}")
+        console.print(
+            "\n  [yellow]Review medallion_plan.md, edit as needed, then run "
+            "[cyan]medallion generate[/cyan].[/yellow]"
+        )
+
+    elif args.subcommand == "generate":
+        plan = load_plan(output_dir)
+        catalog = load_catalog(output_dir)
+        total = len(plan.silver_tables) + len(plan.gold_tables)
+        console.print(
+            f"[bold]Generating[/bold] {len(plan.silver_tables)} silver + "
+            f"{len(plan.gold_tables)} gold SPROC(s)..."
+        )
+        with Progress(
+            SpinnerColumn(),
+            TextColumn("[progress.description]{task.description}"),
+            TimeElapsedColumn(),
+            console=console,
+            transient=True,
+        ) as progress:
+            task = progress.add_task(f"Generating {total} SPROC(s)...", total=None)
+            try:
+                written = generate_medallion(plan, catalog, output_dir)
+            finally:
+                progress.remove_task(task)
+        for path in written:
+            console.print(f"  [bold]Written:[/bold] {path}")
+        console.print(f"\n  [green]Done:[/green] {len(written)} SPROC(s) generated.")
+
+
 def main() -> None:
     args = _parse_args()
+
+    if args.command == "medallion":
+        _medallion_command(args)
+        return
 
     registry = default_registry()
 

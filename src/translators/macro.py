@@ -69,9 +69,14 @@ def _translate_custom(
         f"Tool {node.tool_id} (custom macro): references '{macro_path}'. "
         "Custom macro expansion is not yet implemented — stub CTE emitted. Review manually."
     )
+    if input_ctes:
+        upstream = input_ctes[-1]
+        body = f"SELECT * FROM [{upstream}]"
+    else:
+        body = "SELECT TOP 0 1 AS _macro_stub  -- replace with macro logic"
     sql = (
         f"-- TODO: expand custom macro '{macro_path}'\n"
         f"{upstream_comment}\n"
-        f"SELECT TOP 0 1 AS _macro_stub  -- replace with macro logic"
+        f"{body}"
     )
     return CTEFragment(name=cte_name, sql=sql, source_tool_ids=[node.tool_id], is_stub=True)

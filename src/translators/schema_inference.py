@@ -92,9 +92,11 @@ def infer_output_schema(
     if t in _SINKS:
         return []
 
-    # Unknown transform tools (reg_ex, text_to_columns, …) — pass through upstream schema.
-    # The column list may be incomplete when the tool adds new columns, but it is strictly
-    # better than returning [] which breaks schema propagation for all downstream CTEs.
+    # Unknown transform tools — pass through upstream schema.
+    # If the config contains FormulaFields (e.g. LockInFormula), add the new columns
+    # so they propagate to downstream translators (Cleanse, Select, etc.).
+    if cfg.get("FormulaFields"):
+        return _infer_formula(cfg, primary)
     return list(primary)
 
 
